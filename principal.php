@@ -3,16 +3,23 @@
 session_start();
 //revisa si la sesion se inicio desde el login, 
 //de lo contrario regresa a pedir usuario y pass
+
 if (empty($_SESSION['active']) ){
     header('location: index.php');
 } 
 
+// se incluye el codigo de la clase para conexion
 require_once("config/const.php");
 require_once("config/odbc.php");
+// se crea una instancia de la clase conexion
 $cnn = new conexion(tserver);
+// se hace la conexion a la base de datos
 $cnn->conectar();
+// se ejecuta la consulta para traerse las fecha de ultimas ventas
 $sql = "EXEC usp_TraeUltimasVtas ";
+// se trae el resultado de la consulta
 $result = $cnn->query($sql);
+// se actualizan las fechas para inicializar el datetimepicker
 $fecini = date("Y-m-d", strtotime($cnn->result('fecini')));
 $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 

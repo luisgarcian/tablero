@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-
+//revisa si la sesion se inicio desde el login, 
+//de lo contrario regresa a pedir usuario y pass
 if (empty($_SESSION['active']) ){
     header('location: index.php');
 } 

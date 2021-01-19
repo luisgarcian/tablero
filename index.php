@@ -82,6 +82,13 @@ if(!empty($_SESSION['active']))
             </div>
         </div>
         <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="footer-w3l">
             <p>&copy; 2021 Zapatería Torreón. All rights reserved | Design by <a href="https://pappos.mx/">pappos</a></p>
         </div>

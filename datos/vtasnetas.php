@@ -21,14 +21,10 @@
 		   $stmt = $this->conexion->query($sql);
 
 		   while ( $row = odbc_fetch_array($stmt) ) { 
-			   $ArrayItem = array();
-			   $ArrayItem['suc'] = $row['sucursal'];
-			   $ArrayItem['uni'] = $row['unidades'];
-			   $ArrayItem['vta'] = $row['pesos'];
+				array_push($arreglo, $row);
+     		};
 
-			   array_push($arreglo, $ArrayItem);
-		   };
-		   return $arreglo;
+   	       return $arreglo;
 		   $this->conexion->cerrar();	   
 	   }    
 	}   

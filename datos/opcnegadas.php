@@ -21,13 +21,6 @@
 		   $stmt = $this->conexion->query($sql);
 
 		   while ( $row = odbc_fetch_array($stmt) ) { 
-			   //$ArrayItem = array();
-			   //$ArrayItem['gpo'] = $row['gpo'];
-			   //$ArrayItem['opc'] = $row['opc'];
-			   //$ArrayItem['neg'] = $row['neg'];
-			   //$ArrayItem['porc'] = $row['porc'];
-
-			   //array_push($arreglo, $ArrayItem);
 			   array_push($arreglo, $row);
 		   };
 

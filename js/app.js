@@ -5,6 +5,7 @@ var myTit1 = "";
 var myTit2 = "";
 var myNum1 = "";
 var myNum2 = "";
+var myPorc = "";
 var myUser = "";
 var myChart = "";
 var NChart = 0; 
@@ -17,11 +18,11 @@ var myCtx  = "";
 var Charts = [
   {"titulo" : "Ventas Netas",     
    "funcion": "GenChartVtas", 
-   "Tit1"   : "", "Tit2": "Ventas Totales", "Tit3": "Unidades Totales"
+   "Tit1"   : "Ventas Totales", "Tit2": "Unidades Totales"
   },
   {"titulo" : "Opciones Negadas", 
    "funcion": "GenChartOpcs", 
-   "Tit1"   : "Opciones", "Tit2": "Negadas", "Tit3": "Porcentaje"
+   "Tit1"   : "Opciones", "Tit2": "Negadas"
   },
 ];
 
@@ -57,18 +58,16 @@ function GenChartVtas() {
     "div"   :  myPar3,
   }
   Datos   = TraeDatos("chart/vtasnetas.php", Parms);
+  TotalesVta(Datos);
+  InitTable(Datos);
+
   myCtx   = $("#chartCanvas")[0];  
   myCtx.height = 380;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
   
-  // CreaTablaVta(Datos);
-  //CreateTable_3cols(Datos);
-  InitTable(Datos);
-  TotalesVta(Datos);
 };
 
 function GenChartOpcs() {
-  //Recrear Contenedor del Chart
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   Parms =  {
     "fecini":  myPar1,
@@ -76,21 +75,20 @@ function GenChartOpcs() {
     "tipo"  :  myPar3,
   }
   Datos   = TraeDatos("chart/opnegadas.php", Parms);
-   
-   myCtx   = $("#chartCanvas")[0];  
-   myCtx.height = 380;
-   myChart = CreaChartOpcNeg(myCtx,  Datos) ;
-   myCtx.addEventListener("click", function(evento){
-     Neg_DrillDown(evento);
-   }); 
+  TotalesOpc(Datos) ;
+  InitTable(Datos);
 
-   InitTable(Datos);
+  myCtx   = $("#chartCanvas")[0];  
+  myCtx.height = 380;
+  myChart = CreaChartOpcNeg(myCtx,  Datos) ;
+  myCtx.addEventListener("click", function(evento){
+       Neg_DrillDown(evento);
+  }); 
 
 };
 
 function Neg_DrillDown (evt) {
-   var activePoint = myChart.getElementAtEvent(evt)[0];
-
+  var activePoint = myChart.getElementAtEvent(evt)[0];
   if (activePoint !== undefined) {
      const chartData = activePoint['_chart'].config.data;
      var  idx = activePoint._index;
@@ -99,24 +97,24 @@ function Neg_DrillDown (evt) {
      //var datasetname = data.datasets[datasetIndex].label;
      //var value = data.datasets[datasetIndex].data[idx];
      var label = chartData.labels[idx];
-
      Parms =  {
       "fecini":  myPar1,
       "fecfin":  myPar2,
       "tipo"  :  label,
     }
-    
-    document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
-    myCtx   = $("#chartCanvas")[0];  
-    myCtx.height = 380;
-    Datos   = TraeDatos("chart/opnegadas.php", Parms);
-    myChart = CreaChartOpcNeg(myCtx,  Datos)
-    TotalesNeg(Datos);
     myTitulo.innerText = Charts[NChart].titulo + " por vendedor en " + label; 
     Opciones = document.querySelector("#Tipo");
     Opciones.innerHTML = "<option>Sucursal</option>";
     Opciones.children[0].selected=true;
-    
+
+    Datos   = TraeDatos("chart/opnegadas.php", Parms);
+    TotalesOpc(Datos);
+    InitTable(Datos);
+
+    document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+    myCtx   = $("#chartCanvas")[0];  
+    myCtx.height = 380;
+    myChart = CreaChartOpcNeg(myCtx,  Datos)
   }
 };
 
@@ -138,23 +136,7 @@ function TraeDatos (url, parms) {
    return result;
 };
 
- function CreaTablaOpcNeg (data) { 
-
-  $('#tabladatos').dataTable( {
-    "aaData"  : data,
-    "paging"  : false,
-    "info"    : false,
-    "bFilter" : false,
-    "bDestroy": true,
-    "columns" : [
-        { "data": "gpo" },
-        { "data": "opc" },
-        { "data": "neg" },
-//        { "data": "porc" }
-    ]
-  })
- }
-
+ 
 function CreaChartVtasNetas(myCtx, Data) {
   var yAxisLabels  = [];
   var dataSeries1  = [];
@@ -253,13 +235,41 @@ function CreaChartOpcNeg(myCtx,Data) {
   var dataSeries2  = [];
   var dataSeries3  = [];
   
-  for (var i in Data) {
-    yAxisLabels.push(Data[i].gpo);
-    dataSeries1.push(Data[i].opc);
-    dataSeries2.push(Data[i].neg);
-    dataSeries3.push(Data[i].porc);
-  }
+  // for (var i in Data) {
+  //   yAxisLabels.push(Data[i].gpo);
+  //   dataSeries1.push(Data[i].opc);
+  //   dataSeries2.push(Data[i].neg);
+  //   dataSeries3.push(Data[i].porc);
+  // }
+
+    arr = Object.keys(data).filter( function(item){
+         if ( item.indexOf ) {
+          return data[item];
+         }
+         
+    })
   
+    var column1 = [];
+    var column2 = [];
+    var column3 = [];
+    for(var i=0; i<Data.length; i++){
+       column1.push(Data[i][0]);
+       column2.push(Data[i][1]);
+       column3.push(Data[i][2]);
+    }
+     
+
+ var array = [new Array(20), new Array(20), new Array(20)]; //..your 3x20 array
+ getCol(array, 0); //Get first column
+  
+  
+
+
+  //const serie1 = Data.map(serie => Data[keys[0]]);
+  //const serie2 = Data.map(serie => Data[keys[1]]);
+  //const serie3 = Data.map(serie => Data[keys[2]]);
+  
+
   var chartdata = {
     labels: yAxisLabels,    
     datasets: [
@@ -338,49 +348,50 @@ function CreaChartOpcNeg(myCtx,Data) {
 } // Function CreaChartOpcNegadas
 
 
-function TotalesNeg(Data){
-  var TotOpciones     = 0;
-  var TotNegados      = 0;
-  var TotPorc         = 0;
-  for (var i in Data) {
-     TotOpciones  += parseFloat(Data[i].opc);
-     TotNegados   += parseInt(Data[i].neg);
-  }
-  TotPorc = TotNegados / TotOpciones * 100;
-  opciones = formatoMX(TotOpciones);
-  negados = formatoMX(TotNegados);
-  porcentaje = formatoMX(TotPorc);
+function TotalesOpc(Data){
+  if (Datos && Datos.length) {
+    let totOpc = Data.reduce((total, item) => total + parseInt(item.opc), 0);
+    let totNeg = Data.reduce((total, item) => total + parseInt(item.neg), 0);
+    let totPorc = totOpc / totNeg * 100;
+
+    opcs = formatoMX(totOpc);
+    negs = formatoMX(totNeg);
+    porc = formatoMX(totPorc);
   
-  MyNum1.innerText = opciones ;
-  MyNum2.innerText = negados  ;
-  $('#porc').show(); 
-  MyPorc.innerText = dosDecimales(porcentaje) + " %" ;
+  }
+  else {
+     opcs = "0";
+     negs = "0";
+     porc = "0";
+  }
+  MyNum1.innerText = opcs ;
+  MyNum2.innerText = negs  ;
+  myPorc.style.display = "block";
+  myPorc.innerText = dosDecimales(porc) + " %" ;
+}
+
+
+function TotalesVta(Data){
+  if (Datos && Datos.length) {  
+    let totPesos = Data.reduce((total, item) => total + parseFloat(item.vta), 0);
+    let totUnits = Data.reduce((total, item) => total + parseInt(item.uni), 0);
+
+    pesos = totPesos.toLocaleString("es-MX", { style: 'currency', currency: 'MXN' });
+    unidades = formatoMX(totUnits);
+  }
+  else {
+    pesos = "0";
+    unidades = "0";
+  }
+  MyNum1.innerText = pesos;
+  MyNum2.innerText = unidades;
+  myPorc.style.display = "none";
 }
 
 function dosDecimales(n) {
   let t=n.toString();
   let regex=/(\d*.\d{0,2})/;
   return t.match(regex)[0];
-}
-
-function TotalesVta(Data){
-  var TotPesos     = 0;
-  var TotUnidades  = 0;
-  for (var i in Data) {
-     TotPesos      += parseFloat(Data[i].vta);
-     TotUnidades   += parseInt(Data[i].uni);
-  }
-
-  pesos = TotPesos.toLocaleString("es-MX", { style: 'currency', currency: 'MXN' });
-  unidades = formatoMX(TotUnidades);
-  var fields = pesos.split(".");
-  var pes = fields[0];
-  var cen = fields[1];
-  MyNum1.innerText = pesos;
-  MyNum2.innerText = unidades;
-  
-  $('#porc').hide(); 
-  
 }
 
 const formatoMX = (number) => {
@@ -435,10 +446,9 @@ function CreaVarsHTML() {
   myTitulo = $('#Titulo')[0];
   MyNum1   = $("#num1")[0];
   MyNum2   = $("#num2")[0];
-  MyPorc   = $("#porc")[0];
+  myPorc   = $("#porc")[0];
   myTit1   = $("#tit1")[0];
   myTit2   = $("#tit2")[0];
-  //MyTable  = $('#tabladatos').DataTable();
   myCtx    = $("#chartCanvas")[0];
 }
 
@@ -450,12 +460,10 @@ function Inicializa(NChart) {
   myTit1.innerText = Charts[NChart].Tit1;
   myTit2.innerText = Charts[NChart].Tit2;
   
-  MyNum1.innerText = "";
-  MyNum2.innerText = "0.";
+  MyNum1.innerText = "0";
+  MyNum2.innerText = "0";
+  myPorc.innerText = "";
     
-  
-  $('#tabladatos').DataTable().clear().draw();
-  $("tr").remove('#tabladatos');
   // Genera Chart
   window[Charts[NChart].funcion]();
 }
@@ -469,28 +477,33 @@ function ActualizaParms() {
 
 
 function InitTable(data) {
-   
   var columns = [];
-  var keys = Object.keys(data[0]);
-  
-  for (var i = 0; i < keys.length; i++) {
-     columns.push( { data : keys[i],  title: keys[i] });
-   }
-
   if (miTabla) {
-     miTabla.destroy();
-     $("#myTable").empty();
+    miTabla.destroy();
+    $("#myTable").empty();
+  } 
+  if (data && data.length) {
+ 
+    var keys = Object.keys(data[0]);
+    for (var i = 0; i < keys.length; i++) {
+      columns.push( { data : keys[i],  title: keys[i] });
+    }
   }
-
+  else {
+    columns.push({data: [], title: ""});
+  }
   miTabla = $("#myTable").DataTable( {
-     data     : data,
-     columns  : columns,
-     paging   : false,
-     info     : false,
-     searching: false,
-     ordering : false,
-     bFilter  : false,
-     bDestroy : true,
-  })
-    
+      data     : data,
+      columns  : columns,
+      paging   : false,
+      info     : false,
+      searching: false,
+      ordering : false,
+      bFilter  : false,
+      bDestroy : true,
+      language : {
+        "emptyTable": "No se encuentran datos disponibles"
+      }
+  }).draw();
+
 }

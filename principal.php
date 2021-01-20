@@ -116,8 +116,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                   <li class="nav-item dropdown">
                     <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"
-                      alt="https://generated.photos/" />
+                      <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
                       <?php echo $_SESSION['nombre']; ?>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

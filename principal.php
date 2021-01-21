@@ -161,10 +161,10 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
               <section>
                   <div class="container">
                       <div class="row">
-                          <div class="col-lg-7 my-3">
+                          <div class="col-lg-12 my-3">
                               <div class="card rounded-0">
                                   <div class="card-header bg-light">
-                                    <h6 id= "Titulo" class="font-weight-bold mb-0">Ventas</h6>
+                                    <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
                                   </div>
                                   <div class="card-body py-0">
                                      <div id="chartReport">
@@ -173,18 +173,19 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                                   </div>
                               </div>
                           </div>
-                          <div class="col-lg-5 my-3">
+                      </div>
+                      <div class= "row">
+                        <div class="col-lg-12 my-3">
                             <div class="card rounded-0">
                                 <div class="card-header bg-light">
-                                    <h6 class="font-weight-bold mb-0">Detalle</h6>
+                                    <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Datos</h6>
                                 </div>
                                 <div class="card-body pt-2">
                                   <table id="myTable" class="display" style="width:100%" >
                                   </table>
-                                  <button class="btn btn-primary w-100">Ver todas</button>
                                 </div>
                             </div>
-                          </div>
+                        </div>
                       </div>
                   </div>
               </section>

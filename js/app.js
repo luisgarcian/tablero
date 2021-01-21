@@ -1,6 +1,6 @@
 
 //Variables Globales
-var myTitulo = "";
+
 var myTit1 = "";
 var myTit2 = "";
 var myNum1 = "";
@@ -45,7 +45,7 @@ $(function () {
   //Generar Chart en cambio de seleccion combo
   $('#tipo').on('change', function () {
      myPar3   = $('#tipo').val().substring(0, 1);
-     myTitulo.innerText = Charts[NChart].titulo + " por " + $('#tipo').val(); 
+     
      window[Charts[NChart].funcion]();
   });
 
@@ -75,7 +75,7 @@ function GenChartVtas() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 380;
+  myCtx.height = 420;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
   Nivel = 0;
 };
@@ -92,7 +92,7 @@ function GenChartOpcs() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 380;
+  myCtx.height = 420;
   myChart = CreaChartOpcNeg(myCtx,  Datos) ;
   Nivel = 0;
   myCtx.addEventListener("click", function(evento){
@@ -103,7 +103,7 @@ function GenChartOpcs() {
 
 function OpNeg_Vendedor (sucursal, parms) {
   Nivel = 1;
-  myTitulo.innerText = Charts[NChart].titulo + " por vendedor en " + sucursal; 
+  
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option>";
   Opciones.children[0].selected=true;
@@ -112,7 +112,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   InitTable(Datos);
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 380;
+  myCtx.height = 420;
   myChart = CreaChartOpcNeg(myCtx,  Datos)
 }
 
@@ -133,19 +133,6 @@ function Neg_DrillDown (evt) {
     }
     OpNeg_Vendedor(suc, parms);
 
-    // myTitulo.innerText = Charts[NChart].titulo + " por vendedor en " + label; 
-    // Opciones = document.querySelector("#Tipo");
-    // Opciones.innerHTML = "<option>Sucursal</option>";
-    // Opciones.children[0].selected=true;
-    
-    // Datos   = TraeDatos("chart/opnegadas.php", Parms);
-    // TotalesOpc(Datos);
-    // InitTable(Datos);
-
-    // document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
-    // myCtx   = $("#chartCanvas")[0];  
-    // myCtx.height = 380;
-    // myChart = CreaChartOpcNeg(myCtx,  Datos)
   }
 };
 
@@ -218,6 +205,7 @@ function CreaChartVtasNetas(myCtx, Data) {
       },
       title: {
         display: true,
+        text: 'Ventas Netas',
         fontSize:18,
         fontColor: '#111B54'
       },
@@ -469,7 +457,7 @@ function ChartOpc(){
 
 function CreaVarsHTML() {
   //Crea variables para manejo JavaScript conectadas a elementos HTML
-  myTitulo = $('#Titulo')[0];
+  
   MyNum1   = $("#num1")[0];
   MyNum2   = $("#num2")[0];
   myPorc   = $("#porc")[0];
@@ -482,7 +470,6 @@ function Inicializa(NChart) {
   
   ActualizaParms();
 
-  myTitulo.innerText = Charts[NChart].titulo + " por " + $('#tipo').val(); 
   myTit1.innerText = Charts[NChart].Tit1;
   myTit2.innerText = Charts[NChart].Tit2;
   
@@ -498,7 +485,7 @@ function ActualizaParms() {
   myPar1   = $('#PickerFecIni').val().split("-").reverse().join("-");
   myPar2   = $('#PickerFecFin').val().split("-").reverse().join("-");
   myPar3   = $('#tipo').val().substring(0, 1);
-  myTitulo.innerText = Charts[NChart].titulo + " por " + $('#tipo').val();
+  
 }
 
 
@@ -531,9 +518,13 @@ function InitTable(data) {
         "emptyTable": "No se encuentran datos disponibles"
       }
   }).draw();
+   
 
   $('#myTable tbody').on('click', 'tr', function () {
 
+    $(document).find('tr').removeClass("dtSelected");
+    $(miTabla.row(this).selector.rows).addClass("dtSelected");
+  
     if (NChart == 1 && Nivel == 0) { 
 
       var suc = this.children[0].innerText;

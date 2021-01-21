@@ -94,42 +94,40 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 
         <div class="w-100">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container">
-    
+			<div class="container">
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-    
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="form-inline position-relative d-inline-block my-2">
-                     <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-                     <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
-                     <select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
-                         <option >Sucursal</option>
-                         <option >Division</option>
-                      </select>
-                      <!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-                      <button class="btn position-absolute btn-search" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
-                 </form>
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                  <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
-                      <?php echo $_SESSION['nombre']; ?>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Mi perfil</a>
-                      <a class="dropdown-item" href="#">Suscripciones</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Cerrar sesión</a>
-                    </div>
-                  </li>
-                </ul>
+				<form class="form-inline position-relative d-inline-block my-2">
+					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
+					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
+					<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
+						<option >Sucursal</option>
+						<option >Division</option>
+					</select>
+					<!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
+					<button class="btn btn-search" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
+				</form>
               </div>
-            </div>
-          </nav>
+			  	<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+					<li class="nav-item dropdown">
+						<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
+								<?php echo $_SESSION['nombre']; ?>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Mi perfil</a>
+							<a class="dropdown-item" href="#">Suscripciones</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Cerrar sesión</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+        </nav>
           <!-- Fin Navbar -->
 
         <!-- Page Content -->

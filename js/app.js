@@ -64,7 +64,7 @@ function GenChartVtas() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  //myCtx.height = 420;
+  myCtx.height = 450;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
   Nivel = 0;
 };
@@ -81,7 +81,7 @@ function GenChartOpcs() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  //myCtx.height = 420;
+  myCtx.height = 450;
   myChart = CreaChartOpcNeg(myCtx,  Datos) ;
   Nivel = 0;
   myCtx.addEventListener("click", function(evento){
@@ -101,7 +101,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   InitTable(Datos);
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
-  //myCtx.height = 420;
+  myCtx.height = 450;
   myChart = CreaChartOpcNeg(myCtx,  Datos)
 }
 

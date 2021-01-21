@@ -82,8 +82,8 @@ function GenChartOpcs() {
 
   myCtx   = $("#chartCanvas")[0];  
   myCtx.height = 450;
-  myChart = CreaChartOpcNeg(myCtx,  Datos) ;
   Nivel = 0;
+  myChart = CreaChartOpcNeg("", myCtx,  Datos) ;
   myCtx.addEventListener("click", function(evento){
        Neg_DrillDown(evento);
   }); 
@@ -102,7 +102,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
   myCtx.height = 450;
-  myChart = CreaChartOpcNeg(myCtx,  Datos)
+  myChart = CreaChartOpcNeg(sucursal, myCtx,  Datos)
 }
 
 function Neg_DrillDown (evt) {
@@ -195,8 +195,8 @@ function CreaChartVtasNetas(myCtx, Data) {
       title: {
         display: true,
         text: 'Ventas Netas',
-        fontSize:18,
-        fontColor: '#111B54'
+        fontSize:16,
+        fontFamily: 'system-ui' 
       },
       legend:{
         display: true,
@@ -256,7 +256,7 @@ function ObtieneColumnas(Data){
   return Object.values(res);
 }
 
-function CreaChartOpcNeg(myCtx,Data) {
+function CreaChartOpcNeg(TxtNivel, myCtx, Data) {
 
   var dataSeries1 = "";
   var dataSeries2 = "";
@@ -316,7 +316,7 @@ function CreaChartOpcNeg(myCtx,Data) {
       }
     }
   };
-
+  var TxtChart = "Opciones Negadas " + TxtNivel;
   var myChart = new Chart(myCtx, {
     type : 'bar',
     data: chartdata,
@@ -328,9 +328,9 @@ function CreaChartOpcNeg(myCtx,Data) {
       },
       title: {
         display: true,
-        text: 'Opciones negadas',
-        fontSize:18,
-        fontColor: '#111B54'
+        text: TxtChart,
+        fontSize:16,
+        fontFamily: 'system-ui' 
       },
       legend:{
         display: true,
@@ -506,9 +506,18 @@ function InitTable(data) {
       bDestroy : true,
       language : {
         "emptyTable": "No se encuentran datos disponibles"
-      }
+      },
   }).draw();
    
+  //$('#myTable').dataTable();
+
+  $('table.display td').hover(function(){
+       $(this).css('background-color','#EC932F'); 
+  });
+
+  $('table.display td').mouseout(function(){
+       $(this).css('background-color','#f9f9f9'); 
+  });   
 
   $('#myTable tbody').on('click', 'tr', function () {
 

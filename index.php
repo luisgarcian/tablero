@@ -68,6 +68,7 @@ if(!empty($_SESSION['active']))
         <div class="agileheader">
             <h1></h1>
         </div>
+        <br>
         <div class="main-w3l">
             <div class="layout-main">
                 <h2>INDICADORES</h2>
@@ -81,7 +82,6 @@ if(!empty($_SESSION['active']))
                 </form>
             </div>
         </div>
-        <br>
         <br>
         <br>
         <br>

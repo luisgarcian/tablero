@@ -76,7 +76,7 @@ if(!empty($_SESSION['active']))
                     <input value="USUARIO" name="username" type="text" required onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Usuario';}" />
                     <input value="PASSWORD" name="password" type="password" required onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}" />
                     <span><input type="checkbox" />Recuerdame</span>
-                    <h6><a href="#">olvidé password</a></h6>
+                    <h6><a href="#">Olvidé Password</a></h6>
                     <div class="clear"></div>
                     <input type="submit" value="ENTRAR" name="login">
                 </form>

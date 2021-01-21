@@ -52,17 +52,6 @@ $(function () {
 });
 
 
-// $("#myTable").on('click', 'tbody tr', function() {
-
-//   var sucursal = this.children[0].innerText;
-//   parms =  {
-//     "fecini":  myPar1,
-//     "fecfin":  myPar2,
-//     "tipo"  :  sucursal,
-//   }
-//   OpNeg_Vendedor( sucursal, parms );
-// })
-
 function GenChartVtas() {
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   Parms =  {
@@ -75,7 +64,7 @@ function GenChartVtas() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 420;
+  //myCtx.height = 420;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
   Nivel = 0;
 };
@@ -92,7 +81,7 @@ function GenChartOpcs() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 420;
+  //myCtx.height = 420;
   myChart = CreaChartOpcNeg(myCtx,  Datos) ;
   Nivel = 0;
   myCtx.addEventListener("click", function(evento){
@@ -112,7 +101,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   InitTable(Datos);
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 420;
+  //myCtx.height = 420;
   myChart = CreaChartOpcNeg(myCtx,  Datos)
 }
 
@@ -339,6 +328,7 @@ function CreaChartOpcNeg(myCtx,Data) {
       },
       title: {
         display: true,
+        text: 'Opciones negadas',
         fontSize:18,
         fontColor: '#111B54'
       },

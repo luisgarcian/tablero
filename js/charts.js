@@ -8,9 +8,10 @@
           show:true,
       },
       ticks: {
-             callback: function(value, index, values) {
-               return '$' + formatoMX(value);
-           }
+        beginAtZero:true,
+        callback: function(value, index, values) {
+           return '$' + formatoMX(value);
+        }
       },
       scaleLabel: {
          display: true,
@@ -62,9 +63,10 @@
               show:true,
           },
           ticks: {
-                 callback: function(value, index, values) {
-                  return  formatoMX(value);
-                 }
+            beginAtZero:true,
+            callback: function(value, index, values) {
+              return  formatoMX(value);
+            }
           },
           scaleLabel: {
              display: true,

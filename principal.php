@@ -59,7 +59,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                 <li class="pagenav">
                   <h4><a href="" class="text-light p-0 border-0"><ion-icon name="stats"></ion-icon> Operaciones</a><i class="fa fa-angle-right"></i></h4>
                   <ul>
-                    <li onClick="ChartVta()" class="page_item current_page_item"><a href="#">Ventas Netas</a></li>
+                    <li onClick="ChartVta()" class="page_item"><a href="#">Ventas Netas</a></li>
                     <li onClick="ChartOpc()" class="page_item"><a href="#">Opciones Negadas</a></li>
                     <li id="tickets" class="page_item"><a href="#"> Tickets</a></li>
                   </ul>
@@ -110,7 +110,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                          <option >Division</option>
                       </select>
                       <!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-                      <button class="btn position-absolute btn-search" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
+                      <button class="btn position-absolute btn-search"style="height:80%" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
                  </form>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                   <li class="nav-item dropdown">

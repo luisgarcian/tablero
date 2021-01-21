@@ -222,4 +222,18 @@ select:focus{ outline: none;}
   color : cyan;
 }
 
+#myTable {
+ font-family: 'Noto Sans', sans-serif;
+ margin: 0, auto;
+ font-size:12px;
+ display: block;
+ box-sizing: border-box;
+ border-collapse: collapse;
+ cursor: pointer;
+}
+
+.dtSelected {
+  background-color: rgba(8,158,96,0.11);
+}  
+
 

@@ -24,7 +24,13 @@ $fecini = date("Y-m-d", strtotime($cnn->result('fecini')));
 $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 
 ?>
-
+<?
+  session_start();
+  unset($_SESSION["idusuario"]); 
+  session_destroy();
+  header("Location: index.php");
+  exit;
+?>
 <head>
     <title> Tablero Indicadores </title>
     <!-- Required meta tags -->

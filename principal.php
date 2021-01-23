@@ -62,7 +62,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
             </div>
             <div id="accordian" >
               <ul>
-                <?php require_once("accordian.php"); ?>
+                <?php require_once("config/accordian.php"); ?>
               </ul>
             </div>        
         </div>

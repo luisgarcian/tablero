@@ -1,5 +1,5 @@
 :root {
-    --primary: #111B54;
+    --primary: #003040;
     --light: #ffffff;
     --grey: #efefef;
 }
@@ -44,17 +44,20 @@ a:hover {
     min-height: 100vh;
 }
   
-#sidebar-container  h2, h4{
-    color: #F8AC23;
+ #sidebar-container  h2 {
+    color:  #003040;
+} 
+#sidebar-container  h4 {
+  color: var(--light);
 }
 #sidebar-container .logo h4{
   padding: 0.875rem 1.25rem;
-  font-size: 18px;
+  font-size: 16px;
 }
 
-#sidebar-container .menu {
+ #sidebar-container .menu {
     width: 10rem;
-} 
+}  
 
 #content {
     overflow-y: scroll;
@@ -88,7 +91,7 @@ a:hover {
     font-size: 10px !important;
 }
 
-#wrapper {
+/* #wrapper {
     height: 100%;
     overflow: hidden;
     width: 100%; }
@@ -98,7 +101,7 @@ a:hover {
     overflow: hidden;
     padding: 0 15px 5px 15px;
     min-height: 80vh;
-    margin-top: 70px; }
+    margin-top: 70px; } */
     
 /* sucursal / division */
 
@@ -156,78 +159,6 @@ select:focus{ outline: none;}
   }
 }
 
-.accordion {
-  width: 100%;  
-}
-
-.accordion ul {
-  background: var(--primary);
-  color: var(--light);
-  margin: 0;
-  padding: 0;
-}
-
-.col-xs-6 ul {
-  
-  display : flex;
-  align-items: baseline;
-  justify-content: flex-end;
-}	
-
-.accordion .pagenav {
-  position: relative;
-  margin-bottom: 10px;
-  list-style: none;
-}
-
-.accordion .pagenav a {
-  background: var(--primary);
-  text-decoration: none;
-  color: var(--grey);
-}
-
-.accordion .pagenav ul {
-  display: none; /* hides all ul content by default (see exceptions in JS) */
-  /*padding: 5px;*/
-  margin: 0;
-  padding-left: 14px;
-}
-
-.accordion .pagenav li {
-  margin-bottom: 3px;
-  font-size: 14px;
-  margin: 15px;
-  list-style: none;
-}
-
-.accordion .pagenav h4 {
-  /*text-transform: uppercase;*/
-  font-size: 16px;
-  padding: 5px;
-  /*background: #f2f2f2;*/
-  margin: 5px;
-  cursor: pointer;
-}
-
-.accordion .pagenav h4 i {
-  /*font-size: 10px;*/
-  position: absolute;
-  right: 10px;
- /* line-height: 10px;*/
-  transition: .2s;
-  -webkit-transition: .2s;
-  -ms-transition: .2s;
-}
-
-.accordion .pagenav.open h4 i {
-  transform: rotate(90deg);
-}
-
-.accordion a:hover,   a {
-  text-decoration: none;
-  /*.accordion .pagenav*/
-  color : cyan;
-}
 
 #myTable {
  font-family: 'Noto Sans', sans-serif;

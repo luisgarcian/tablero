@@ -173,8 +173,8 @@ function CreaChartVtasNetas(myCtx, Data) {
         type : 'bar',
         label: 'PESOS',
         fill : false,
-        borderColor: '#042f66',
-        backgroundColor:  '#042f66',
+        borderColor: '#204a58',
+        backgroundColor:  '#204a58',
         yAxisID: 'y-axis-1',
         data: dataSeries1
       }, //dataset1
@@ -291,8 +291,8 @@ function CreaChartOpcNeg(TxtNivel, myCtx, Data) {
         type : 'bar',
         label: 'OPCIONES',
         fill : false,
-        borderColor: '#042f66',
-        backgroundColor:  '#042f66',
+        borderColor: '#204a58',
+        backgroundColor:  '#204a58',
         yAxisID: 'y-axis-1',
         data: dataSeries1
       }, //dataset1

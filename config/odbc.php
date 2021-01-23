@@ -33,9 +33,9 @@
             try {
 				 // odbc_connect: resource|false
 				 $this->conexion = odbc_connect( $connectionString, $this->usuario, $this->contrasena);
-				 if ($this->conexion == false) {
-                     echo "ERROR conexion";
-				 }
+				//  if ($this->conexion == false) {
+                //      echo "ERROR conexion";
+				//  }
 			}catch (Exception $e) {
 	           $this->conexion = 'Error de conexión' ;
 	           echo "ERROR: ". $e->getMessage();

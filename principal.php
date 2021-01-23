@@ -49,7 +49,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
 </head>
 
 <body>
@@ -60,41 +60,11 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
             <div class="logo">
                 <h4 class="font-weight mb-0">INDICADORES</h4>
             </div>
-            <div class="accordion display:inline-block">
+            <div id="accordian" >
               <ul>
-                <li class="pagenav">
-                  <h4><a href="" class="text-light p-0 border-0"><ion-icon name="stats"></ion-icon> Operaciones</a><i class="fa fa-angle-right"></i></h4>
-                  <ul>
-                    <li onClick="ChartVta()" class="page_item"><a href="#">Ventas Netas</a></li>
-                    <li onClick="ChartOpc()" class="page_item"><a href="#">Opciones Negadas</a></li>
-                    <li id="tickets" class="page_item"><a href="#"> Tickets</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <ul>
-              <li class="pagenav">
-                <h4><a href="#" class="text-light p-0 border-0"><ion-icon name="paper"></ion-icon> Cobranza</a><i class="fa fa-angle-right"></i></h4>
-                <ul>
-                  <li class="page_item"><a href="#">Estado Cartera</a></li>
-                  <li class="page_item"><a href="#">Antiguedad</a></li>
-                  <li class="page_item"><a href="#">Recuperacion</a></li>
-                  <li class="page_item"><a href="#">Plazo Promedio</a></li>
-                </ul>
-              </li>
-              </ul>
-                <ul>
-                <li class="pagenav">
-                  <h4><a href="#" class="text-light p-0 border-0"><ion-icon name="pricetag"></ion-icon> Compras</a><i class="fa fa-angle-right"></i></h4>
-                  <ul>
-                    <li class="page_item"><a href="#">Estado</a></li>
-                    <li class="page_item"><a href="#">Rotacion</a></li>
-                    <li class="page_item"><a href="#">Recuperacion</a></li>
-                    <li class="page_item"><a href="#">Plazo Promedio</a></li>
-                  </ul>
-                </li>
+                <?php require_once("accordian.php"); ?>
               </ul>
             </div>        
-            
         </div>
         <!-- Fin sidebar -->
 

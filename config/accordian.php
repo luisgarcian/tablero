@@ -8,7 +8,7 @@
                 $cnn->conectar();
                 // se ejecuta la consulta para traerse las opciones de menu del usuario
 
-                $usuarioid = $_SESSION['tipo'] ;
+                $usuarioid = $_SESSION['idUser'] ;
 
                 $sql = "exec usp_TraeOpcUsr ".strval($usuarioid) ;
                 // se trae el resultado de la consulta

@@ -51,8 +51,11 @@ a:hover {
   color: var(--light);
 }
 #sidebar-container .logo h4{
-  padding: 0.875rem 1.25rem;
+  padding: 10px 10px;
   font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0;
+  justify-items: self-end;
 }
 
  #sidebar-container .menu {

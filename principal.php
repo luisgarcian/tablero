@@ -78,13 +78,17 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<form class="form-inline position-relative d-inline-block my-2">
 					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
-					<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
+          <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
+					<select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
+          <option >Sucursal</option>
+						<option >Division</option>
+            </select>
+				<!--	<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
 						<option >Sucursal</option>
 						<option >Division</option>
-					</select>
+					</select>-->
 					<!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-					<button class="btn btn-search" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
+					<button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
 				</form>
               </div>
 			  	<ul class="navbar-nav ml-auto mt-2 mt-lg-0">

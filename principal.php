@@ -58,7 +58,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
         <!-- Sidebar -->
         <div id="sidebar-container" class="bg-primary">
             <div class="logo">
-                <h4 class="font-weight mb-0">INDICADORES</h4>
+                <h4 >INDICADORES</h4>
             </div>
             <div id="accordian" >
               <ul>

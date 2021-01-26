@@ -58,7 +58,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
         <!-- Sidebar -->
         <div id="sidebar-container" class="bg-primary">
             <div class="logo">
-                <h4 >INDICADORES</h4>
+                <h4 class="font-weight mb-0">INDICADORES</h4>
             </div>
             <div id="accordian" >
               <ul>
@@ -156,7 +156,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                         <div class="col-lg-12 my-3">
                             <div class="card rounded-0">
                                 <div class="card-header bg-light">
-                                    <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Datos</h6>
+                                    <h6 class="font-weight-bold mb-0"><ion-icon name=""></ion-icon> Datos</h6>
                                 </div>
                                 <div class="card-body pt-2">
                                   <table id="myTable" class="display" style="width:100%" >

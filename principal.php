@@ -23,6 +23,7 @@ $result = $cnn->query($sql);
 $fecini = date("Y-m-d", strtotime($cnn->result('fecini')));
 $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 
+
 ?>
 <?
   session_start();
@@ -58,7 +59,11 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
         <!-- Sidebar -->
         <div id="sidebar-container" class="bg-primary">
             <div class="logo">
-                <h4 >INDICADORES</h4>
+               <div class= "row">
+                   <div class="col-lg-12 col-md-6 d-flex stat my-0">
+                   <h4 >INDICADORES</h4>
+                   </div>
+               </div>
             </div>
             <div id="accordian" >
               <ul>
@@ -70,39 +75,39 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 
         <div class="w-100">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-			<div class="container">
+			    <div class="container">
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline position-relative d-inline-block my-2">
-					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
-					<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
-						<option >Sucursal</option>
-						<option >Division</option>
-					</select>
-					<!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-					<button class="btn btn-search" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
-				</form>
+				        <form class="form-inline position-relative d-inline-block my-2">
+  					      <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
+					        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
+					        <select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
+  						      <option >Sucursal</option>
+						        <option >Division</option>
+					        </select>
+					        <!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
+					        <button class="btn btn-search" Id="BtnUpdate"><i class="icon ion-md-search"></i></button>
+				        </form>
               </div>
-			  	<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-					<li class="nav-item dropdown">
-						<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
-								<?php echo $_SESSION['nombre']; ?>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Mi perfil</a>
-							<a class="dropdown-item" href="#">Suscripciones</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="logout.php">Cerrar sesión</a>
-						</div>
-					</li>
-				</ul>
-			</div>
+			  	    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+					      <li class="nav-item dropdown">
+						      <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							      <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
+								    <?php echo $_SESSION['nombre']; ?>
+						      </a>
+						      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+							      <a class="dropdown-item" href="#">Mi perfil</a>
+							      <a class="dropdown-item" href="#">Suscripciones</a>
+							      <div class="dropdown-divider"></div>
+							        <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
+						        </div>
+					      </li>
+				      </ul>
+			    </div>
         </nav>
           <!-- Fin Navbar -->
 
@@ -117,14 +122,14 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                                     <div class="mx-auto">
                                         <h6 id = "tit1" class="text-muted">Ventas Netas</h6>
                                         <h3 id = "num1" class="font-weight">$0</h3>
-                                        <!-- <h6 class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i> 50.50%</h6> -->
+                                        <h6 id = "porc1"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 d-flex stat my-0">
                                     <div class="mx-auto">
                                         <h6 id = "tit2" class="text-muted">Unidades Totales</h6>
                                         <h3 id = "num2" class="font-weight">0</h3>
-                                        <h6 id = "porc"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
+                                        <h6 id = "porc2"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +146,10 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                                     <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
                                   </div>
                                   <div class="card-body py-0">
-                                     <div id="chartReport">
-                                        <canvas id="chartCanvas"></canvas>
+                                     <div class ="chart-container">
+                                        <div id="chartReport">
+                                           <canvas id="chartCanvas"></canvas>
+                                        </div>
                                      </div>
                                   </div>
                               </div>
@@ -176,6 +183,12 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 
 <script src="js/jquery.datetimepicker.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+<!-- Import D3 Scale Chromatic via CDN -->
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
 <!-- bootstrap v 4.5.3-->
 <script src="js/bootstrap.min.js"></script>
 <!-- datatables -->
@@ -183,7 +196,11 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 <!-- ionocons -->
 <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 <!-- app-js        -->
-<script type="text/javascript" src="js/charts.js"  ></script>
+<!-- <script type="text/javascript" src="js/charts.js"  ></script> -->
+<script type="text/javascript" src="js/charts/edocartera.js"></script>
+<script type="text/javascript" src="js/charts/opnegadas.js"></script>
+<script type="text/javascript" src="js/charts/vtasnetas.js"></script>
+<script type="text/javascript" src="js/charts/vtasfpago.js"></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <!-- Configuracion datetimepicker -->
@@ -218,6 +235,16 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
       weeks:true,
       maxDate: "+1D"
     })
+
+    function openNav() {
+     document.getElementById("sidebar-container").style.width = "250px";
+     document.getElementById("content").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+     document.getElementById("sidebar-container").style.width = "0";
+     document.getElementById("content").style.marginLeft= "0";
+    }
 </script>
 
 </body>

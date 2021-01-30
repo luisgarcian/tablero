@@ -177,4 +177,23 @@ select:focus{ outline: none;}
   background-color: rgba(8,158,96,0.11);
 }  
 
+.openbtn {
+  cursor:pointer;
+  border:none;
+}
 
+.chart-container {
+  
+  justify-content: center;
+  /* padding: 48px 16px 16px 16px; */
+  padding-block: 10px;
+}
+
+/* .chart-report {
+  width: 600px;
+  heigth:500px
+} */
+
+#chartCanvas {
+  width: 100%;
+}

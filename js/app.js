@@ -1,3 +1,13 @@
+var Charts = [
+  {"titulo" : "Ventas Netas",   "funcion": "GenChartVtas",  "Tit1"   : "Ventas Totales", "Tit2": "Unidades Totales"
+  },
+  {"titulo" : "Opciones Negadas", "funcion": "GenChartOpcs", "Tit1"   : "Opciones", "Tit2": "Negadas"
+  },
+  {"titulo" : "Estado Cartera",   "funcion": "GenChartEdoC", "Tit1"   : "Estado", "Tit2": "Cartera"
+  },
+  {"titulo" : "Ventas por Forma de Pago",  "funcion": "GenChartVFP",  "Tit1"   : "Credito", "Tit2": "Contado"
+  },
+];
 
 //Variables Globales
 
@@ -5,44 +15,33 @@ var myTit1 = "";
 var myTit2 = "";
 var myNum1 = "";
 var myNum2 = "";
-var myPorc = "";
+var myPorc1 = "";
+var myPorc2 = "";
 var myUser = "";
 var myChart = "";
 var NChart = 0; 
-var Nivel = 0;
 var myPar1 = "";
 var myPar2 = "";
 var myPar3  = "";
 var miTabla = "";
 var myCtx  = "";
+var sel_chart = {nchart : 0, nivel : 0, seltipo : 0};
 
-var Charts = [
-  {"titulo" : "Ventas Netas",     
-   "funcion": "GenChartVtas", 
-   "Tit1"   : "Ventas Totales", "Tit2": "Unidades Totales"
-  },
-  {"titulo" : "Opciones Negadas", 
-   "funcion": "GenChartOpcs", 
-   "Tit1"   : "Opciones", "Tit2": "Negadas"
-  },
-];
 
 $(function () {
+  //funcionalidad del menu en el sidebar
   $("#accordian h3").click(function(){
-		//slide up all the link lists
-		$("#accordian ul ul").slideUp();
-		//slide down the link list below the h3 clicked - only if its closed
-		if(!$(this).next().is(":visible"))
+	//slide up all the link lists
+	$("#accordian ul ul").slideUp();
+	//slide down the link list below the h3 clicked - only if its closed
+	if(!$(this).next().is(":visible"))
 		{
 			$(this).next().slideDown();
 		}
   })  
   
   CreaVarsHTML();
-  ActualizaParms();
-
-  //Generar el Chart Default dependiendo del valor de NChart = 0
-  window[Charts[NChart].funcion]();
+  Inicializa(NChart, 0, 0);
 
   const btnupd = document.querySelector("#BtnUpdate");
   btnupd.addEventListener("click", function(evento){
@@ -52,13 +51,14 @@ $(function () {
         window[Charts[NChart].funcion]();
   });
   
-  //Generar Chart en cambio de seleccion combo
+  //Refrescar Chart en cambio de seleccion tipo
   $('#tipo').on('change', function () {
      myPar3   = $('#tipo').val().substring(0, 1);
+     IndiceOp = $('#tipo')[0].selectedIndex;
      
-     window[Charts[NChart].funcion]();
+     Inicializa(NChart, 0, IndiceOp);
+     //window[Charts[NChart].funcion]();
   });
-
 
 });
 
@@ -75,9 +75,8 @@ function GenChartVtas() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 450;
+  //myCtx.height = 450;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
-  Nivel = 0;
 };
 
 function GenChartOpcs() {
@@ -92,18 +91,58 @@ function GenChartOpcs() {
   InitTable(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 450;
-  Nivel = 0;
+  //myCtx.height = 450;
   myChart = CreaChartOpcNeg("", myCtx,  Datos) ;
   myCtx.addEventListener("click", function(evento){
-       Neg_DrillDown(evento);
+       Opc_DrillDown(evento);
   }); 
   
 };
 
-function OpNeg_Vendedor (sucursal, parms) {
-  Nivel = 1;
+function GenChartEdoC() {
+  document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+  Parms = [];
+  Datos   = TraeDatos2("chart/edocartera.php");
+  //TotalesOpc(Datos) ;
+  InitTable(Datos);
+
+  myCtx   = $("#chartCanvas")[0];  
+  //myCtx.height = 450;
+  myChart = CreaChartEdoC( myCtx,  Datos) ;
+    
+};
+
+function GenChartVFP() {
+  document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+  parms =  {
+    "fecini":  myPar1,
+    "fecfin":  myPar2,
+    "tipo"  :  myPar3,
+  }
+  Datos   = TraeDatos("chart/vtasfpago.php", parms);
+
+  if (Opciones.children[0].selected) {  
+    TotalesVFP(Datos) ;
+  }
+
+  InitTable(Datos);
+
+  myCtx   = $("#chartCanvas")[0];  
+  //myCtx.height = 450;
+  if (sel_chart.seltipo == 0) {
+      myChart = CreaChartVFP( "", myCtx,  Datos) ;
+  } else {
+      //myChart = CreaChartVFP_Donut( "", myCtx,  Datos) ;
+      myChart  = createChart(Datos);
+      
+  }
   
+    
+};
+
+function OpNeg_Vendedor (sucursal, parms) {
+  
+  sel_chart.nivel = 1;
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option>";
   Opciones.children[0].selected=true;
@@ -112,11 +151,11 @@ function OpNeg_Vendedor (sucursal, parms) {
   InitTable(Datos);
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
-  myCtx.height = 450;
+  //myCtx.height = 450;
   myChart = CreaChartOpcNeg(sucursal, myCtx,  Datos)
 }
 
-function Neg_DrillDown (evt) {
+function Opc_DrillDown (evt) {
   var activePoint = myChart.getElementAtEvent(evt)[0];
   if (activePoint !== undefined) {
      const chartData = activePoint['_chart'].config.data;
@@ -131,6 +170,7 @@ function Neg_DrillDown (evt) {
       "fecfin":  myPar2,
       "tipo"  :  suc,
     }
+    // drill down en una Sucursal 
     OpNeg_Vendedor(suc, parms);
 
   }
@@ -154,97 +194,25 @@ function TraeDatos (url, parms) {
    return result;
 };
 
+function TraeDatos2 (url) {
+  var result = false;
+	$.ajax({
+            url   : url,
+	          type  : 'POST',
+            async: false,
+            success: function(data) {
+            result = data;
+            },
+            error: function(error) {
+              console.log(error);
+            }
+   })
+   return result;
+};
  
-function CreaChartVtasNetas(myCtx, Data) {
-  //Obtiene un objetos con los valores de las columnas
-  const vals = ObtieneColumnas(Data);
-  //Inicializa los valores de la primera Columna como Labels
-  yAxisLabels = vals[0];
-  //Crea una variable tipo arreglo para cada valor de columna
-  for (i in vals) {
-      var str ="dataSeries"+ i +" = vals[" + i + "]";
-      eval(str);
-  }
 
-  var chartdata = {
-    labels: yAxisLabels,
-    datasets: [
-      {
-        type : 'bar',
-        label: 'PESOS',
-        fill : false,
-        borderColor: '#204a58',
-        backgroundColor:  '#204a58',
-        yAxisID: 'y-axis-1',
-        data: dataSeries1
-      }, //dataset1
-      {
-        type : 'line',
-        label: 'UNIDADES',
-        fill : false,
-        borderWidth:4,
-        borderColor: '#44bcd8',
-        backgroundColor:  '#44bcd8',
-        data: dataSeries2,
-        pointBorderColor: '#EC932F',
-        pointBackgroundColor: '#EC932F',
-        yAxisID: 'y-axis-2'
-      } //dataset2
-    ] //datasets
-  }; //var chartdata
 
- 
-  var myChart = new Chart(myCtx, {
-    type : 'bar',
-    data: chartdata,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      elements: {
-        line: {fill:false}
-      },
-      title: {
-        display: true,
-        text: 'Ventas Netas',
-        fontSize:16,
-        fontFamily: 'system-ui' 
-      },
-      legend:{
-        display: true,
-        position: 'bottom',
-        label:{
-            padding:5,
-            boxwidth:15,
-            fontFamily:'sans-serif',
-            fontColor: 'black',
-            fontSize : 2
-        }
-      },
-      tooltips: {
-        backgroundColor: '#F8AC23',
-        titleFontSize :14,
-        titleFontColor : '#2C3179',
-        bodyFontColor : 'black', 
-        xPadding: 20,
-        yPadding: 10,
-        bodyFontSize:14,
-        bodySpacing: 5,
-        mode: 'label', // point/label
-        callbacks: {
-          label: function(tooltipItem, data) {
-              let label = data.labels[tooltipItem.index];
-              let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-              return formatoMX(value) ;
-          }
-      }
-    },
-     scales: vtas_scales
-    },
-  }) 
 
-  return myChart;
-
-} // Function CreaChartVtasNetas
 
 function ObtieneColumnas(Data){
   // Inicializa Objeto para leer los datos
@@ -267,100 +235,6 @@ function ObtieneColumnas(Data){
   return Object.values(res);
 }
 
-function CreaChartOpcNeg(TxtNivel, myCtx, Data) {
-
-  var dataSeries1 = "";
-  var dataSeries2 = "";
-  var dataSeries3 = "";
-  //Obtiene un objetos con los valores de las columnas
-  const vals = ObtieneColumnas(Data);
-  //Inicializa los valores de la primera Columna como Labels
-  yAxisLabels = vals[0];
-  //Crea una variable tipo arreglo para cada valor de columna
-  if (vals.length > 0 ) { 
-     for (i in vals) {
-         str ="dataSeries"+ i +" = vals[" + i + "]";
-         eval(str);
-     }
-  } 
-
-  var chartdata = {
-    labels: yAxisLabels,    
-    datasets: [
-      {
-        type : 'bar',
-        label: 'OPCIONES',
-        fill : false,
-        borderColor: '#204a58',
-        backgroundColor:  '#204a58',
-        yAxisID: 'y-axis-1',
-        data: dataSeries1
-      }, //dataset1
-      {
-        type : 'bar',
-        label: 'NEGADAS',
-        fill : false,
-        borderColor: '#44bcd8',
-        backgroundColor:  '#44bcd8',
-        yAxisID: 'y-axis-2',
-        data: dataSeries2
-      }, //dataset2
-
-    ] //datasets
-  }; //var chartdata
-
-  const tooltips = {
-    backgroundColor: '#F8AC23',
-    titleFontSize :14,
-    titleFontColor : '#2C3179',
-    bodyFontColor : 'black', 
-    xPadding: 20,
-    yPadding: 10,
-    bodyFontSize:14,
-    bodySpacing: 5,
-    mode: 'label', // point/label
-    callbacks: {
-      label: function(tooltipItem, data) {
-          //let label = data.labels[tooltipItem.index];
-          let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-          return formatoMX(value) ;
-      }
-    }
-  };
-  var TxtChart = "Opciones Negadas " + TxtNivel;
-  var myChart = new Chart(myCtx, {
-    type : 'bar',
-    data: chartdata,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      elements: {
-        line: {fill:false}
-      },
-      title: {
-        display: true,
-        text: TxtChart,
-        fontSize:16,
-        fontFamily: 'system-ui' 
-      },
-      legend:{
-        display: true,
-        position: 'bottom',
-        label:{
-            padding:5,
-            boxwidth:15,
-            fontFamily:'sans-serif',
-            fontColor: 'black',
-            fontSize : 2
-        }
-      },
-      tooltips: tooltips,
-      scales: negadas_scales,
-    },
-  }) 
-  return myChart;
-   
-} // Function CreaChartOpcNegadas
 
 
 function TotalesOpc(Data){
@@ -381,10 +255,39 @@ function TotalesOpc(Data){
   }
   MyNum1.innerText = opcs ;
   MyNum2.innerText = negs  ;
-  myPorc.style.display = "block";
-  myPorc.innerText = dosDecimales(porc) + " %" ;
+  myPorc2.style.display = "block";
+  myPorc2.innerText = dosDecimales(porc) + " %" ;
 }
 
+function TotalesVFP(datos){
+  if (datos && datos.length) {
+    let totCre = datos.reduce((total, item) => total + parseFloat(item.Credito), 0);
+    let totCon = datos.reduce((total, item) => total + parseFloat(item.Contado), 0);
+    var CreDec = totCre.toFixed(2); 
+    var ConDec = totCon.toFixed(2); 
+    let Porc1 = parseFloat(CreDec) / (parseFloat(CreDec) + parseFloat(ConDec)) * 100;
+    let Porc2 =  100 - Porc1.toFixed(2);
+    Porc1 = 100 - Porc2;
+    
+    cred = formatoMX(CreDec);
+    cont = formatoMX(ConDec);
+    porc1 = formatoMX(Porc1);
+    porc2 = formatoMX(Porc2);
+  
+  }
+  else {
+     cred = "0";
+     cont = "0";
+     porc1 = "0";
+     porc2 = "0";
+  }
+  MyNum1.innerText = cred ;
+  MyNum2.innerText = cont  ;
+  myPorc1.style.display = "block";
+  myPorc1.innerText = dosDecimales(porc1) + " %" ;
+  myPorc2.style.display = "block";
+  myPorc2.innerText = dosDecimales(porc2) + " %" ;
+}
 
 function TotalesVta(Data){
   if (Datos && Datos.length) {  
@@ -400,7 +303,8 @@ function TotalesVta(Data){
   }
   MyNum1.innerText = pesos;
   MyNum2.innerText = unidades;
-  myPorc.style.display = "none";
+  myPorc1.style.display = "none";
+  myPorc2.style.display = "none";
 }
 
 function dosDecimales(n) {
@@ -442,7 +346,7 @@ function ChartVta(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option><option>Division</option>";
   Opciones.children[0].selected=true;
-  Inicializa(NChart);
+  Inicializa(NChart, 0, 0);
   
 }
 
@@ -452,7 +356,27 @@ function ChartOpc(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option>"
 
-  Inicializa(NChart);
+  Inicializa(NChart, 0, 0 );
+  
+}
+
+function ChartEdoC(){
+  NChart = 2;
+  
+  Opciones = document.querySelector("#Tipo");
+  Opciones.innerHTML = "<option>Todas</option>"
+
+  Inicializa(NChart, 0, 0);
+  
+}
+
+function ChartVentaFP(){
+  NChart = 3;
+  
+  Opciones = document.querySelector("#Tipo");
+  Opciones.innerHTML = "<option>Sucursal</option><option>F. Pago</option>"
+
+  Inicializa(NChart, 0, 0);
   
 }
 
@@ -461,23 +385,28 @@ function CreaVarsHTML() {
   
   MyNum1   = $("#num1")[0];
   MyNum2   = $("#num2")[0];
-  myPorc   = $("#porc")[0];
+  myPorc1  = $("#porc1")[0];
+  myPorc2  = $("#porc2")[0];
   myTit1   = $("#tit1")[0];
   myTit2   = $("#tit2")[0];
   myCtx    = $("#chartCanvas")[0];
 }
 
-function Inicializa(NChart) {
-  
-  ActualizaParms();
+function Inicializa(NChart, Nivel, OpSel) {
 
+  ActualizaParms();
+  sel_chart.nchart = NChart;
+  sel_chart.nivel = Nivel;
+  sel_chart.seltipo = OpSel;
+  
+  //Limpia valores
   myTit1.innerText = Charts[NChart].Tit1;
   myTit2.innerText = Charts[NChart].Tit2;
-  
+  //Inicializa Totales desplegados
   MyNum1.innerText = "0";
   MyNum2.innerText = "0";
-  myPorc.innerText = "";
-    
+  myPorc1.innerText = "";
+  myPorc2.innerText = "";
   // Genera Chart
   window[Charts[NChart].funcion]();
 }
@@ -520,8 +449,6 @@ function InitTable(data) {
       },
   }).draw();
    
-  //$('#myTable').dataTable();
-
   $('table.display td').hover(function(){
        $(this).css('background-color','#EC932F'); 
   });
@@ -535,8 +462,9 @@ function InitTable(data) {
     $(document).find('tr').removeClass("dtSelected");
     $(miTabla.row(this).selector.rows).addClass("dtSelected");
   
-    if (NChart == 1 && Nivel == 0) { 
-
+    //Drill_Down Chart OpcNeg
+    if (NChart == 1 && sel_chart.nivel == 0) { 
+      
       var suc = this.children[0].innerText;
       parms =  {
         "fecini":  myPar1,
@@ -545,6 +473,9 @@ function InitTable(data) {
       }
       OpNeg_Vendedor(suc, parms);
     }
+
   } );
 
 }
+
+

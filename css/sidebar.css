@@ -8,7 +8,7 @@
 
 
 #accordian {
-	background: #004050;
+	background: #3C444D;
 	font-family: Nunito, arial, verdana;
 	width: 250px;
 	/*margin: 100px auto 0 auto;*/
@@ -25,8 +25,8 @@
 	padding: 0 0px;
 	cursor: pointer;
 	/*fallback for browsers not supporting gradients*/
-	background: #003040; 
-	background: linear-gradient(#003040, #002535);
+	background: #3C444D; 
+	background: linear-gradient(#3C444D, #2d2f31);
 }
 /*heading hover effect*/
 #accordian h3:hover {
@@ -54,7 +54,7 @@
 }
 /*hover effect on links*/
 #accordian ul ul li a:hover {
-	background: #003545;
+	background: #2b3136;
 	border-left: 5px solid lightskyblue;
 }
 /*Lets hide the non active LIs by default*/

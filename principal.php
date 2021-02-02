@@ -201,6 +201,11 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 <script type="text/javascript" src="js/charts/opnegadas.js"></script>
 <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
 <script type="text/javascript" src="js/charts/vtasfpago.js"></script>
+<script type="text/javascript" src="js/datatables/edocartera.js"></script>
+<script type="text/javascript" src="js/datatables/opnegadas.js"></script>
+<script type="text/javascript" src="js/datatables/vtasnetas.js"></script>
+<script type="text/javascript" src="js/datatables/vtasfpago.js"></script>
+
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <!-- Configuracion datetimepicker -->

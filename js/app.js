@@ -72,7 +72,8 @@ function GenChartVtas() {
   }
   Datos   = TraeDatos("chart/vtasnetas.php", Parms);
   TotalesVta(Datos);
-  InitTable(Datos);
+  DTable_vtasnetas(Datos);
+  
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -88,7 +89,7 @@ function GenChartOpcs() {
   }
   Datos   = TraeDatos("chart/opnegadas.php", Parms);
   TotalesOpc(Datos) ;
-  InitTable(Datos);
+  DTable_opnegadas(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -104,7 +105,7 @@ function GenChartEdoC() {
   Parms = [];
   Datos   = TraeDatos2("chart/edocartera.php");
   //TotalesOpc(Datos) ;
-  InitTable(Datos);
+  DTable_edocartera(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -125,7 +126,7 @@ function GenChartVFP() {
     TotalesVFP(Datos) ;
   }
 
-  InitTable(Datos);
+  DTable_vtasfpago(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -148,7 +149,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   Opciones.children[0].selected=true;
   Datos   = TraeDatos("chart/opnegadas.php", parms);
   TotalesOpc(Datos);
-  InitTable(Datos);
+  DTable_opnegadas(Datos);
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -416,66 +417,6 @@ function ActualizaParms() {
   myPar2   = $('#PickerFecFin').val().split("-").reverse().join("-");
   myPar3   = $('#tipo').val().substring(0, 1);
   
-}
-
-
-function InitTable(data) {
-  var columns = [];
-  if (miTabla) {
-    miTabla.destroy();
-    $("#myTable").empty();
-  } 
-  if (data && data.length) {
- 
-    var keys = Object.keys(data[0]);
-    for (var i = 0; i < keys.length; i++) {
-      columns.push( { data : keys[i],  title: keys[i] });
-    }
-  }
-  else {
-    columns.push({data: [], title: ""});
-  }
-  miTabla = $("#myTable").DataTable( {
-      data     : data,
-      columns  : columns,
-      paging   : false,
-      info     : false,
-      searching: false,
-      //ordering : false,
-      bFilter  : false,
-      bDestroy : true,
-      language : {
-        "emptyTable": "No se encuentran datos disponibles"
-      },
-  }).draw();
-   
-  $('table.display td').hover(function(){
-       $(this).css('background-color','#EC932F'); 
-  });
-
-  $('table.display td').mouseout(function(){
-       $(this).css('background-color','#f9f9f9'); 
-  });   
-
-  $('#myTable tbody').on('click', 'tr', function () {
-
-    $(document).find('tr').removeClass("dtSelected");
-    $(miTabla.row(this).selector.rows).addClass("dtSelected");
-  
-    //Drill_Down Chart OpcNeg
-    if (NChart == 1 && sel_chart.nivel == 0) { 
-      
-      var suc = this.children[0].innerText;
-      parms =  {
-        "fecini":  myPar1,
-        "fecfin":  myPar2,
-        "tipo"  :  suc,
-      }
-      OpNeg_Vendedor(suc, parms);
-    }
-
-  } );
-
 }
 
 

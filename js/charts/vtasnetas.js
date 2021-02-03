@@ -82,8 +82,8 @@ function CreaChartVtasNetas(myCtx, Data) {
           fill : false,
           borderWidth:4,
           
-          borderColor: '#414D5F',
-          backgroundColor:  '#414D5F',
+          borderColor: '#0DDCE3',
+          backgroundColor:  '#0DDCE3',
           data: dataSeries2,
           pointBorderColor: '#EC932F',
           pointBackgroundColor: '#EC932F',

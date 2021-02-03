@@ -57,14 +57,14 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
    <div class="d-flex" id="content-wrapper">
 
         <!-- Sidebar -->
-        <div id="sidebar-container" class="bg-primary">
-            <div class="logo">
-                <h4 class="font-weight mb-0">INDICADORES</h4>
+        <div id="sidebar-container"  style="width: 150px;" class="bg-primary">
+        <div class="logo text-center">
+                <h4 class="mb-0"><strong>INDICADORES</strong></h4>
             </div>
-            <div id="accordian" >
+            <div class="" id="accordian" >
               <ul>
-                <?php require_once("config/accordian.php"); ?>
-              </ul>
+                <?php require_once("config/accordian.php"); ?> 
+             </ul>
             </div>        
         </div>
         <!-- Fin sidebar -->
@@ -84,12 +84,77 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
           <option >Sucursal</option>
 						<option >Division</option>
             </select>
+          
+            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
+          <option >Ultimos 7 días</option>
+						<option >Ultimos 15 días</option>
+            <option >Ultimos 30 días</option>
+						<option >Personalizado</option>
+            </select>
+            
+            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
+          <option >Periodo anterior</option>
+						<option >Año anterior</option>
+            <option >Personalizado</option>
+            </select>
 				<!--	<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
 						<option >Sucursal</option>
 						<option >Division</option>
 					</select>-->
 					<!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-					<button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
+          <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
+          <div class="row">
+       
+       <div class="dropdown">
+       &nbsp;&nbsp;&nbsp;<a id="dLabel" role="button" data-toggle="drop down" class="btn btn-primary" data-target="#" href="/page.html">
+                     Dropdown <span class="caret">&nbsp;</span>
+                 </a>
+             <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                   <li><a href="#">Some action</a></li>
+                   <li><a href="#">Some other action</a></li>
+                   <li class="divider"></li>
+                   <li class="dropdown-submenu">
+                     <a tabindex="-1" href="#">Hover me for more options</a>
+                     <ul class="dropdown-menu">
+                       <li><a tabindex="-1" href="#">Second level</a></li>
+                       <li class="dropdown-submenu">
+                         <a href="#">Even More..</a>
+                         <ul class="dropdown-menu">
+                             <li><a href="#">3rd level</a></li>
+                           <li><a href="#">3rd level</a></li>
+                         </ul>
+                       </li>
+                       <li><a href="#">Second level</a></li>
+                       <li><a href="#">Second level</a></li>
+                     </ul>
+                   </li>
+                 </ul>
+                 <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
+                     Dropdown <span class="caret">&nbsp;</span>
+                 </a>
+             <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                   <li><a href="#">Some action</a></li>
+                   <li><a href="#">Some other action</a></li>
+                   <li class="divider"></li>
+                   <li class="dropdown-submenu">
+                     <a tabindex="-1" href="#">Hover me for more options</a>
+                     <ul class="dropdown-menu">
+                       <li><a tabindex="-1" href="#">Second level</a></li>
+                       <li class="dropdown-submenu">
+                         <a href="#">Even More..</a>
+                         <ul class="dropdown-menu">
+                             <li><a href="#">3rd level</a></li>
+                           <li><a href="#">3rd level</a></li>
+                         </ul>
+                       </li>
+                       <li><a href="#">Second level</a></li>
+                       <li><a href="#">Second level</a></li>
+                     </ul>
+                   </li>
+                 </ul>
+                 
+             </div>
+     </div>
 				</form>
               </div>
 			  	    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -106,11 +171,14 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 							        <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
 						        </div>
 					      </li>
-				      </ul>
-			    </div>
+              </ul>
+  
+          </div>
+          
         </nav>
           <!-- Fin Navbar -->
-
+       
+	
         <!-- Page Content -->
         <div id="content" class="bg-grey w-100">
               <section class="bg-mix py-1">

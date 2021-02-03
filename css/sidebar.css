@@ -26,7 +26,7 @@
 	cursor: pointer;
 	/*fallback for browsers not supporting gradients*/
 	background: #3C444D; 
-	background: linear-gradient(#3C444D, #2d2f31);
+	background: linear-gradient(#3C444D, #2b2c2e);
 }
 /*heading hover effect*/
 #accordian h3:hover {

@@ -105,7 +105,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
           <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
           <div class="row">
        
-       <div class="dropdown">
+     <!--  <div class="dropdown">
      
                  &nbsp;&nbsp; <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
                      Sucursal <span class="caret"></span>
@@ -155,7 +155,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                  </ul>
              </div>
              
-     </div>
+     </div>-->
 				</form>
               </div>
 			  	    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">

@@ -57,6 +57,83 @@ const VFP_scales = {
   };
   
 
+function ChartVFP(TituloAdic, myCtx, Data) {
+  var dataSeries1 = "";
+  var dataSeries2 = "";
+  const vals = ObtieneColumnas(Data);
+
+  yAxisLabels = vals[0];
+  //Crea una variable tipo arreglo para cada valor de columna
+  if (vals.length > 0 ) { 
+     for (i in vals) {
+         str ="dataSeries"+ i +" = vals[" + i + "]";
+         eval(str);
+     }
+  } 
+
+  var config = {
+    type: 'bar',
+    data: {
+        labels: yAxisLabels,
+        datasets: [{
+            label: "Credito",  
+            backgroundColor: '#104C60',
+            data: dataSeries1,
+        }, {
+            label: "Contado",
+            backgroundColor: '#03CFFC',
+            data: dataSeries2
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                stacked: true,
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    callback: function(value){return value }
+                }
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        },
+        legend:{
+          display: true,
+          position: 'bottom',
+          label:{
+              padding:5,
+              boxwidth:15,
+              fontFamily:'sans-serif',
+              fontColor: 'white',
+              fontSize : 2
+          }
+        },
+        tooltips: {
+            enabled: true,
+            mode: 'single',
+            callbacks: {
+                label: function(tooltipItems, data) {
+                    //return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.xLabel ;
+                    const type = data.datasets[tooltipItems.datasetIndex].label;
+                    const value = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+                    return type + " : " + value + "%";
+
+                    //let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    
+                }
+            }
+        }
+    }
+  };
+  
+  var myChart = new Chart(myCtx, config);
+
+}
+
+
 
 function CreaChartVFP(TituloAdic, myCtx, Data) {
 
@@ -118,6 +195,7 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
         }
       }
     };
+
     var TxtChart = "Ventas x Forma de Pago " + TituloAdic;
     var myChart = new Chart(myCtx, {
       type : 'bar',
@@ -151,9 +229,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
     }) 
     return myChart;
      
-  } // Function CreaChartVFP
+  } 
   
-
 
 function createChart( suc, data) {
 

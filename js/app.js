@@ -126,12 +126,18 @@ function GenChartVFP() {
     "tipo"  :  myPar3,
   }
   Datos   = TraeDatos("chart/vtasfpago.php", parms);
+  parmsT =  {
+    "fecini":  myPar1,
+    "fecfin":  myPar2,
+    "tipo"  :  "T",
+  }
+  DatosT   = TraeDatos("chart/vtasfpago.php", parmsT);
   // Primer Nivel por Sucursal
   sel_chart.nivel = 0;
   if (Opciones.children[0].selected) {  
-    TotalesVFP(Datos) ;
+    TotalesVFP(DatosT) ;
   }
-
+  
   Datos_vtasfpago   = TraeDatos("datatable/vtasfpago.php", parms);
   DTable_vtasfpago(Datos_vtasfpago);
 
@@ -139,7 +145,9 @@ function GenChartVFP() {
   //myCtx.height = 450;
   if (sel_chart.seltipo == 0) {
       
-      myChart = CreaChartVFP( "", myCtx,  Datos) ;
+      //myChart = CreaChartVFP( "", myCtx,  Datos) ;
+      
+      myChart = ChartVFP( "",myCtx,  Datos) ;
       myCtx.addEventListener("click", function(evento){
         VFP_DrillDown(evento);
       }); 
@@ -462,12 +470,13 @@ function Inicializa(NChart, Nivel, OpSel) {
     }
     else {
         sel_chart.nivel = 0;
-     }
-  } else {
-    sel_chart.nivel = Nivel;
-    //Limpia valores
+    }
     myTit1.innerText = Charts[NChart].Tit1;
     myTit2.innerText = Charts[NChart].Tit2;
+  } else {
+    sel_chart.nivel = Nivel;
+    
+    
     //Inicializa Totales desplegados
     MyNum1.innerText = "0";
     MyNum2.innerText = "0";

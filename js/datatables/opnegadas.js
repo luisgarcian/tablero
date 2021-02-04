@@ -34,24 +34,6 @@ function DTable_opnegadas(data) {
         scrollY:        400,
         scrollX:        true,
         fixedColumns:   true,
-  
-              footerCallback : function ( row, data, start, end, display ) {
-                  var api = this.api();
-                  nb_cols = api.columns().nodes().length;
-                  var j = 2;
-                  while(j < nb_cols){
-                      var pageTotal = api
-                  .column( j, { page: 'current'} )
-                  .data()
-                  .reduce( function (a, b) {
-                      return Number(a) + Number(b);
-                  }, 0 );
-            // Update footer
-            $( api.column( j ).footer() ).html(pageTotal);
-                      j++;
-                  } 
-              },   
-  
         language : {
           "emptyTable": "No se encuentran datos disponibles"
         }

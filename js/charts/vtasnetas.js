@@ -81,8 +81,9 @@ function CreaChartVtasNetas(myCtx, Data) {
           label: 'UNIDADES',
           fill : false,
           borderWidth:4,
-          borderColor: '#44bcd8',
-          backgroundColor:  '#44bcd8',
+          
+          borderColor: '#0DDCE3',
+          backgroundColor:  '#0DDCE3',
           data: dataSeries2,
           pointBorderColor: '#EC932F',
           pointBackgroundColor: '#EC932F',
@@ -114,15 +115,16 @@ function CreaChartVtasNetas(myCtx, Data) {
               padding:5,
               boxwidth:15,
               fontFamily:'sans-serif',
-              fontColor: 'black',
+              fontColor: 'white',
               fontSize : 2
           }
         },
         tooltips: {
-          backgroundColor: '#F8AC23',
+          backgroundColor: '#31302D',
           titleFontSize :14,
-          titleFontColor : '#2C3179',
-          bodyFontColor : 'black', 
+          titleFontColor : '#FFFFFF',
+          bodyFontColor : 'white',
+          opacity: 2,
           xPadding: 20,
           yPadding: 10,
           bodyFontSize:14,

@@ -160,7 +160,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   Opciones.innerHTML = "<option>Sucursal</option>";
   Opciones.children[0].selected=true;
   Datos   = TraeDatos("chart/opnegadas.php", parms);
-  TotalesVFP(Datos);
+  TotalesOpc(Datos);
 
   Datos_opnegadas   = TraeDatos("datatable/opnegadas.php", parms);
   DTable_opnegadas(Datos_opnegadas);
@@ -465,16 +465,18 @@ function Inicializa(NChart, Nivel, OpSel) {
      }
   } else {
     sel_chart.nivel = Nivel;
+    //Limpia valores
+    myTit1.innerText = Charts[NChart].Tit1;
+    myTit2.innerText = Charts[NChart].Tit2;
+    //Inicializa Totales desplegados
+    MyNum1.innerText = "0";
+    MyNum2.innerText = "0";
+    myPorc1.innerText = "";
+    myPorc2.innerText = "";
+  
   }
   
-  //Limpia valores
-  myTit1.innerText = Charts[NChart].Tit1;
-  myTit2.innerText = Charts[NChart].Tit2;
-  //Inicializa Totales desplegados
-  MyNum1.innerText = "0";
-  MyNum2.innerText = "0";
-  myPorc1.innerText = "";
-  myPorc2.innerText = "";
+  
   // Genera Chart
   window[Charts[NChart].funcion]();
 }

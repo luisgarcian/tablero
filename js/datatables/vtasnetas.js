@@ -16,20 +16,7 @@ function DTable_vtasnetas(data) {
     else {
       columns.push({data: [], title: ""});
     }
-  /////////
   
-  // var oTable = $('#myTable').DataTable({
-  //   fnFooterCallback: function(row, data, start, end, display) {
-  //     var api = this.api();
-  //     var footer = $(this).append('<tfoot><tr></tr></tfoot>');
-  //      this.api().columns().every(function () {
-  //        var column = this;
-  //        $(footer).append('<th><input type="text" style="width:100%;"></th>');
-  //      });
-  //   }
-  // });
-  
-  /////////
     
     miTabla = $("#myTable").DataTable( {
         data     : data,
@@ -38,7 +25,7 @@ function DTable_vtasnetas(data) {
         info     : false,
         searching: false,
         autoWidth: true,
-        //ordering : false,
+        ordering : false,
         bFilter  : false,
         bDestroy : true,
         fixedColumns: {
@@ -47,27 +34,6 @@ function DTable_vtasnetas(data) {
         scrollY:        400,
         scrollX:        true,
         fixedColumns:   true,
-  
-              footerCallback : function ( row, data, start, end, display ) {
-                  var api = this.api();
-                  nb_cols = api.columns().nodes().length;
-                  var j = 2;
-                  while(j < nb_cols){
-                      var pageTotal = api
-                  .column( j, { page: 'current'} )
-                  .data()
-                  .reduce( function (a, b) {
-                      return Number(a) + Number(b);
-                  }, 0 );
-            // Update footer
-            $( api.column( j ).footer() ).html(pageTotal);
-                      j++;
-                  } 
-              },   
-  
-  
-  
-  
         language : {
           "emptyTable": "No se encuentran datos disponibles"
         }
@@ -82,24 +48,6 @@ function DTable_vtasnetas(data) {
          $(this).css('background-color','#f9f9f9'); 
     });   
   
-    $('#myTable tbody').on('click', 'tr', function () {
-  
-      $(document).find('tr').removeClass("dtSelected");
-      $(miTabla.row(this).selector.rows).addClass("dtSelected");
-    
-      //Drill_Down Chart OpcNeg
-      if (NChart == 1 && sel_chart.nivel == 0) { 
-        
-        var suc = this.children[0].innerText;
-        parms =  {
-          "fecini":  myPar1,
-          "fecfin":  myPar2,
-          "tipo"  :  suc,
-        }
-        OpNeg_Vendedor(suc, parms);
-      }
-  
-    } );
   
   }
   

@@ -38,7 +38,7 @@ function DTable_vtasfpago(data) {
         info     : false,
         searching: false,
         autoWidth: true,
-        //ordering : false,
+        ordering : false,
         bFilter  : false,
         bDestroy : true,
         fixedColumns: {
@@ -87,8 +87,8 @@ function DTable_vtasfpago(data) {
       $(document).find('tr').removeClass("dtSelected");
       $(miTabla.row(this).selector.rows).addClass("dtSelected");
     
-      //Drill_Down Chart OpcNeg
-      if (NChart == 1 && sel_chart.nivel == 0) { 
+      //Drill_Down Chart VFP por Sucursal
+      if ( sel_chart.nivel == 0 && sel_chart.seltipo == 0 ) { 
         
         var suc = this.children[0].innerText;
         parms =  {
@@ -96,7 +96,9 @@ function DTable_vtasfpago(data) {
           "fecfin":  myPar2,
           "tipo"  :  suc,
         }
-        OpNeg_Vendedor(suc, parms);
+        if (suc != 'TOTAL') {  
+           VFP_Sucursal(suc, parms);
+        }
       }
   
     } );

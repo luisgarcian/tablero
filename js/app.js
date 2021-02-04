@@ -57,7 +57,7 @@ $(function () {
      IndiceOp = $('#tipo')[0].selectedIndex;
      
      Inicializa(NChart, 0, IndiceOp);
-     //window[Charts[NChart].funcion]();
+     
   });
 
 });
@@ -72,8 +72,11 @@ function GenChartVtas() {
   }
   Datos   = TraeDatos("chart/vtasnetas.php", Parms);
   TotalesVta(Datos);
-  DTable_vtasnetas(Datos);
+
+  Datos_vtasnetas   = TraeDatos("datatable/vtasnetas.php", Parms);
+  DTable_vtasnetas(Datos_vtasnetas);
   
+  //DTable_vtasnetas(Datos);
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -89,7 +92,9 @@ function GenChartOpcs() {
   }
   Datos   = TraeDatos("chart/opnegadas.php", Parms);
   TotalesOpc(Datos) ;
-  DTable_opnegadas(Datos);
+
+  Datos_opnegadas   = TraeDatos("datatable/opnegadas.php", Parms);
+  DTable_opnegadas(Datos_opnegadas);
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
@@ -121,23 +126,30 @@ function GenChartVFP() {
     "tipo"  :  myPar3,
   }
   Datos   = TraeDatos("chart/vtasfpago.php", parms);
-
+  // Primer Nivel por Sucursal
+  sel_chart.nivel = 0;
   if (Opciones.children[0].selected) {  
     TotalesVFP(Datos) ;
   }
 
-  DTable_vtasfpago(Datos);
+  Datos_vtasfpago   = TraeDatos("datatable/vtasfpago.php", parms);
+  DTable_vtasfpago(Datos_vtasfpago);
 
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
   if (sel_chart.seltipo == 0) {
+      
       myChart = CreaChartVFP( "", myCtx,  Datos) ;
+      myCtx.addEventListener("click", function(evento){
+        VFP_DrillDown(evento);
+      }); 
+
   } else {
-      //myChart = CreaChartVFP_Donut( "", myCtx,  Datos) ;
-      myChart  = createChart(Datos);
+
+      myChart  = createChart("TODAS LAS SUCURSALES", Datos);
       
   }
-  
+
     
 };
 
@@ -148,12 +160,34 @@ function OpNeg_Vendedor (sucursal, parms) {
   Opciones.innerHTML = "<option>Sucursal</option>";
   Opciones.children[0].selected=true;
   Datos   = TraeDatos("chart/opnegadas.php", parms);
-  TotalesOpc(Datos);
-  DTable_opnegadas(Datos);
+  TotalesVFP(Datos);
+
+  Datos_opnegadas   = TraeDatos("datatable/opnegadas.php", parms);
+  DTable_opnegadas(Datos_opnegadas);
+
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
   myChart = CreaChartOpcNeg(sucursal, myCtx,  Datos)
+}
+
+function VFP_Sucursal (sucursal, parms) {
+  
+  Opciones = document.querySelector("#Tipo");
+  //Opciones.innerHTML = "<option>Sucursal</option>";
+  Opciones.children[1].selected=true;
+  Datos   = TraeDatos("chart/vtasfpago.php", parms);
+  //TotalesOpc(Datos);
+
+  Datos_vtasfpago   = TraeDatos("datatable/vtasfpago.php", parms);
+  DTable_vtasfpago(Datos_vtasfpago);
+  sel_chart.nivel = 1;
+
+  document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+  myCtx   = $("#chartCanvas")[0];  
+  //myCtx.height = 450;
+
+  myChart  = createChart(sucursal, Datos);
 }
 
 function Opc_DrillDown (evt) {
@@ -177,6 +211,23 @@ function Opc_DrillDown (evt) {
   }
 };
 
+function VFP_DrillDown (evt) {
+  var activePoint = myChart.getElementAtEvent(evt)[0];
+  if (activePoint !== undefined) {
+     const chartData = activePoint['_chart'].config.data;
+     var  idx = activePoint._index;
+     var suc = chartData.labels[idx];
+     parms =  {
+      "fecini":  myPar1,
+      "fecfin":  myPar2,
+      "tipo"  :  suc,
+    }
+    // drill down en una Sucursal 
+    VFP_Sucursal(suc, parms);
+
+  }
+};
+
 function TraeDatos (url, parms) {
   var result = false;
 	$.ajax({
@@ -185,8 +236,15 @@ function TraeDatos (url, parms) {
             //async : true,
             data  : parms,
             async: false,
+            beforeSend: function () {
+              $('#loader').removeClass('display-none')
+            },
             success: function(data) {
-            result = data;
+              $('#data-table').removeClass('display-none')
+              result = data;
+            },
+            complete: function () {
+              $('#loader').addClass('display-none')
             },
             error: function(error) {
               console.log(error);
@@ -397,8 +455,17 @@ function Inicializa(NChart, Nivel, OpSel) {
 
   ActualizaParms();
   sel_chart.nchart = NChart;
-  sel_chart.nivel = Nivel;
   sel_chart.seltipo = OpSel;
+  if (NChart == 3 ) {
+    if (OpSel == 1) {  
+        sel_chart.nivel = 1;
+    }
+    else {
+        sel_chart.nivel = 0;
+     }
+  } else {
+    sel_chart.nivel = Nivel;
+  }
   
   //Limpia valores
   myTit1.innerText = Charts[NChart].Tit1;

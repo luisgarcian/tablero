@@ -154,149 +154,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
   } // Function CreaChartVFP
   
 
-  
-function CreaChartVFP_Donut(TituloAdic, myCtx, Data) {
 
-  var dataSeries1 = "";
-  var dataSeries2 = "";
-  
-  //Obtiene un objetos con los valores de las columnas
-  const vals = ObtieneColumnas(Data);
-  //Inicializa los valores de la primera Columna como Labels
-  yAxisLabels = vals[0];
-  //Crea una variable tipo arreglo para cada valor de columna
-  if (vals.length > 0 ) { 
-     for (i in vals) {
-         str ="dataSeries"+ i +" = vals[" + i + "]";
-         eval(str);
-     }
-  } 
-
-// var myChart = new Chart(myCtx, {
-//   type: 'pie',
-//   data: {
-//     labels: yAxisLabels,
-//     datasets: [{
-//       backgroundColor: [
-//         "#2ecc71",
-//         "#3498db",
-//         "#95a5a6",
-//         "#9b59b6",
-//         "#f1c40f",
-//         "#e74c3c",
-//         "#34495e"
-//       ],
-//       data: dataSeries1
-//     }]
-//   },
-//   options:{
-//     animation: {
-//           onComplete: function() {
-//             var chartInstance = this.chart;
-//             var ctx = chartInstance.ctx;
-//             ctx.textAlign = "left";
-//             ctx.font = "9px sans-serif";
-//             ctx.fillStyle = "#000";
-//             Chart.helpers.each(this.data.datasets.forEach(function(dataset, i) {
-//               var meta = chartInstance.controller.getDatasetMeta(i);
-//               Chart.helpers.each(meta.data.forEach(function(bar, index) {
-//                 data = dataset.data[index];
-//                   if (i === 0) {
-//                   ctx.fillText(data, bar._model.x - 25, bar._model.y - 5);
-//                 } else {
-//                   ctx.fillText(data, bar._model.x - 25, bar._model.y - 5);
-//                 }
-//               }), this)
-//             }), this);
-//           }
-//         }
-//     }
-//   })
-
-
-//pie chart
-var config = {
-  type: "pie",
-  data: {
-    datasets: [
-      {
-        data: dataSeries1,
-        backgroundColor: ["#F1912B", "#FFC000", "#989ABE", "#009D78", "#376092"],
-        label: "Dataset 1"
-      }
-    ],
-    labels: yAxisLabels
-  },
-  options: {
-    responsive: true,
-    legend: {
-      position: "top"
-    },
-    title: {
-      display: true,
-      text: "Chart.js Pie Chart"
-    },
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    }
-  }
-};
-
-colors=[];
-for(let i=0;i<this.yAxisLabels.length;i++){
-  this.colors.push('#'+Math.floor(Math.random()*16777215).toString(16));
-}
-var poolColors = function (n) {
-  var pool = [];
-  for(i=0;i<n;i++){
-      pool.push(dynamicColors());
-  }
-  return pool;
-}
-
-var dynamicColors = function() {
-  var r = Math.floor(Math.random() * 255);
-  var g = Math.floor(Math.random() * 255);
-  var b = Math.floor(Math.random() * 255);
-  return "rgb(" + r + "," + g + "," + b + ")";
-}
-
-const myChart = new Chart(myCtx, {
-      type: 'pie',
-      data: {
-        labels: yAxisLabels,
-        datasets: [{
-          label: 'Formas de Pago',
-          data: dataSeries1,
-          backgroundColor: poolColors(80),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: false,
-        display: true
-      }
-    });
-
-//window.myDoughnut = new Chart(myCtx, config);
-
-
-}
-
-
-
-function getRandomColor() {
-  var letters = '0123456789ABCDEF'.split('');
-  var color = '#';
-  for (var i = 0; i < 6; i++ ) {
-      color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
-
-function createChart( data) {
+function createChart( suc, data) {
 
   const cols = ObtieneColumnas(data);
   //Inicializa los valores de la primera Columna como Labels
@@ -326,7 +185,7 @@ function createChart( data) {
 
   /* Create color array */
   var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
-
+  var Title = "FORMAS DE PAGO " + suc;
   /* Create chart */
   const myChart = new Chart(chartElement, {
     type: 'doughnut',
@@ -341,10 +200,30 @@ function createChart( data) {
       ],
     },
     options: {
+      title: {
+        display : true,
+        text: Title,
+      },
       responsive: true,
       legend: {
         display: true,
         position: "left"        
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var dataset = data.datasets[tooltipItem.datasetIndex];
+            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+            var total = meta.total;
+            var currentValue = dataset.data[tooltipItem.index];
+            var percentage = parseFloat((currentValue/total*100).toFixed(1));
+            return formatoMX(currentValue) + ' (' + percentage + '%)';
+
+          },
+          title: function(tooltipItem, data) {
+            return data.labels[tooltipItem[0].index];
+          }
+        }
       },
       hover: {
         onHover: function(e) {

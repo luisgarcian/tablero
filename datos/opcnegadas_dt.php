@@ -12,19 +12,19 @@
 		   $this->conexion->conectar();
 	   }
 	   
-	   function Trae_Datos($fecini, $fecfin, $div) {
+	   function Trae_Datos_dt($fecini, $fecfin, $gpo) {
 		   
 		   $arreglo = array();
-		   $parms=array($fecini,$fecfin, $div);
-		   $sql = "exec usp_TraeVtasNetas '$fecini', '$fecfin', '$div' ";
-		   
+		   $parms=array($fecini,$fecfin, $gpo);
+		   $sql = "exec usp_TraeOpcBodega_dt '$fecini', '$fecfin', '$gpo' ";
+
 		   $stmt = $this->conexion->query($sql);
 
 		   while ( $row = odbc_fetch_array($stmt) ) { 
-				array_push($arreglo, $row);
-     		};
+			   array_push($arreglo, $row);
+		   };
 
-   	       return $arreglo;
+		   return $arreglo;
 		   $this->conexion->cerrar();	   
 	   }    
 	}   

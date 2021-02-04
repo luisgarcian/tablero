@@ -106,8 +106,9 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
           <div class="row">
        
        <div class="dropdown">
-       &nbsp;&nbsp;&nbsp;<a id="dLabel" role="button" data-toggle="drop down" class="btn btn-primary" data-target="#" href="/page.html">
-                     Dropdown <span class="caret">&nbsp;</span>
+     
+                 &nbsp;&nbsp; <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
+                     Sucursal <span class="caret"></span>
                  </a>
              <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                    <li><a href="#">Some action</a></li>
@@ -129,8 +130,8 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                      </ul>
                    </li>
                  </ul>
-                 <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
-                     Dropdown <span class="caret">&nbsp;</span>
+                 &nbsp;&nbsp; <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
+                     Estructura <span class="caret"></span>
                  </a>
              <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                    <li><a href="#">Some action</a></li>
@@ -152,8 +153,8 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                      </ul>
                    </li>
                  </ul>
-                 
              </div>
+             
      </div>
 				</form>
               </div>

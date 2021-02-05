@@ -59,6 +59,20 @@ $(function () {
      Inicializa(NChart, 0, IndiceOp);
      
   });
+  
+  // $('#PickerFecIni').datepicker()
+  //   .on('changeDate', function(e){
+
+  //     periodo = "Periodo del " +   $('#PickerFecIni').val() + " al " +  $('#PickerFecFin').val();
+  //     document.getElementById("periodo").innerHTML = periodo;
+      
+  //  });
+
+  //  $("#PickerFecIni").datepicker({
+  //   onSelect: function() {
+  //     periodo = "Periodo del " +   $('#PickerFecIni').val() + " al " +  $('#PickerFecFin').val();
+  //     document.getElementById("periodo").innerHTML = periodo;
+  //   }});
 
 });
 
@@ -485,7 +499,6 @@ function Inicializa(NChart, Nivel, OpSel) {
   
   }
   
-  
   // Genera Chart
   window[Charts[NChart].funcion]();
 }
@@ -494,6 +507,9 @@ function ActualizaParms() {
   myPar1   = $('#PickerFecIni').val().split("-").reverse().join("-");
   myPar2   = $('#PickerFecFin').val().split("-").reverse().join("-");
   myPar3   = $('#tipo').val().substring(0, 1);
+  
+  periodo = "Periodo del " +   $('#PickerFecIni').val() + " al " +  $('#PickerFecFin').val();
+  document.getElementById("periodo").innerHTML = periodo;
   
 }
 

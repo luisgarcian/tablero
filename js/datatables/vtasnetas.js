@@ -41,7 +41,7 @@ function DTable_vtasnetas(data) {
           { targets: [0],       className: 'dt-body-center'},
           { targets: [1,2,3,4], className: 'dt-body-right' },
           { targets: [2,4],
-            render: $.fn.dataTable.render.number(',', '.', 2)
+            render: $.fn.dataTable.render.number(',', '.', 1, '','%')
           },
           { targets: [1,3],
             render: $.fn.dataTable.render.number(',', '.', 0)
@@ -56,7 +56,7 @@ function DTable_vtasnetas(data) {
               });
           }
           return nRow;
-          },   
+        },   
     }).draw();
   
   

@@ -230,6 +230,9 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                                 <div class="card-header bg-light">
                                     <h6 class="font-weight-bold mb-0"><ion-icon name=""></ion-icon> Datos</h6>
                                 </div>
+                                <div class="card-header bg-light">
+                                    <h6 id = "periodo" class="font-weight-light d-flex justify-content-center text-center mb-0"> Periodo</h6>
+                                </div>
                                 <div class="card-body pt-2">
                                   <table id="myTable" class="display" style="width:100%" >
                                   </table>

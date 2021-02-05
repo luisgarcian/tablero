@@ -92,7 +92,7 @@ function ChartVFP(TituloAdic, myCtx, Data) {
                 stacked: true,
                 ticks: {
                     min: 0,
-                    max: 100,
+                    //max: 100,
                     callback: function(value){return value }
                 }
             }],
@@ -113,13 +113,13 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         },
         tooltips: {
             enabled: true,
-            mode: 'single',
+            mode: 'label',
             callbacks: {
                 label: function(tooltipItems, data) {
                     //return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.xLabel ;
                     const type = data.datasets[tooltipItems.datasetIndex].label;
                     const value = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
-                    return type + " : " + value + "%";
+                    return type + " : " + formatoMX(value) ;
 
                     //let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                     

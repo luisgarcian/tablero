@@ -357,9 +357,9 @@ function TotalesVFP(datos){
 }
 
 function TotalesVta(Data){
-  if (Datos && Datos.length) {  
-    let totPesos = Data.reduce((total, item) => total + parseFloat(item.pesos), 0);
-    let totUnits = Data.reduce((total, item) => total + parseInt(item.unidades), 0);
+  if (Data && Data.length) {  
+    let totPesos = Data.reduce((total, item) => total + parseFloat(item.Importe), 0);
+    let totUnits = Data.reduce((total, item) => total + parseInt(item.Unidades), 0);
 
     pesos = totPesos.toLocaleString("es-MX", { style: 'currency', currency: 'MXN' });
     unidades = formatoMX(totUnits);

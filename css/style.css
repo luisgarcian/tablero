@@ -209,6 +209,9 @@ select:focus{ outline: none;}
   }
 }
 
+#myTable tr.odd{
+background-color: #0DDCE3;
+}
 
 #myTable {
  font-family: 'Noto Sans', sans-serif;

@@ -36,10 +36,30 @@ function DTable_opnegadas(data) {
         fixedColumns:   true,
         language : {
           "emptyTable": "No se encuentran datos disponibles"
-        }
+        },
+        columnDefs: [
+          { targets: [0],        className: 'dt-body-center'},
+          { targets: [1,2,3,4,5],className: 'dt-body-right' },
+          { targets: [2,4,5],
+            render: $.fn.dataTable.render.number(',', '.', 1, '', '%')
+          },
+          { targets: [1,3],
+            render: $.fn.dataTable.render.number(',', '.', 0)
+          }
+        ],
+        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+          /* All cells in first row will be bolded  */
+          if ( iDisplayIndex == 0 ) {
+              $('td', nRow).each(function(){
+                  $(this).addClass('bold');
+              });
+          }
+          return nRow;
+        },
     }).draw();
   
   
+<<<<<<< HEAD
    /* $('table.display td').hover(function(){
          $(this).css('background-color','#EC932F'); 
     });
@@ -47,6 +67,15 @@ function DTable_opnegadas(data) {
     $('table.display td').mouseout(function(){
          $(this).css('background-color','#f9f9f9'); 
     });   */
+=======
+    $('table.display tr').hover(function(){
+      $(this).css('background-color','#c9ced3'); 
+    });
+
+    $('table.display tr').mouseout(function(){
+      $(this).css('background-color','#f9f9f9'); 
+    });   
+>>>>>>> 92f36363cd5c565762b5579d7d7e01a1643a5270
   
     $('#myTable tbody').on('click', 'tr', function () {
   

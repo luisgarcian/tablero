@@ -40,13 +40,13 @@ function DTable_opnegadas(data) {
     }).draw();
   
   
-    $('table.display td').hover(function(){
+   /* $('table.display td').hover(function(){
          $(this).css('background-color','#EC932F'); 
     });
   
     $('table.display td').mouseout(function(){
          $(this).css('background-color','#f9f9f9'); 
-    });   
+    });   */
   
     $('#myTable tbody').on('click', 'tr', function () {
   

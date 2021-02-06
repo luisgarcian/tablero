@@ -16,9 +16,8 @@ function DTable_vtasfpago(data) {
     else {
       columns.push({data: [], title: ""});
     }
-
-    if (columns.length > 3 )  { 
-        miTabla = $("#myTable").DataTable( {
+      
+    miTabla = $("#myTable").DataTable( {
         data     : data,
         columns  : columns,
         paging   : false,
@@ -36,71 +35,10 @@ function DTable_vtasfpago(data) {
         fixedColumns:   true,
         language : {
           "emptyTable": "No se encuentran datos disponibles"
-        },
-        columnDefs: [
-          { targets: [0],           className: 'dt-body-center'},
-          { targets: [1,2,3,4,5], className: 'dt-body-right' },
-          { targets: [3,5],
-            render: $.fn.dataTable.render.number(',', '.', 1,'','%')
-          },
-          { targets: [1,2,4],
-            render: $.fn.dataTable.render.number(',', '.', 0)
-          }
-        ],
-        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-          /* All cells in first row will be bolded  */
-          if ( iDisplayIndex == 0 ) {
-              $('td', nRow).each(function(){
-                  $(this).addClass('bold');
-              });
-          }
-          return nRow;
-        },
-      }).draw();
-    } else {
-      miTabla = $("#myTable").DataTable( {
-        data     : data,
-        columns  : columns,
-        paging   : false,
-        info     : false,
-        searching: false,
-        autoWidth: true,
-        ordering : false,
-        bFilter  : false,
-        bDestroy : true,
-        fixedColumns: {
-          leftColumns: 2
-        },
-        scrollY:        400,
-        scrollX:        true,
-        fixedColumns:   true,
-        language : {
-          "emptyTable": "No se encuentran datos disponibles"
-        },
-        columnDefs: [
-          { targets: [0],           className: 'dt-body-center'},
-          { targets: [1,2], className: 'dt-body-right' },
-          { targets: [2],
-            render: $.fn.dataTable.render.number(',', '.', 1,'','%')
-          },
-          { targets: [1],
-            render: $.fn.dataTable.render.number(',', '.', 0)
-          }
-        ],
-        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-          /* All cells in first row will be bolded  */
-          if ( iDisplayIndex == 0 ) {
-              $('td', nRow).each(function(){
-                  $(this).addClass('bold');
-              });
-          }
-          return nRow;
-        },
-      }).draw();
-
-    }
+        }
+    }).draw();
   
-<<<<<<< HEAD
+  
  /*   $('table.display td').hover(function(){
          $(this).css('background-color','#EC932F'); 
     });
@@ -108,15 +46,6 @@ function DTable_vtasfpago(data) {
     $('table.display td').mouseout(function(){
          $(this).css('background-color','#f9f9f9'); 
     });   */
-=======
-    $('table.display tr').hover(function(){
-      $(this).css('background-color','#c9ced3'); // '#EC932F' naranja
-    });
-
-    $('table.display tr').mouseout(function(){
-      $(this).css('background-color','#f9f9f9'); 
-    });   
->>>>>>> 92f36363cd5c565762b5579d7d7e01a1643a5270
   
     $('#myTable tbody').on('click', 'tr', function () {
   

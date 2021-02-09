@@ -16,7 +16,7 @@
 		   
 		   $arreglo = array();
 		   
-		   $sql = "exec usp_TraeFormaPago3 '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant', '$tipo' ";
+		   $sql = "exec usp_TraeFormaPago '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant', '$tipo' ";
 
 		   $stmt = $this->conexion->query($sql);
 

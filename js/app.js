@@ -22,8 +22,11 @@ var myChart = "";
 var NChart = 0; 
 var myPar1 = "";
 var myPar2 = "";
-var myPar3  = "";
+var myPar3 = "";
+var myPar4 = "";
+var myPar5 = "";
 var miTabla = "";
+var miTabla2 = "";
 var myCtx  = "";
 var sel_chart = {nchart : 0, nivel : 0, seltipo : 0};
 
@@ -41,7 +44,10 @@ $(function () {
   })  
   
   CreaVarsHTML();
-  Inicializa(NChart, 0, 0);
+
+  rango = $('#rango')[0].selectedIndex;
+  periodo = $('#periodo')[0].selectedIndex;
+  ActualizaFechas(rango, periodo);
 
   const btnupd = document.querySelector("#BtnUpdate");
   btnupd.addEventListener("click", function(evento){
@@ -56,33 +62,73 @@ $(function () {
      myPar3   = $('#tipo').val().substring(0, 1);
      IndiceOp = $('#tipo')[0].selectedIndex;
      
-     Inicializa(NChart, 0, IndiceOp);
+     Inicializa(NChart, 0, IndiceOp, '', '');
      
   });
-  
-  // $('#PickerFecIni').datepicker()
-  //   .on('changeDate', function(e){
 
-  //     periodo = "Periodo del " +   $('#PickerFecIni').val() + " al " +  $('#PickerFecFin').val();
-  //     document.getElementById("periodo").innerHTML = periodo;
-      
-  //  });
+  //Actualizar Chart en cambio rango dias
+  $('#rango').on('change', function () {
+    
+    rango = $('#rango')[0].selectedIndex;
+    periodo = $('#periodo')[0].selectedIndex;
 
-  //  $("#PickerFecIni").datepicker({
-  //   onSelect: function() {
-  //     periodo = "Periodo del " +   $('#PickerFecIni').val() + " al " +  $('#PickerFecFin').val();
-  //     document.getElementById("periodo").innerHTML = periodo;
-  //   }});
+    ActualizaFechas(rango, periodo)
+ });
+
+  //Actualizar Chart en cambio periodo
+  $('#periodo').on('change', function () {
+    
+    rango = $('#rango')[0].selectedIndex;
+    periodo = $('#periodo')[0].selectedIndex;
+
+    ActualizaFechas(rango, periodo)
+ });
 
 });
 
+function ActualizaFechas(rango, periodo) {
+  switch(rango) {
+    case 0:
+      dias = "7";
+      break;
+    case 1:
+      dias = "15";
+      break;
+    case 2:
+      dias = "30";
+  }
+  
+  //llama a sp para traerse fechas
+  fechas   = Ajax("config/ajaxfile.php", dias, periodo);
+  var parts1 = fechas[0].fecini.split('-');
+  var parts2 = fechas[0].fecfin.split('-');
+  
+  var fecini = new Date(parts1[0], parts1[1] - 1, parts1[2]); 
+  var fecfin = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
+
+  //Actualiza datepicker
+  $('#PickerFecIni').datetimepicker({
+    value: fecini,
+  })
+  $('#PickerFecFin').datetimepicker({
+    value: fecfin,
+  })
+  var fecini_ant = fechas[0].fecini_ant
+  var fecfin_ant = fechas[0].fecfin_ant
+  document.getElementById('PickerFecIni_ant').value = fecini_ant;
+  document.getElementById('PickerFecFin_ant').value = fecfin_ant;
+  
+  IndiceOp = $('#tipo')[0].selectedIndex;
+  Inicializa(NChart, 0, IndiceOp, fecini_ant ,fecfin_ant);
+
+}
 
 function GenChartVtas() {
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   Parms =  {
     "fecini":  myPar1,
     "fecfin":  myPar2,
-    "div"   :  myPar3,
+    "div"   :  myPar5,
   }
   Datos   = TraeDatos("chart/vtasnetas.php", Parms);
   TotalesVta(Datos);
@@ -102,7 +148,7 @@ function GenChartOpcs() {
   Parms =  {
     "fecini":  myPar1,
     "fecfin":  myPar2,
-    "tipo"  :  myPar3,
+    "tipo"  :  myPar5,
   }
   Datos   = TraeDatos("chart/opnegadas.php", Parms);
   TotalesOpc(Datos) ;
@@ -133,46 +179,62 @@ function GenChartEdoC() {
 };
 
 function GenChartVFP() {
+  // Primer Nivel por Sucursal
+  sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+
+  // datos para el chart
   parms =  {
     "fecini":  myPar1,
     "fecfin":  myPar2,
-    "tipo"  :  myPar3,
+    "fecini_ant":  myPar3,
+    "fecfin_ant":  myPar4,
+    "tipo"  :  myPar5,
   }
   Datos   = TraeDatos("chart/vtasfpago.php", parms);
-  parmsT =  {
-    "fecini":  myPar1,
-    "fecfin":  myPar2,
-    "tipo"  :  "T",
-  }
-  DatosT   = TraeDatos("chart/vtasfpago.php", parmsT);
-  // Primer Nivel por Sucursal
-  sel_chart.nivel = 0;
-  if (Opciones.children[0].selected) {  
-    TotalesVFP(DatosT) ;
-  }
-  
-  Datos_vtasfpago   = TraeDatos("datatable/vtasfpago.php", parms);
-  DTable_vtasfpago(Datos_vtasfpago);
-
   myCtx   = $("#chartCanvas")[0];  
-  //myCtx.height = 450;
   if (sel_chart.seltipo == 0) {
-      
-      //myChart = CreaChartVFP( "", myCtx,  Datos) ;
-      
       myChart = ChartVFP( "",myCtx,  Datos) ;
       myCtx.addEventListener("click", function(evento){
         VFP_DrillDown(evento);
       }); 
-
   } else {
-
       myChart  = createChart("TODAS LAS SUCURSALES", Datos);
-      
   }
 
-    
+  // datos para los totales
+  if (Opciones.children[0].selected) {  
+    parmsT =  {
+      "fecini":  myPar1,
+      "fecfin":  myPar2,
+      "fecini_ant":  myPar3,
+      "fecfin_ant":  myPar4,
+      "tipo"  :  "T",
+    }
+    DatosT   = TraeDatos("chart/vtasfpago.php", parmsT);
+    TotalesVFP(DatosT) ;
+  }
+  
+  // datos para el primer datatable 
+  parms_t1 =  {
+    "fecini":  myPar1,
+    "fecfin":  myPar2,
+    "tipo"  :  myPar5,
+  }
+  Datos_vtasfpago   = TraeDatos("datatable/vtasfpago.php", parms_t1);
+  DTable_vtasfpago(Datos_vtasfpago);
+
+ /*
+  parms_t2 =  {
+    "fecini":  myPar3,
+    "fecfin":  myPar4,
+    "tipo"  :  "S",
+  }
+  Datos_vtasfpago2   = TraeDatos("datatable/vtasfpago.php", parms_t2);
+  DTable2_vtasfpago(Datos_vtasfpago2);
+*/
+
+
 };
 
 function OpNeg_Vendedor (sucursal, parms) {
@@ -250,23 +312,31 @@ function VFP_DrillDown (evt) {
   }
 };
 
+function Ajax(url, rango, periodo) {
+  result = false;
+  $.ajax({
+    url: url,
+    type: 'POST',
+    async : false,
+    data: {"rango"  :rango,
+           "periodo":periodo},
+    success: function(response){
+        result = response;
+    }
+  })
+  return result;  
+};
+
+
 function TraeDatos (url, parms) {
   var result = false;
 	$.ajax({
             url   : url,
 	          type  : 'POST',
-            //async : true,
             data  : parms,
             async: false,
-            beforeSend: function () {
-              $('#loader').removeClass('display-none')
-            },
             success: function(data) {
-              $('#data-table').removeClass('display-none')
               result = data;
-            },
-            complete: function () {
-              $('#loader').addClass('display-none')
             },
             error: function(error) {
               console.log(error);
@@ -427,7 +497,7 @@ function ChartVta(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option><option>Division</option>";
   Opciones.children[0].selected=true;
-  Inicializa(NChart, 0, 0);
+  Inicializa(NChart, 0, 0, '', '' );
   
 }
 
@@ -437,7 +507,7 @@ function ChartOpc(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option>"
 
-  Inicializa(NChart, 0, 0 );
+  Inicializa(NChart, 0, 0, '', '' );
   
 }
 
@@ -447,7 +517,7 @@ function ChartEdoC(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Todas</option>"
 
-  Inicializa(NChart, 0, 0);
+  Inicializa(NChart, 0, 0, '', '');
   
 }
 
@@ -457,7 +527,11 @@ function ChartVentaFP(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option><option>F. Pago</option>"
 
-  Inicializa(NChart, 0, 0);
+  rango = $('#rango')[0].selectedIndex;
+  periodo = $('#periodo')[0].selectedIndex;
+
+  ActualizaFechas(rango, periodo);
+  //Inicializa(NChart, 0, 0, '', '');
   
 }
 
@@ -473,7 +547,7 @@ function CreaVarsHTML() {
   myCtx    = $("#chartCanvas")[0];
 }
 
-function Inicializa(NChart, Nivel, OpSel) {
+function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
 
   ActualizaParms();
   sel_chart.nchart = NChart;
@@ -487,6 +561,7 @@ function Inicializa(NChart, Nivel, OpSel) {
     }
     myTit1.innerText = Charts[NChart].Tit1;
     myTit2.innerText = Charts[NChart].Tit2;
+
   } else {
     sel_chart.nivel = Nivel;
     
@@ -499,18 +574,19 @@ function Inicializa(NChart, Nivel, OpSel) {
   
   }
   
+  
   // Genera Chart
   window[Charts[NChart].funcion]();
 }
 
 function ActualizaParms() {
-  myPar1   = $('#PickerFecIni').val().split("-").reverse().join("-");
-  myPar2   = $('#PickerFecFin').val().split("-").reverse().join("-");
-  myPar3   = $('#tipo').val().substring(0, 1);
+  myPar1 = $('#PickerFecIni').val().split("-").reverse().join("-");
+  myPar2 = $('#PickerFecFin').val().split("-").reverse().join("-");
+  myPar3 = $('#PickerFecIni_ant').val();
+  myPar4 = $('#PickerFecFin_ant').val();
   
-  periodo = "Periodo del " +   $('#PickerFecIni').val() + " al " +  $('#PickerFecFin').val();
-  document.getElementById("periodo").innerHTML = periodo;
-  
+  myPar5 = $('#tipo').val().substring(0, 1);
+
 }
 
 

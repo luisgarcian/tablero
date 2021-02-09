@@ -41,7 +41,7 @@ const VFP_scales = {
    xAxes: [
      {
          display:true,
-         maxBarThickness: 30,
+         maxBarThickness: 28,
          maxBarLength: 2,  
          gridLines: {
            //display:false
@@ -70,29 +70,33 @@ function ChartVFP(TituloAdic, myCtx, Data) {
          eval(str);
      }
   } 
-
+  var txtTitle1 = "Período Actual del " + myPar1 + " al " + myPar2 + "    " + 
+  "Período Anterior del " + myPar3 + " al " + myPar4;
   var config = {
     type: 'bar',
     data: {
         labels: yAxisLabels,
         datasets: [{
-            label: "Credito",  
+            label: "Crédito",  
             backgroundColor: '#104C60',
             data: dataSeries1,
         }, {
             label: "Contado",
             backgroundColor: '#03CFFC',
             data: dataSeries2
-        }]
+        } ]
     },
     options: {
         responsive: true,
         scales: {
             xAxes: [{
+                barPercentage: 0.8,
+                categoryPercentage: .95,
                 stacked: true,
                 ticks: {
                     min: 0,
                     max: 100,
+                    autoSkip : false,
                     callback: function(value){return value }
                 }
             }],
@@ -100,6 +104,13 @@ function ChartVFP(TituloAdic, myCtx, Data) {
                 stacked: true
             }]
         },
+        title: {
+          display: true,
+          text:  [ "Ventas por Forma de Pago ", txtTitle1],
+          fontSize:12,
+          fontFamily: 'sans-serif' 
+        },
+
         legend:{
           display: true,
           position: 'bottom',
@@ -113,15 +124,15 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         },
         tooltips: {
             enabled: true,
-            mode: 'single',
+            mode: 'index',
             callbacks: {
                 label: function(tooltipItems, data) {
-                    //return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.xLabel ;
+                   
                     const type = data.datasets[tooltipItems.datasetIndex].label;
                     const value = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
-                    return type + " : " + value + "%";
-
-                    //let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    valor = "";
+                    if (formatoMX(value)  == ".00") { valor = "0"} else { valor = formatoMX(value)};
+                    return type + " : " + valor;
                     
                 }
             }

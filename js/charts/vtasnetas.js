@@ -15,7 +15,7 @@ const vtas_scales = {
       },
       scaleLabel: {
          display: true,
-         labelString: 'Pesos'
+         labelString: 'Importe'
       }
     }, 
     {
@@ -69,7 +69,7 @@ function CreaChartVtasNetas(myCtx, Data) {
       datasets: [
         {
           type : 'bar',
-          label: 'PESOS',
+          label: 'IMPORTE',
           fill : false,
           borderColor: '#204a58',
           backgroundColor:  '#204a58',

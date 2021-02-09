@@ -22,7 +22,8 @@ $result = $cnn->query($sql);
 // se actualizan las fechas para inicializar el datetimepicker
 $fecini = date("Y-m-d", strtotime($cnn->result('fecini')));
 $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
-
+$fecini_ant = date("Y-m-d", strtotime($cnn->result('fecini_ant')));
+$fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
 ?>
 <?
@@ -77,33 +78,30 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<form class="form-inline position-relative d-inline-block my-2">
-					<input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-          <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
-					<select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
-          <option >Sucursal</option>
-						<option >Division</option>
-            </select>
-          
-            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
-          <option >Ultimos 7 días</option>
-						<option >Ultimos 15 días</option>
-            <option >Ultimos 30 días</option>
-						<option >Personalizado</option>
-            </select>
-            
-            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
-          <option >Periodo anterior</option>
-						<option >Año anterior</option>
-            <option >Personalizado</option>
-            </select>
+				        <form class="form-inline position-relative d-inline-block my-2">
+					        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
+                  <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
+					        <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
+                    <option >Sucursal</option>
+						        <option >Division</option>
+                  </select>
+                  <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="rango">
+                    <option >Ultimos 7 días</option>
+						        <option >Ultimos 15 días</option>
+                    <option >Ultimos 30 días</option>
+                  </select>
+                  <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="periodo">
+                    <option >Año anterior</option>
+						        <option >Mes Anterior</option>
+                    <option >Semana Anterior</option>
+                  </select>
 				<!--	<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
 						<option >Sucursal</option>
 						<option >Division</option>
 					</select>-->
 					<!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-          <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
-          <div class="row">
+                <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
+                <div class="row">
        
      <!--  <div class="dropdown">
      
@@ -157,7 +155,7 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
              
      </div>-->
 				</form>
-              </div>
+        </div>
 			  	    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 					      <li class="nav-item dropdown">
 						      <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -212,15 +210,21 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                           <div class="col-lg-12 my-3">
                               <div class="card rounded-0">
                                   <div class="card-header bg-light">
-                                    <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
+                                     <div class="row" id= "info-chart">
+                                         <div class="col-lg-2 my-3">
+                                            <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
+                                         </div>
+                                         <div class="col-lg-10 my-3">
+                                            <input type="hidden"  id="PickerFecIni_ant">
+                                            <input type="hidden"  id="PickerFecFin_ant">
+                                         </div>      
+                                      </div>
                                   </div>
-                                  <div class="card-body py-0">
-                                     <div class ="chart-container">
+                                  <div class ="chart-container">
                                         <div id="chartReport">
                                            <canvas id="chartCanvas"></canvas>
                                         </div>
                                      </div>
-                                  </div>
                               </div>
                           </div>
                       </div>
@@ -228,10 +232,14 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
                         <div class="col-lg-12 my-3">
                             <div class="card rounded-0">
                                 <div class="card-header bg-light">
-                                    <h6 class="font-weight-bold mb-0"><ion-icon name=""></ion-icon> Datos</h6>
+                                    <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Datos</h6>
                                 </div>
                                 <div class="card-body pt-2">
                                   <table id="myTable" class="display" style="width:100%" >
+                                  </table>
+                                </div>
+                                <div class="card-body pt-2">
+                                  <table id="myTable2" class="display" style="width:100%" >
                                   </table>
                                 </div>
                             </div>

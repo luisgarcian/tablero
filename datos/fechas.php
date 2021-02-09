@@ -12,19 +12,19 @@
 		   $this->conexion->conectar();
 	   }
 	   
-	   function Trae_Datos($fecini, $fecfin, $fecini_ant, $fecfin_ant, $tipo) {
+	   function Trae_Datos($rango, $periodo) {
 		   
 		   $arreglo = array();
 		   
-		   $sql = "exec usp_TraeFormaPago3 '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant', '$tipo' ";
-
+		   $sql = "exec usp_TraeUltimasVtas '$rango', '$periodo' ";
+		                
 		   $stmt = $this->conexion->query($sql);
 
 		   while ( $row = odbc_fetch_array($stmt) ) { 
-			   array_push($arreglo, $row);
-		   };
+				array_push($arreglo, $row);
+     		};
 
-		   return $arreglo;
+   	       return $arreglo;
 		   $this->conexion->cerrar();	   
 	   }    
 	}   

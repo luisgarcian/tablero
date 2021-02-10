@@ -1,5 +1,5 @@
 <?php
-    class Conecta_Datos_sp{
+    class Conecta_Datos{
 	   private $conexion;
 	   private $stmt;
 
@@ -12,14 +12,14 @@
 		   $this->conexion->conectar();
 	   }
 	   
-	   function Trae_Datos_tb($fecini, $fecfin, $tipo) {
+	   function Trae_Datos_dt($fecini, $fecfin, $gpo) {
 		   
 		   $arreglo = array();
 		   
-		   $sql = "exec usp_FP_dt '$fecini', '$fecfin', '$tipo' ";
-		   
+		   $sql = "exec usp_TraeFormaPago_dt '$fecini', '$fecfin', '$gpo' ";
+           
 		   $stmt = $this->conexion->query($sql);
-
+           
 		   while ( $row = odbc_fetch_array($stmt) ) { 
 			   array_push($arreglo, $row);
 		   };

@@ -132,7 +132,7 @@ function GenChartVtas() {
   }
   Datos   = TraeDatos("chart/vtasnetas.php", Parms);
   TotalesVta(Datos);
-
+  
   Datos_vtasnetas   = TraeDatos("datatable/vtasnetas.php", Parms);
   DTable_vtasnetas(Datos_vtasnetas);
   
@@ -183,7 +183,11 @@ function GenChartVFP() {
   sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
 
-  // datos para el chart
+  // primer datatable  -----------------------------
+    TraeDatos_tb(myPar1, myPar2, myPar5);
+  //DTable_vtasfpago( vtasfp_dt );
+
+  // datos para el chart  -----------------------------------------
   parms =  {
     "fecini":  myPar1,
     "fecfin":  myPar2,
@@ -202,7 +206,7 @@ function GenChartVFP() {
       myChart  = createChart("TODAS LAS SUCURSALES", Datos);
   }
 
-  // datos para los totales
+  // datos para los totales  --------------------------------------
   if (Opciones.children[0].selected) {  
     parmsT =  {
       "fecini":  myPar1,
@@ -215,15 +219,7 @@ function GenChartVFP() {
     TotalesVFP(DatosT) ;
   }
   
-  // datos para el primer datatable 
-  parms_t1 =  {
-    "fecini":  myPar1,
-    "fecfin":  myPar2,
-    "tipo"  :  myPar5,
-  }
-  Datos_vtasfpago   = TraeDatos("datatable/vtasfpago.php", parms_t1);
-  DTable_vtasfpago(Datos_vtasfpago);
-
+  
  /*
   parms_t2 =  {
     "fecini":  myPar3,
@@ -343,6 +339,25 @@ function TraeDatos (url, parms) {
             }
    })
    return result;
+};
+
+function TraeDatos_tb (fecini, fecfin, tipo) {
+	$.ajax({
+            url   : 'chart/vtasfpago_dt.php',
+	          type  : 'POST',
+            async: true,
+            data : {
+              "fecini" : fecini,
+              "fecfin" : fecfin,
+              "tipo"   : tipo
+            },
+            success: function(response) {
+              DTable(response);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+   })
 };
 
 function TraeDatos2 (url) {

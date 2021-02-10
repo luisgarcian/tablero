@@ -15,6 +15,9 @@ const vtas_scales = {
       },
       scaleLabel: {
          display: true,
+         titleFontStyle: 'bold',
+         fontStyle: 'bold',
+         fontSize:16,
          labelString: 'Importe'
       }
     }, 
@@ -33,6 +36,9 @@ const vtas_scales = {
       },
       scaleLabel: {
         display: true,
+        titleFontStyle: 'bold',
+          fontStyle: 'bold',
+          fontSize:16,
         labelString: 'Unidades'
      }
     }],
@@ -44,10 +50,12 @@ const vtas_scales = {
         //display:false
       },
       ticks: {
-          fontSize : 10,
+          titleFontStyle: 'bold',
+          fontStyle: 'bold',
+          fontSize : 11,
           autoSkip : false,
-          maxRotation: 45,
-          minRotation:45
+          maxRotation: 90,
+          minRotation:90
       }
     }]
  }
@@ -71,8 +79,8 @@ function CreaChartVtasNetas(myCtx, Data) {
           type : 'bar',
           label: 'IMPORTE',
           fill : false,
-          borderColor: '#204a58',
-          backgroundColor:  '#204a58',
+          borderColor: '#00ACC1',
+          backgroundColor:  '#00ACC1',
           yAxisID: 'y-axis-1',
           data: dataSeries1
         }, //dataset1
@@ -81,9 +89,8 @@ function CreaChartVtasNetas(myCtx, Data) {
           label: 'UNIDADES',
           fill : false,
           borderWidth:4,
-          
-          borderColor: '#0DDCE3',
-          backgroundColor:  '#0DDCE3',
+          borderColor: '#d7df23',
+          backgroundColor:  '#d7df23',
           data: dataSeries2,
           pointBorderColor: '#EC932F',
           pointBackgroundColor: '#EC932F',

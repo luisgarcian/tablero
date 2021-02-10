@@ -47,10 +47,12 @@ const VFP_scales = {
            //display:false
          },
          ticks: {
+          titleFontStyle: 'bold',
+          fontStyle: 'bold',
              fontSize : 10,
              autoSkip : false,
-             maxRotation: 45,
-             minRotation:45
+             maxRotation: 90,
+             minRotation:90
          }
       }
    ] //fin xAxes
@@ -78,11 +80,11 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         labels: yAxisLabels,
         datasets: [{
             label: "Crédito",  
-            backgroundColor: '#104C60',
+            backgroundColor: '#c4c4c4',
             data: dataSeries1,
         }, {
             label: "Contado",
-            backgroundColor: '#03CFFC',
+            backgroundColor: '#d7df23',
             data: dataSeries2
         } ]
     },
@@ -97,6 +99,10 @@ function ChartVFP(TituloAdic, myCtx, Data) {
                     min: 0,
                     max: 100,
                     autoSkip : false,
+                    titleFontStyle: 'bold',
+                    fontStyle: 'bold',
+                    maxRotation: 90,
+                    minRotation:90,
                     callback: function(value){return value }
                 }
             }],
@@ -170,8 +176,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
           type : 'bar',
           label: 'CREDITO',
           fill : false,
-          borderColor: '#204a58',
-          backgroundColor:  '#204a58',
+          borderColor: '#00acc1',
+          backgroundColor:  '#00acc1',
           yAxisID: 'y-axis-1',
           data: dataSeries1
         }, //dataset1
@@ -179,8 +185,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
           type : 'bar',
           label: 'CONTADO',
           fill : false,
-          borderColor: '#44bcd8',
-          backgroundColor:  '#44bcd8',
+          borderColor: '#616161',
+          backgroundColor:  '#616161',
           yAxisID: 'y-axis-2',
           data: dataSeries2
         }, //dataset2

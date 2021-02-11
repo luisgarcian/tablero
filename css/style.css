@@ -208,24 +208,41 @@ select:focus{ outline: none;}
     margin-bottom:10px;
   }
 }
-
+/*
 #myTable tr.odd{
 background-color: #0DDCE3;
 }
-
-#myTable {
+*/
+#myTable #myTable2{
  font-family: 'Noto Sans', sans-serif;
  margin: 0, auto;
- font-size:12px;
+ font-size:11px;
  display: block;
  box-sizing: border-box;
  border-collapse: collapse;
  cursor: pointer;
+ overflow: auto;
 }
 
-.dtSelected {
-  background-color: rgba(8,158,96,0.11);
-}  
+#myTable > tbody td {
+  text-align: center;
+  background: #FFFFFF;
+}
+#myTable > tbody tr.odd td { 
+  background: #d6fcfd;
+}
+#myTable2 > tbody td {
+  text-align: center;
+  background: #FFFFFF;
+}
+#myTable2 > tbody tr.odd td { 
+  background: #d6fcfd;
+}
+
+.hoverRowColor
+{
+  background-color: #838587;
+}
 
 .openbtn {
   cursor:pointer;

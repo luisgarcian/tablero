@@ -66,12 +66,10 @@
            //display:false
          },
          ticks: {
-          titleFontStyle: 'bold',
-          fontStyle: 'bold',
              fontSize : 10,
              autoSkip : false,
-             maxRotation: 90,
-             minRotation:90
+             maxRotation: 45,
+             minRotation:45
          }
       }
    ] //fin xAxes
@@ -101,8 +99,8 @@
           type : 'bar',
           label: 'OPCIONES',
           fill : false,
-          borderColor: '#00ACC1',
-          backgroundColor:  '#00ACC1',
+          borderColor: '#204a58',
+          backgroundColor:  '#204a58',
           yAxisID: 'y-axis-1',
           data: dataSeries1
         }, //dataset1
@@ -110,8 +108,8 @@
           type : 'bar',
           label: 'NEGADAS',
           fill : false,
-          borderColor: '#d7df23',
-          backgroundColor:  '#d7df23',
+          borderColor: '#44bcd8',
+          backgroundColor:  '#44bcd8',
           yAxisID: 'y-axis-2',
           data: dataSeries2
         }, //dataset2

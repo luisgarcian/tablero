@@ -207,27 +207,33 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
               <section>
                   <div class="container">
                       <div class="row">
-                          <div class="col-lg-12 my-3">
+                          <div id= "charts" class="col-lg-12 my-3">
                               <div class="card rounded-0">
                                   <div class="card-header bg-light">
                                      <div class="row" id= "info-chart">
-                                         <div class="col-lg-2 my-3">
-                                            <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
-                                         </div>
-                                         <div class="col-lg-10 my-3">
-                                            <input type="hidden"  id="PickerFecIni_ant">
-                                            <input type="hidden"  id="PickerFecFin_ant">
-                                         </div>      
+                                              <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
+                                              <input type="hidden"  id="PickerFecIni_ant">
+                                              <input type="hidden"  id="PickerFecFin_ant">
                                       </div>
                                   </div>
-                                  <div class ="chart-container">
-                                        <div id="chartReport">
-                                           <canvas id="chartCanvas"></canvas>
-                                        </div>
-                                     </div>
+                                  <div class="card-body bg-light">
+                                      <div class="row">
+                                          <div id="chart1" class ="col-lg-6 my-3">
+                                              <div id="chartReport">
+                                                 <canvas id="chartCanvas"></canvas>
+                                              </div>
+                                          </div>
+                                          <div id="chart2" class = "col-lg-6 my-3">
+                                              <div id="chartReport2">
+                                                  <canvas id="chartCanvas2"></canvas>
+                                              </div>
+                                          </div>
+                                      </div>     
+                                  </div>
                               </div>
                           </div>
                       </div>
+
                       <div class= "row">
                         <div class="col-lg-12 my-3">
                             <div class="card rounded-0">

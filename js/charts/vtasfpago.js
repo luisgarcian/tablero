@@ -47,18 +47,16 @@ const VFP_scales = {
            //display:false
          },
          ticks: {
-          titleFontStyle: 'bold',
-          fontStyle: 'bold',
              fontSize : 10,
              autoSkip : false,
-             maxRotation: 90,
-             minRotation:90
+             maxRotation: 45,
+             minRotation:45
          }
       }
    ] //fin xAxes
   };
   
-
+// Chart Bar Stacked
 function ChartVFP(TituloAdic, myCtx, Data) {
   var dataSeries1 = "";
   var dataSeries2 = "";
@@ -80,12 +78,16 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         labels: yAxisLabels,
         datasets: [{
             label: "Crédito",  
-            backgroundColor: '#c4c4c4',
+            backgroundColor: '#104C60',
             data: dataSeries1,
+            //backgroundColor: ["#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83", "#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63"],
+            backgroundColor: ["#2C3179","#2C3179", "#407ED3", "#407ED3", "#414799", "#414799", "#121FBC", "#121FBC", "#28CEC5", "#28CEC5", "#6B70BC",  "#77F1EB", "#77F1EB" ],
         }, {
             label: "Contado",
             backgroundColor: '#03CFFC',
-            data: dataSeries2
+            data: dataSeries2,
+            //backgroundColor: ["#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63", "#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83"],
+            backgroundColor: ["#EBB40C","#EBB40C", "#DDAF28", "#DDAF28", "#D3AE40", "#D3AE40", "#F2D50B", "#F2D50B", "#DBC630", "#DBC630", "#D1C04A", "#D1C04A", "#CFC26A", "#CFC26A"],
         } ]
     },
     options: {
@@ -98,7 +100,10 @@ function ChartVFP(TituloAdic, myCtx, Data) {
                 ticks: {
                     min: 0,
                     max: 100,
+                    padding : 10,
                     autoSkip : false,
+                    maxRotation: 90,
+                    minRotation:90,
                     callback: function(value){return value }
                 }
             }],
@@ -109,8 +114,8 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         title: {
           display: true,
           text:  [ "Ventas por Forma de Pago ", txtTitle1],
-          fontSize:12,
-          fontFamily: 'sans-serif' 
+          fontSize: 14,
+          //fontFamily: 'sans-serif' 
         },
 
         legend:{
@@ -143,6 +148,7 @@ function ChartVFP(TituloAdic, myCtx, Data) {
   };
   
   var myChart = new Chart(myCtx, config);
+ 
 
 }
 
@@ -172,8 +178,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
           type : 'bar',
           label: 'CREDITO',
           fill : false,
-          borderColor: '#00acc1',
-          backgroundColor:  '#00acc1',
+          borderColor: '#204a58',
+          backgroundColor:  '#204a58',
           yAxisID: 'y-axis-1',
           data: dataSeries1
         }, //dataset1
@@ -181,8 +187,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
           type : 'bar',
           label: 'CONTADO',
           fill : false,
-          borderColor: '#616161',
-          backgroundColor:  '#616161',
+          borderColor: '#44bcd8',
+          backgroundColor:  '#44bcd8',
           yAxisID: 'y-axis-2',
           data: dataSeries2
         }, //dataset2
@@ -244,8 +250,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
      
   } 
   
-
-function createChart( suc, data) {
+// Chart tipo DONA
+function createChart( ctx, suc, data, subtitulo) {
 
   const cols = ObtieneColumnas(data);
   //Inicializa los valores de la primera Columna como Labels
@@ -263,7 +269,7 @@ function createChart( suc, data) {
   };
   
   /* Grab chart element by id */
-  const chartElement = document.getElementById("chartCanvas");
+  //const chartElement = document.getElementById("chartCanvas");
   const dataLength = chartData.data.length;
   const colorScale = d3.interpolateSpectral;  
 
@@ -277,7 +283,7 @@ function createChart( suc, data) {
   var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
   var Title = "FORMAS DE PAGO " + suc;
   /* Create chart */
-  const myChart = new Chart(chartElement, {
+  const myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: chartData.labels,
@@ -290,9 +296,27 @@ function createChart( suc, data) {
       ],
     },
     options: {
+      animation: {
+        onProgress: function(animation) {
+            ctx.textBaseline = 'top';
+            ctx.textAlign = 'center';
+
+            // Set the font size and text position for the 2nd row in the Chart title
+            ctx.font = "bold 14px 'Helvetica Neue', Helvetica, Arial, sans-serif";
+            ctx.fillStyle = "#666";
+            //ctx.fillText(subtitulo, 610, 32);
+
+            // Set the font size and text position for the 3rd row in the Chart title
+            //ctx.font = "bold 12px 'Helvetica Neue', Helvetica, Arial, sans-serif";
+            //ctx.fillStyle = "#666";
+            //ctx.fillText("Local Time | Limit=None", 610, 53);
+        }
+      }, 
       title: {
         display : true,
-        text: Title,
+        position: 'top',
+        text: [  Title, subtitulo ],
+        fontSize: 14,
       },
       responsive: true,
       legend: {

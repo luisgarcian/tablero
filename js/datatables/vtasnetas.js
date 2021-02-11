@@ -59,14 +59,7 @@ function DTable_vtasnetas(data) {
           },   
     }).draw();
   
-  
-   /* $('table.display tr').hover(function(){
-         $(this).css('background-color','#c9ced3'); // '#EC932F' naranja
-    });
-  
-    $('table.display tr').mouseout(function(){
-         $(this).css('background-color','#f9f9f9'); 
-    });   */
+   
    
   }
   

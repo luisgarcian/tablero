@@ -48,9 +48,6 @@ function DTable_edocartera(data) {
     });   
   
     $('#myTable tbody').on('click', 'tr', function () {
-  
-      $(document).find('tr').removeClass("dtSelected");
-      $(miTabla.row(this).selector.rows).addClass("dtSelected");
     
       //Drill_Down Chart OpcNeg
       if (NChart == 1 && sel_chart.nivel == 0) { 

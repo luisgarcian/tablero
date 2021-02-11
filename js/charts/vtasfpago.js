@@ -58,7 +58,7 @@ const VFP_scales = {
    ] //fin xAxes
   };
   
-// Chart Bar Stacked
+
 function ChartVFP(TituloAdic, myCtx, Data) {
   var dataSeries1 = "";
   var dataSeries2 = "";
@@ -82,14 +82,10 @@ function ChartVFP(TituloAdic, myCtx, Data) {
             label: "Crédito",  
             backgroundColor: '#c4c4c4',
             data: dataSeries1,
-            //backgroundColor: ["#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83", "#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63"],
-            backgroundColor: ["#2C3179","#2C3179", "#407ED3", "#407ED3", "#414799", "#414799", "#121FBC", "#121FBC", "#28CEC5", "#28CEC5", "#6B70BC",  "#77F1EB", "#77F1EB" ],
         }, {
             label: "Contado",
             backgroundColor: '#03CFFC',
-            data: dataSeries2,
-            //backgroundColor: ["#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63", "#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83"],
-            backgroundColor: ["#EBB40C","#EBB40C", "#DDAF28", "#DDAF28", "#D3AE40", "#D3AE40", "#F2D50B", "#F2D50B", "#DBC630", "#DBC630", "#D1C04A", "#D1C04A", "#CFC26A", "#CFC26A"],
+            data: dataSeries2
         } ]
     },
     options: {
@@ -102,10 +98,7 @@ function ChartVFP(TituloAdic, myCtx, Data) {
                 ticks: {
                     min: 0,
                     max: 100,
-                    padding : 10,
                     autoSkip : false,
-                    maxRotation: 90,
-                    minRotation:90,
                     callback: function(value){return value }
                 }
             }],
@@ -116,8 +109,8 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         title: {
           display: true,
           text:  [ "Ventas por Forma de Pago ", txtTitle1],
-          fontSize: 14,
-          //fontFamily: 'sans-serif' 
+          fontSize:12,
+          fontFamily: 'sans-serif' 
         },
 
         legend:{
@@ -150,7 +143,6 @@ function ChartVFP(TituloAdic, myCtx, Data) {
   };
   
   var myChart = new Chart(myCtx, config);
- 
 
 }
 
@@ -252,8 +244,8 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
      
   } 
   
-// Chart tipo DONA
-function createChart( ctx, suc, data, subtitulo) {
+
+function createChart( suc, data) {
 
   const cols = ObtieneColumnas(data);
   //Inicializa los valores de la primera Columna como Labels
@@ -271,7 +263,7 @@ function createChart( ctx, suc, data, subtitulo) {
   };
   
   /* Grab chart element by id */
-  //const chartElement = document.getElementById("chartCanvas");
+  const chartElement = document.getElementById("chartCanvas");
   const dataLength = chartData.data.length;
   const colorScale = d3.interpolateSpectral;  
 
@@ -285,7 +277,7 @@ function createChart( ctx, suc, data, subtitulo) {
   var COLORS = interpolateColors(dataLength, colorScale, colorRangeInfo);
   var Title = "FORMAS DE PAGO " + suc;
   /* Create chart */
-  const myChart = new Chart(ctx, {
+  const myChart = new Chart(chartElement, {
     type: 'doughnut',
     data: {
       labels: chartData.labels,
@@ -298,27 +290,9 @@ function createChart( ctx, suc, data, subtitulo) {
       ],
     },
     options: {
-      animation: {
-        onProgress: function(animation) {
-            ctx.textBaseline = 'top';
-            ctx.textAlign = 'center';
-
-            // Set the font size and text position for the 2nd row in the Chart title
-            ctx.font = "bold 14px 'Helvetica Neue', Helvetica, Arial, sans-serif";
-            ctx.fillStyle = "#666";
-            //ctx.fillText(subtitulo, 610, 32);
-
-            // Set the font size and text position for the 3rd row in the Chart title
-            //ctx.font = "bold 12px 'Helvetica Neue', Helvetica, Arial, sans-serif";
-            //ctx.fillStyle = "#666";
-            //ctx.fillText("Local Time | Limit=None", 610, 53);
-        }
-      }, 
       title: {
         display : true,
-        position: 'top',
-        text: [  Title, subtitulo ],
-        fontSize: 14,
+        text: Title,
       },
       responsive: true,
       legend: {

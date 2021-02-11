@@ -15,9 +15,9 @@
 	   function Trae_Datos_dt($fecini, $fecfin, $gpo) {
 		   
 		   $arreglo = array();
-		   $parms=array($fecini,$fecfin, $gpo);
-		   $sql = "exec usp_TraeFormaPago_dt '$fecini', '$fecfin', '$gpo' ";
-
+		   
+		   $sql = "exec usp_FP_dt '$fecini', '$fecfin', '$tipo' ";
+		   
 		   $stmt = $this->conexion->query($sql);
 
 		   while ( $row = odbc_fetch_array($stmt) ) { 

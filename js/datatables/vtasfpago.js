@@ -16,7 +16,8 @@ function DTable_vtasfpago(data) {
     else {
       columns.push({data: [], title: ""});
     }
-      
+  
+    
     miTabla = $("#myTable").DataTable( {
         data     : data,
         columns  : columns,

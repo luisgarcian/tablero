@@ -183,7 +183,11 @@ function GenChartVFP() {
   sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
 
-  // datos para el chart
+  // primer datatable  -----------------------------
+    TraeDatos_tb(myPar1, myPar2, myPar5);
+  //DTable_vtasfpago( vtasfp_dt );
+
+  // datos para el chart  -----------------------------------------
   parms =  {
     "fecini":  myPar1,
     "fecfin":  myPar2,

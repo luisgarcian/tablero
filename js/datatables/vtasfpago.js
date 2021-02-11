@@ -36,32 +36,36 @@ function DTable_vtasfpago(data) {
         fixedColumns:   true,
         language : {
           "emptyTable": "No se encuentran datos disponibles"
-        },
-        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-          /* All cells in first row will be bolded  */
-          if ( iDisplayIndex == 0 ) {
-              $('td', nRow).each(function(){
-                  $(this).addClass('bold');
-              });
-          }
-          return nRow;
-        },   
+        }
     }).draw();
   
   
-   /* $('table.display tr').hover(function(){
-         $(this).css('background-color','#c9ced3'); // '#EC932F' naranja
+ /*   $('table.display td').hover(function(){
+         $(this).css('background-color','#EC932F'); 
     });
   
-    $('table.display tr').mouseout(function(){
+    $('table.display td').mouseout(function(){
          $(this).css('background-color','#f9f9f9'); 
     });   */
-   
-  }
   
-
+    $('#myTable tbody').on('click', 'tr', function () {
   
-  
+      $(document).find('tr').removeClass("dtSelected");
+      $(miTabla.row(this).selector.rows).addClass("dtSelected");
+    
+      //Drill_Down Chart VFP por Sucursal
+      if ( sel_chart.nivel == 0 && sel_chart.seltipo == 0 ) { 
+        
+        var suc = this.children[0].innerText;
+        parms =  {
+          "fecini":  myPar1,
+          "fecfin":  myPar2,
+          "tipo"  :  suc,
+        }
+        if (suc != 'TOTAL') {  
+           VFP_Sucursal(suc, parms);
+        }
+      }
   
     } );
   

@@ -81,34 +81,49 @@ function ChartVFP(TituloAdic, myCtx, Data) {
             backgroundColor: '#104C60',
             data: dataSeries1,
             //backgroundColor: ["#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83", "#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63"],
-            backgroundColor: ["#2C3179","#2C3179", "#407ED3", "#407ED3", "#414799", "#414799", "#121FBC", "#121FBC", "#28CEC5", "#28CEC5", "#6B70BC",  "#77F1EB", "#77F1EB" ],
+            backgroundColor: ["#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072"]
         }, {
             label: "Contado",
-            backgroundColor: '#03CFFC',
+            backgroundColor: ["#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9"],
             data: dataSeries2,
             //backgroundColor: ["#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63", "#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83"],
-            backgroundColor: ["#EBB40C","#EBB40C", "#DDAF28", "#DDAF28", "#D3AE40", "#D3AE40", "#F2D50B", "#F2D50B", "#DBC630", "#DBC630", "#D1C04A", "#D1C04A", "#CFC26A", "#CFC26A"],
         } ]
     },
     options: {
         responsive: true,
+        maintainAspectRatio:true,
         scales: {
             xAxes: [{
-                barPercentage: 0.8,
-                categoryPercentage: .95,
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Sucursales'
+                },
+                barPercentage: 0.5,
+                categoryPercentage: 1,
                 stacked: true,
                 ticks: {
                     min: 0,
                     max: 100,
-                    padding : 10,
+                    padding : 5,
                     autoSkip : false,
                     maxRotation: 90,
                     minRotation:90,
                     callback: function(value){return value }
+                    
                 }
             }],
             yAxes: [{
-                stacked: true
+                display: true,
+                scaleLabel: {
+                    display:true,
+                    labelString: 'Importe'
+                },
+                stacked: true,
+                ticks: {
+                  callback: function(value){return '$' + formatoMX(value) }
+                }
+
             }]
         },
         title: {
@@ -129,16 +144,21 @@ function ChartVFP(TituloAdic, myCtx, Data) {
               fontSize : 2
           }
         },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
         tooltips: {
             enabled: true,
             mode: 'index',
+            intersect: false,
             callbacks: {
                 label: function(tooltipItems, data) {
                    
                     const type = data.datasets[tooltipItems.datasetIndex].label;
                     const value = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
                     valor = "";
-                    if (formatoMX(value)  == ".00") { valor = "0"} else { valor = formatoMX(value)};
+                    if (formatoMX(value)  == ".0000") { valor = "0"} else { valor = formatoMX(Math.round(value))};
                     return type + " : " + valor;
                     
                 }
@@ -247,8 +267,7 @@ function CreaChartVFP(TituloAdic, myCtx, Data) {
       },
     }) 
     return myChart;
-     
-  } 
+} 
   
 // Chart tipo DONA
 function createChart( ctx, suc, data, subtitulo) {

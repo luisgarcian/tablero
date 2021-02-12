@@ -9,6 +9,17 @@ var Charts = [
   },
 ];
 
+function changeType(button) {
+  
+  var btn = document.getElementById("btnChart");
+    if(btn.innerText=="line"){
+       btn.innerText="bar";
+      }
+    else{
+      btn.innerText="line";
+      }
+  
+}
 //Variables Globales
 
 var myTit1 = "";
@@ -203,7 +214,10 @@ function GenChartVFP() {
     "tipo"  :  myPar5,
   }
   Datos   = TraeDatos("chart/vtasfpago.php", parms);
+  
   myCtx   = $("#chartCanvas")[0];  
+  myCtx.width  = window.innerWidth;
+  myCtx.height  = window.innerHeight;
   if (sel_chart.seltipo == 0) {
       myChart = ChartVFP( "",myCtx,  Datos) ;
       myCtx.addEventListener("click", function(evento){

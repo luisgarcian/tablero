@@ -68,8 +68,8 @@
          ticks: {
              fontSize : 10,
              autoSkip : false,
-             maxRotation: 45,
-             minRotation:45
+             maxRotation: 90,
+             minRotation:90
          }
       }
    ] //fin xAxes
@@ -99,8 +99,8 @@
           type : 'bar',
           label: 'OPCIONES',
           fill : false,
-          borderColor: '#204a58',
-          backgroundColor:  '#204a58',
+          borderColor: '#00acc1',
+          backgroundColor:  '#00acc1',
           yAxisID: 'y-axis-1',
           data: dataSeries1
         }, //dataset1
@@ -108,8 +108,8 @@
           type : 'bar',
           label: 'NEGADAS',
           fill : false,
-          borderColor: '#44bcd8',
-          backgroundColor:  '#44bcd8',
+          borderColor: '#d7df23',
+          backgroundColor:  '#d7df23 ',
           yAxisID: 'y-axis-2',
           data: dataSeries2
         }, //dataset2

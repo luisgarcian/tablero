@@ -49,8 +49,8 @@ const VFP_scales = {
          ticks: {
              fontSize : 10,
              autoSkip : false,
-             maxRotation: 45,
-             minRotation:45
+             maxRotation: 90,
+             minRotation:90
          }
       }
    ] //fin xAxes
@@ -70,8 +70,10 @@ function ChartVFP(TituloAdic, myCtx, Data) {
          eval(str);
      }
   } 
-  var txtTitle1 = "Período Actual del " + myPar1 + " al " + myPar2 + "    " + 
-  "Período Anterior del " + myPar3 + " al " + myPar4;
+  var txtTitle1 = " Año Actual              "+ 
+  "                     Año Anterior" ;
+  var txtTitle2 ="   " + myPar1 + " al " + myPar2 + "         "
+  + myPar3 + " al " + myPar4;
   var config = {
     type: 'bar',
     data: {
@@ -128,7 +130,7 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         },
         title: {
           display: true,
-          text:  [ "Ventas por Forma de Pago ", txtTitle1],
+          text:  [ "Ventas por Forma de Pago ", txtTitle1,txtTitle2],
           fontSize: 14,
           //fontFamily: 'sans-serif' 
         },

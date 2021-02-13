@@ -1,3 +1,5 @@
+
+//Tabla de datos para período actual 
 function DTable_vtasfpago(data) {
     var columns = [];
     
@@ -16,7 +18,8 @@ function DTable_vtasfpago(data) {
       miTabla.destroy();
       $("#myTable").empty();
     } 
-
+    
+    // Credito, Contado por Sucursal 
     if (columns.length > 3) { 
 
       miTabla = $("#myTable").DataTable( {
@@ -34,13 +37,13 @@ function DTable_vtasfpago(data) {
           },
           scrollY:        false,
           scrollX:        true,
+          scrollX: "100%",
           fixedColumns:   true,
           language : {
             "emptyTable": "No se encuentran datos disponibles"
           },
           columnDefs: [
-            { targets: [0],           className: 'dt-body-center'},
-            { targets: [1,2,3,4,5], className: 'dt-body-right' },
+            { targets: [0,1,2,3,4,5], className: 'dt-body-right' },
             { targets: [3,5],
               render: $.fn.dataTable.render.number(',', '.', 1,'','%')
             },
@@ -61,7 +64,7 @@ function DTable_vtasfpago(data) {
   
     }
     else {
-      
+      // Formas de Pago Todas las Sucursales o una en específico
       miTabla = $("#myTable").DataTable( {
         data     : data,
         columns  : columns,
@@ -82,8 +85,7 @@ function DTable_vtasfpago(data) {
           "emptyTable": "No se encuentran datos disponibles"
         },
         columnDefs: [
-          { targets: [0],   className: 'dt-body-center'},
-          { targets: [1,2], className: 'dt-body-right' },
+          { targets: [0,1,2], className: 'dt-body-right' },
           { targets: [2],
             render: $.fn.dataTable.render.number(',', '.', 1,'','%')
           },
@@ -102,11 +104,12 @@ function DTable_vtasfpago(data) {
         },   
     }).draw();
 
-    }
+  }
+
+  var table = $('#myTable').DataTable();
+  table.columns.adjust().draw();
   
-
-
-    $('#myTable tbody').on('click', 'tr', function () {
+  $('#myTable tbody').on('click', 'tr', function () {
 
     
       //Drill_Down Chart VFP por Sucursal
@@ -125,10 +128,11 @@ function DTable_vtasfpago(data) {
   }) 
  
 
-
 }
 
-  function DTable_vtasfpago2(data) {
+
+//Tabla de datos para período anterior
+function DTable_vtasfpago2(data) {
     var columns = [];
     
     if (data && data.length) {
@@ -169,8 +173,7 @@ function DTable_vtasfpago(data) {
             "emptyTable": "No se encuentran datos disponibles"
           },
           columnDefs: [
-            { targets: [0],           className: 'dt-body-center'},
-            { targets: [1,2,3,4,5], className: 'dt-body-right' },
+            { targets: [0,1,2,3,4,5], className: 'dt-body-right' },
             { targets: [3,5],
               render: $.fn.dataTable.render.number(',', '.', 1,'','%')
             },
@@ -212,8 +215,7 @@ function DTable_vtasfpago(data) {
           "emptyTable": "No se encuentran datos disponibles"
         },
         columnDefs: [
-          { targets: [0],   className: 'dt-body-center'},
-          { targets: [1,2], className: 'dt-body-right' },
+          { targets: [0,1,2], className: 'dt-body-right' },
           { targets: [2],
             render: $.fn.dataTable.render.number(',', '.', 1,'','%')
           },
@@ -233,6 +235,9 @@ function DTable_vtasfpago(data) {
     }).draw();
 
     }
+
+    var table = $('#myTable2').DataTable();
+    table.columns.adjust().draw();
    
   }
 

@@ -109,8 +109,8 @@ function ChartVFP(TituloAdic, myCtx, Data) {
                     display: true,
                     labelString: 'Sucursales'
                 },
-                barPercentage: 0.5,
-                categoryPercentage: 1,
+                barPercentage: 1,
+                categoryPercentage: 0.8,
                 stacked: true,
                 ticks: {
                     min: 0,

@@ -136,6 +136,12 @@ function ActualizaFechas(rango, periodo) {
   IndiceOp = $('#tipo')[0].selectedIndex;
   Inicializa(NChart, 0, IndiceOp, fecini_ant ,fecfin_ant);
 
+  Titulo1 = LetreroPeriodo(myPar1, myPar2)
+  $('#TituloTabla1').html(Titulo1);
+  
+  Titulo2 = LetreroPeriodo(myPar3, myPar4)
+  $('#TituloTabla2').html(Titulo2);
+  
 }
 
 function GenChartVtas() {
@@ -668,7 +674,19 @@ function ActualizaParms() {
 }
 
 function LetreroPeriodo(fecini, fecfin) {
-  txt = "Período del " + fecini.split("-").reverse().join("-") + " al " + fecfin.split("-").reverse().join("-");
+  fecha1 = fecini.split("-").reverse().join("-") ;
+  fecha2 = fecfin.split("-").reverse().join("-") ;
+
+  txt = "Período del " + getFormattedDate(fecha1) + " al " + getFormattedDate(fecha2);
   return txt;
 }
 
+function getFormattedDate(input) {
+    var str = input.replace(/-/g, '/');
+    var pattern = /(.*?)\/(.*?)\/(.*?)$/;
+    var result = str.replace(pattern,function(match,p1,p2,p3){
+        var months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+        return (p1<10? p1:p1) + "-" + months[(p2-1)] + "-" + p3;
+    });
+    return result;
+}

@@ -38,8 +38,7 @@ function DTable_vtasnetas(data) {
           "emptyTable": "No se encuentran datos disponibles"
         },
         columnDefs: [
-          { targets: [0],       className: 'dt-body-center'},
-          { targets: [1,2,3,4], className: 'dt-body-right' },
+          { targets: [0,1,2,3,4], className: 'dt-body-right' },
           { targets: [2,4],
             render: $.fn.dataTable.render.number(',', '.', 2)
           },

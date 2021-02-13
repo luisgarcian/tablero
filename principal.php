@@ -243,13 +243,19 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 <div class="card-header bg-light">
                                     <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Datos</h6>
                                 </div>
-                                <div class="card-body pt-2">
-                                  <table id="myTable" class="display" style="width:100%" >
-                                  </table>
-                                </div>
-                                <div class="card-body pt-2">
-                                  <table id="myTable2" class="display" style="width:100%" >
-                                  </table>
+                                <div class="datatable-container">
+                                    <div id="divTit1"> 
+                                       <h6 class="text-muted mb-0 ml-4" id ="TituloTabla1">Periodo Actual</h6>
+                                    </div>
+                                    <div class="card-body pt-2">
+                                        <table id="myTable" class="display" style="width:100%" ></table>
+                                    </div>
+                                    <div id = "divTit2"> 
+                                       <h6 class="text-muted bg-light ml-4" id ="TituloTabla2">Periodo Anterior</h6>
+                                    </div>
+                                    <div class="card-body pt-2">
+                                        <table id="myTable2" class="display" style="width:100%" ></table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -280,7 +286,8 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <!-- datatables -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.js"></script>
 <!-- ionocons -->
-<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
 <!-- app-js        -->
 <!-- <script type="text/javascript" src="js/charts.js"  ></script> -->
 <script type="text/javascript" src="js/charts/edocartera.js"></script>

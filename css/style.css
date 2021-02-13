@@ -208,11 +208,9 @@ select:focus{ outline: none;}
     margin-bottom:10px;
   }
 }
-/*
-#myTable tr.odd{
-background-color: #0DDCE3;
-}
-*/
+
+
+
 #myTable #myTable2{
  font-family: 'Noto Sans', sans-serif;
  margin: 0, auto;
@@ -224,20 +222,58 @@ background-color: #0DDCE3;
  overflow: auto;
 }
 
+
 #myTable > tbody td {
-  text-align: center;
+  /*text-align: center;*/
   background: #FFFFFF;
 }
 #myTable > tbody tr.odd td { 
   background: #d6fcfd;
 }
 #myTable2 > tbody td {
-  text-align: center;
+  /*text-align: center;¨*/
   background: #FFFFFF;
 }
 #myTable2 > tbody tr.odd td { 
   background: #d6fcfd;
 }
+
+
+#myTable thead th,
+#myTable tfoot th,
+#myTable2 thead th,
+#myTable2 tfoot th {
+  text-align: right;
+}
+#myTable thead th,
+#myTable thead td, 
+#myTable2 thead th,
+#myTable2 thead td {
+  padding: 10px 18px 10px 5px;
+  border-right: 1px solid #dddddd;
+}
+#myTable tbody th,
+#myTable tbody td,
+#myTable2 tbody th,
+#myTable2 tbody td  {
+  padding: 10px 18px 10px 5px;
+  border-right: 1px solid #dddddd;
+}
+#divTit1,
+#divTit2 {
+  /* position:absolute; */
+  text-align:center;
+  margin: -25px 0 0 -31px; 
+}
+#divTit1,
+#divTit2 h6 {
+  /* margin:auto; */
+  line-height:50px; 
+  vertical-align:middle;
+  margin: 20px 5px 5px 5px
+}
+thead, th {text-align: center;}
+tbody, tr {font-size: 12px;}
 
 .hoverRowColor
 {
@@ -256,10 +292,6 @@ background-color: #0DDCE3;
   padding-block: 10px;
 }
 
-/* .chart-report {
-  width: 600px;
-  heigth:500px
-} */
 
 #chartCanvas {
   width: 100%;
@@ -280,9 +312,11 @@ background-color: #0DDCE3;
 
 }
 
+/*
 #chartReport {
   position: relative;
   margin: auto;
   height: 85vh;
   width: 70vw;
   }
+*/

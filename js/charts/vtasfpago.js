@@ -70,10 +70,18 @@ function ChartVFP(TituloAdic, myCtx, Data) {
          eval(str);
      }
   } 
-  var txtTitle1 = " Año Actual              "+ 
-  "                     Año Anterior" ;
-  var txtTitle2 ="   " + myPar1 + " al " + myPar2 + "         "
-  + myPar3 + " al " + myPar4;
+  if (periodo == 0 ) {
+      myPer = "Año";
+  } else if (periodo == 1){
+      myPer = "Mes";
+  } else if (periodo == 1){
+    myPer = "Semana";
+  }
+
+  var txtTitle1 = "  Período Actual              "+ 
+  "                     " + myPer + " Anterior" ;
+  var txtTitle2 ="   " + myPar1.split("-").reverse().join("-") + " al " + myPar2.split("-").reverse().join("-") + "         "
+  + myPar3.split("-").reverse().join("-") + " al " + myPar4.split("-").reverse().join("-");
   var config = {
     type: 'bar',
     data: {
@@ -93,7 +101,7 @@ function ChartVFP(TituloAdic, myCtx, Data) {
     },
     options: {
         responsive: true,
-        maintainAspectRatio:true,
+        maintainAspectRatio:false,
         scales: {
             xAxes: [{
                 display: true,
@@ -130,7 +138,7 @@ function ChartVFP(TituloAdic, myCtx, Data) {
         },
         title: {
           display: true,
-          text:  [ "Ventas por Forma de Pago ", txtTitle1,txtTitle2],
+          text:  [ "VENTAS POR FORMA DE PAGO", txtTitle1,txtTitle2],
           fontSize: 14,
           //fontFamily: 'sans-serif' 
         },

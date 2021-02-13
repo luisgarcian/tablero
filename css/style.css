@@ -279,3 +279,10 @@ background-color: #0DDCE3;
   font-weight:Light;
 
 }
+
+#chartReport {
+  position: relative;
+  margin: auto;
+  height: 85vh;
+  width: 70vw;
+  }

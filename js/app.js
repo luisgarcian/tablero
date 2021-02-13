@@ -45,6 +45,7 @@ var sel_chart = {nchart : 0, nivel : 0, seltipo : 0};
 $(function () {
 
   $("#chart2").hide();
+  $("#btnChart").hide();
 
   //funcionalidad del menu en el sidebar
   $("#accordian h3").click(function(){

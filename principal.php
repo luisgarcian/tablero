@@ -219,7 +219,9 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="card-body bg-light">
+                                  <!-- HighCharts Charts -->
+                                  <div id="Chart-Container" style="min-width: 100%; height: 400px; margin: 0 auto"></div>
+                                  <div id= "Chart-Canvas" class="card-body bg-light">
                                       <div class="row">
                                           <div id="chart1" class ="col-lg-6 my-3">
                                               <div id="chartReport">
@@ -235,6 +237,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                   </div>
                               </div>
                           </div>
+
                       </div>
 
                       <div class= "row">
@@ -248,13 +251,13 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                        <h6 class="text-muted mb-0 ml-4" id ="TituloTabla1">Periodo Actual</h6>
                                     </div>
                                     <div class="card-body pt-2">
-                                        <table id="myTable" class="display" style="width:100%" ></table>
+                                        <table id="myTable" class="display table-hover" style="width:100%" ></table>
                                     </div>
                                     <div id = "divTit2"> 
                                        <h6 class="text-muted bg-light ml-4" id ="TituloTabla2">Periodo Anterior</h6>
                                     </div>
                                     <div class="card-body pt-2">
-                                        <table id="myTable2" class="display" style="width:100%" ></table>
+                                        <table id="myTable2" class="display table-hover" style="width:100%" ></table>
                                     </div>
                                 </div>
                             </div>
@@ -288,6 +291,9 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <!-- ionocons -->
 <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
+<!-- highcharts -->
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+<!-- <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> -->
 <!-- app-js        -->
 <!-- <script type="text/javascript" src="js/charts.js"  ></script> -->
 <script type="text/javascript" src="js/charts/edocartera.js"></script>
@@ -298,7 +304,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/datatables/opnegadas.js"></script>
 <script type="text/javascript" src="js/datatables/vtasnetas.js"></script>
 <script type="text/javascript" src="js/datatables/vtasfpago.js"></script>
-
+<script type="text/javascript" src="js/highcharts.js"  ></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <!-- Configuracion datetimepicker -->

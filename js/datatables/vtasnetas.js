@@ -5,7 +5,14 @@ function DTable_vtasnetas(data) {
       miTabla.destroy();
       $("#myTable").empty();
     } 
-  
+
+    if (miTabla2) {
+      miTabla2.destroy();
+      $("#myTable2").empty();
+    } 
+
+    $('#TituloTabla2').html("");  
+
     if (data && data.length) {
    
       var keys = Object.keys(data[0]);

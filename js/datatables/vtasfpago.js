@@ -1,6 +1,7 @@
 
 //Tabla de datos para período actual 
 function DTable_vtasfpago(data) {
+
     var columns = [];
     
     if (data && data.length) {

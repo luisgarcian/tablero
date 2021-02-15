@@ -46,6 +46,7 @@ $(function () {
 
   $("#chart2").hide();
   $("#btnChart").hide();
+  $("#Chart-Container").hide();
 
   //funcionalidad del menu en el sidebar
   $("#accordian h3").click(function(){
@@ -57,7 +58,8 @@ $(function () {
 			$(this).next().slideDown();
 		}
   })  
-  
+
+
   CreaVarsHTML();
 
   rango = $('#rango')[0].selectedIndex;
@@ -139,8 +141,14 @@ function ActualizaFechas(rango, periodo) {
   Titulo1 = LetreroPeriodo(myPar1, myPar2)
   $('#TituloTabla1').html(Titulo1);
   
-  Titulo2 = LetreroPeriodo(myPar3, myPar4)
-  $('#TituloTabla2').html(Titulo2);
+  
+  if (miTabla2) {
+    Titulo2 = LetreroPeriodo(myPar3, myPar4)
+    $('#TituloTabla2').html(Titulo2);  
+  } else {
+    $('#TituloTabla2').html("");  
+  }
+  
   
 }
 
@@ -158,10 +166,12 @@ function GenChartVtas() {
   DTable_vtasnetas(Datos_vtasnetas);
   
   //DTable_vtasnetas(Datos);
-
+  divCharts(0);
   myCtx   = $("#chartCanvas")[0];  
   //myCtx.height = 450;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
+
+  
 };
 
 function GenChartOpcs() {
@@ -226,12 +236,20 @@ function GenChartVFP() {
   myCtx.width  = window.innerWidth;
   myCtx.height  = window.innerHeight;
   if (sel_chart.seltipo == 0) {
-      myChart = ChartVFP( "",myCtx,  Datos) ;
+      //myChart = ChartVFP( "",myCtx,  Datos) ;
+
+      divCharts(1);
+      //HighChart
+      Datos_hc   = TraeDatos("chart/vtasfpago_hc.php", parms);
+      HighChart(Datos_hc);
+      
+
       myCtx.addEventListener("click", function(evento){
         //VFP_DrillDown(evento);
       }); 
   } else {
-      ToggleDiv(1);
+      divCharts(0);
+      DividirAreaChartCanvas(1);
       //Formas de Pago Todas las Sucursales
       periodo = LetreroPeriodo(myPar1, myPar2);
       myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", Datos, periodo);
@@ -254,10 +272,20 @@ function GenChartVFP() {
     }
     DatosT   = TraeDatos("chart/vtasfpago.php", parmsT);
     TotalesVFP(DatosT) ;
+
   }
 
-
 };
+
+function divCharts(on) {
+ if (on) {
+  $("#Chart-Container").show();
+  $("#Chart-Canvas").hide();
+ } else {
+  $("#Chart-Container").hide();
+  $("#Chart-Canvas").show();
+ }
+}
 
 function OpNeg_Vendedor (sucursal, parms) {
   
@@ -296,7 +324,7 @@ function VFP_Sucursal (sucursal, parms) {
     return renglon['Forma de Pago']  != 'TOTAL';
   });
   
-  ToggleDiv(1);
+  DividirAreaChartCanvas(1);
   // Formas de Pago una Sucursal
   periodo = LetreroPeriodo(parms.fecini, parms.fecfin);
   myChart  = createChart(myCtx, sucursal, data2, periodo);
@@ -318,7 +346,7 @@ function VFP_Sucursal (sucursal, parms) {
 
 }
 
-function ToggleDiv(activa) {
+function DividirAreaChartCanvas(activa) {
 
   if ( activa) {
       $('#chart1').removeClass('col-lg-12 my-3');
@@ -628,6 +656,7 @@ function CreaVarsHTML() {
   myTit1   = $("#tit1")[0];
   myTit2   = $("#tit2")[0];
   myCtx    = $("#chartCanvas")[0];
+  
 }
 
 function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
@@ -663,7 +692,7 @@ function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
 }
 
 function ActualizaParms() {
-  ToggleDiv(0);
+  DividirAreaChartCanvas(0);
   myPar1 = $('#PickerFecIni').val().split("-").reverse().join("-");
   myPar2 = $('#PickerFecFin').val().split("-").reverse().join("-");
   myPar3 = $('#PickerFecIni_ant').val();

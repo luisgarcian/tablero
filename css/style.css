@@ -275,10 +275,19 @@ select:focus{ outline: none;}
 thead, th {text-align: center;}
 tbody, tr {font-size: 12px;}
 
-.hoverRowColor
-{
-  background-color: #838587;
+.table-hover tbody tr:hover td, 
+.table-hover tbody tr:hover th {
+  background-color: #6E7276;
 }
+
+table#myTable.dataTable tbody tr:hover {
+  background-color: #6E7276;
+}
+
+table#myTable.dataTable tbody tr:hover > .sorting_1 {
+  background-color: #6E7276;
+}
+
 
 .openbtn {
   cursor:pointer;

@@ -133,114 +133,114 @@ function DTable_vtasfpago(data) {
 
 
 //Tabla de datos para período anterior
-function DTable_vtasfpago2(data) {
-    var columns = [];
+// function DTable_vtasfpago2(data) {
+//     var columns = [];
     
-    if (data && data.length) {
+//     if (data && data.length) {
    
-      var keys = Object.keys(data[0]);
-      for (var i = 0; i < keys.length; i++) {
-        columns.push( { data : keys[i],  title: keys[i] });
-      }
-    }
-    else {
-      columns.push({data: [], title: ""});
-    }
+//       var keys = Object.keys(data[0]);
+//       for (var i = 0; i < keys.length; i++) {
+//         columns.push( { data : keys[i],  title: keys[i] });
+//       }
+//     }
+//     else {
+//       columns.push({data: [], title: ""});
+//     }
 
-    if (miTabla2) {
-      miTabla2.destroy();
-      $("#myTable2").empty();
-    } 
+//     if (miTabla2) {
+//       miTabla2.destroy();
+//       $("#myTable2").empty();
+//     } 
 
-    if (columns.length > 3) { 
+//     if (columns.length > 3) { 
 
-      miTabla2 = $("#myTable2").DataTable( {
-          data     : data,
-          columns  : columns,
-          paging   : false,
-          info     : false,
-          searching: false,
-          autoWidth: true,
-          ordering : false,
-          bFilter  : false,
-          bDestroy : true,
-          fixedColumns: {
-            leftColumns: 2
-          },
-          scrollY:        400,
-          scrollX:        true,
-          fixedColumns:   true,
-          language : {
-            "emptyTable": "No se encuentran datos disponibles"
-          },
-          columnDefs: [
-            { targets: [0,1,2,3,4,5], className: 'dt-body-right' },
-            { targets: [3,5],
-              render: $.fn.dataTable.render.number(',', '.', 1,'','%')
-            },
-            { targets: [1,2,4],
-              render: $.fn.dataTable.render.number(',', '.', 0)
-            }
-          ],
-          fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-            /* All cells in first row will be bolded  */
-            if ( iDisplayIndex == 0 ) {
-                $('td', nRow).each(function(){
-                    $(this).addClass('bold');
-                });
-            }
-            return nRow;
-          },   
-      }).draw();
+//       miTabla2 = $("#myTable2").DataTable( {
+//           data     : data,
+//           columns  : columns,
+//           paging   : false,
+//           info     : false,
+//           searching: false,
+//           autoWidth: true,
+//           ordering : false,
+//           bFilter  : false,
+//           bDestroy : true,
+//           fixedColumns: {
+//             leftColumns: 2
+//           },
+//           scrollY:        400,
+//           scrollX:        true,
+//           fixedColumns:   true,
+//           language : {
+//             "emptyTable": "No se encuentran datos disponibles"
+//           },
+//           columnDefs: [
+//             { targets: [0,1,2,3,4,5], className: 'dt-body-right' },
+//             { targets: [3,5],
+//               render: $.fn.dataTable.render.number(',', '.', 1,'','%')
+//             },
+//             { targets: [1,2,4],
+//               render: $.fn.dataTable.render.number(',', '.', 0)
+//             }
+//           ],
+//           fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+//             /* All cells in first row will be bolded  */
+//             if ( iDisplayIndex == 0 ) {
+//                 $('td', nRow).each(function(){
+//                     $(this).addClass('bold');
+//                 });
+//             }
+//             return nRow;
+//           },   
+//       }).draw();
   
-    }
-    else {
+//     }
+//     else {
       
-      miTabla2 = $("#myTable2").DataTable( {
-        data     : data,
-        columns  : columns,
-        paging   : false,
-        info     : false,
-        searching: false,
-        autoWidth: true,
-        ordering : false,
-        bFilter  : false,
-        bDestroy : true,
-        fixedColumns: {
-          leftColumns: 2
-        },
-        scrollY:        400,
-        scrollX:        true,
-        fixedColumns:   true,
-        language : {
-          "emptyTable": "No se encuentran datos disponibles"
-        },
-        columnDefs: [
-          { targets: [0,1,2], className: 'dt-body-right' },
-          { targets: [2],
-            render: $.fn.dataTable.render.number(',', '.', 1,'','%')
-          },
-          { targets: [1],
-            render: $.fn.dataTable.render.number(',', '.', 0)
-          }
-        ],
-        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-          /* All cells in first row will be bolded  */
-          if ( iDisplayIndex == 0 ) {
-              $('td', nRow).each(function(){
-                  $(this).addClass('bold');
-              });
-          }
-          return nRow;
-        }
-    }).draw();
+//       miTabla2 = $("#myTable2").DataTable( {
+//         data     : data,
+//         columns  : columns,
+//         paging   : false,
+//         info     : false,
+//         searching: false,
+//         autoWidth: true,
+//         ordering : false,
+//         bFilter  : false,
+//         bDestroy : true,
+//         fixedColumns: {
+//           leftColumns: 2
+//         },
+//         scrollY:        400,
+//         scrollX:        true,
+//         fixedColumns:   true,
+//         language : {
+//           "emptyTable": "No se encuentran datos disponibles"
+//         },
+//         columnDefs: [
+//           { targets: [0,1,2], className: 'dt-body-right' },
+//           { targets: [2],
+//             render: $.fn.dataTable.render.number(',', '.', 1,'','%')
+//           },
+//           { targets: [1],
+//             render: $.fn.dataTable.render.number(',', '.', 0)
+//           }
+//         ],
+//         fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+//           /* All cells in first row will be bolded  */
+//           if ( iDisplayIndex == 0 ) {
+//               $('td', nRow).each(function(){
+//                   $(this).addClass('bold');
+//               });
+//           }
+//           return nRow;
+//         }
+//     }).draw();
 
-    }
+//     }
 
-    var table = $('#myTable2').DataTable();
-    table.columns.adjust().draw();
+//     var table = $('#myTable2').DataTable();
+//     table.columns.adjust().draw();
    
-  }
+//   }
 
    
    

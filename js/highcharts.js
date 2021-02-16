@@ -57,7 +57,7 @@ function HighChart(data, titulo, subtitulo)
             borderRadius: 10,
             borderWidth: 2,
             headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}</br>',
+            pointFormat: '{series.name}: <b>{point.y}</b></br>',
             positioner: function(labelWidth, labelHeight, point) {
                 var tooltipX = point.plotX + 20;
                 var tooltipY = point.plotY - 30;

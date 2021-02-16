@@ -185,14 +185,21 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                     <div class="card rounded-0">
                         <div class="card-body p-0">
                             <div class="row">
-                                <div class="col-lg-6 col-md-12 d-flex stat my-0">
+                                <div class="col-lg-4 col-md-12 d-flex stat my-0">
+                                    <div class="mx-auto">
+                                        <h6 id = "tit0" class="text-muted">Total</h6>
+                                        <h3 id = "num0" class="font-weight">$0</h3>
+                                        <h6 id = "porc0"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12 d-flex stat my-0">
                                     <div class="mx-auto">
                                         <h6 id = "tit1" class="text-muted">Ventas Netas</h6>
                                         <h3 id = "num1" class="font-weight">$0</h3>
                                         <h6 id = "porc1"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 d-flex stat my-0">
+                                <div class="col-lg-4 col-md-12 d-flex stat my-0">
                                     <div class="mx-auto">
                                         <h6 id = "tit2" class="text-muted">Unidades Totales</h6>
                                         <h3 id = "num2" class="font-weight">0</h3>

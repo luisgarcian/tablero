@@ -12,11 +12,11 @@
 		   $this->conexion->conectar();
 	   }
 	   
-	   function Trae_Datos_tb($fecini, $fecfin, $tipo) {
+	   function Trae_Datos_tb($fecini, $fecfin, $fecini_ant, $fecfin_ant, $tipo) {
 		   
 		   $arreglo = array();
 		   
-		   $sql = "exec usp_FP_dt '$fecini', '$fecfin', '$tipo' ";
+		   $sql = "exec usp_FP_dt '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant','$tipo' ";
 		   $stmt = $this->conexion->query($sql);
            
 		   while ( $row = odbc_fetch_array($stmt) ) { 

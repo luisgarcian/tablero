@@ -21,11 +21,13 @@ function changeType(button) {
   
 }
 //Variables Globales
-
+var myTit0 = "";
 var myTit1 = "";
 var myTit2 = "";
 var myNum1 = "";
+var myNum1 = "";
 var myNum2 = "";
+var myPorc0 = "";
 var myPorc1 = "";
 var myPorc2 = "";
 var myUser = "";
@@ -138,17 +140,17 @@ function ActualizaFechas(rango, periodo) {
   IndiceOp = $('#tipo')[0].selectedIndex;
   Inicializa(NChart, 0, IndiceOp, fecini_ant ,fecfin_ant);
 
-  Titulo1 = LetreroPeriodo(myPar1, myPar2)
+  Titulo1 = LetreroPeriodo(myPar1, myPar2) + "  -  " + LetreroPeriodo(myPar3, myPar4)
   $('#TituloTabla1').html(Titulo1);
   
-  
+  /*
   if (miTabla2) {
     Titulo2 = LetreroPeriodo(myPar3, myPar4)
     $('#TituloTabla2').html(Titulo2);  
   } else {
     $('#TituloTabla2').html("");  
   }
-  
+  */
   
 }
 
@@ -215,12 +217,12 @@ function GenChartVFP() {
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
 
   // primer datatable  -----------------------------
-  vtasfp_dt = TraeDatos_tb(myPar1, myPar2, myPar5);
+  vtasfp_dt = TraeDatos_tb(myPar1, myPar2, myPar3, myPar4, myPar5);
   DTable_vtasfpago( vtasfp_dt );
 
   // segundo datatable  -----------------------------
-  vtasfp_dt = TraeDatos_tb(myPar3, myPar4, myPar5);
-  DTable_vtasfpago2( vtasfp_dt );
+  //vtasfp_dt = TraeDatos_tb(myPar3, myPar4, myPar5);
+  //DTable_vtasfpago2( vtasfp_dt );
 
   // datos para el chart  -----------------------------------------
   parms =  {
@@ -334,7 +336,7 @@ function VFP_Sucursal (sucursal, parms) {
     "tipo"  :  sucursal
   }
   Datos   = TraeDatos("chart/vtasfpago_dona.php", parms);
-  DTable_vtasfpago2( Datos );
+  //DTable_vtasfpago2( Datos );
   
   var data2 =  Datos.filter(function(renglon) {
     return renglon['Forma de Pago']  != 'TOTAL';
@@ -435,7 +437,7 @@ function TraeDatos (url, parms) {
    return result;
 };
 
-function TraeDatos_tb (fecini, fecfin, tipo) {
+function TraeDatos_tb (fecini, fecfin, fecini_ant, fecfin_ant, tipo) {
   var result = false;
 	$.ajax({
             url   : 'chart/vtasfpago_dt.php',
@@ -444,6 +446,8 @@ function TraeDatos_tb (fecini, fecfin, tipo) {
             data : {
               "fecini" : fecini,
               "fecfin" : fecfin,
+              "fecini_ant" : fecini_ant,
+              "fecfin_ant" : fecfin_ant,
               "tipo"   : tipo
             },
             success: function(response) {
@@ -518,45 +522,53 @@ function TotalesOpc(Data){
   MyNum1.innerText = opcs ;
   MyNum2.innerText = negs  ;
   myPorc2.style.display = "block";
-  myPorc2.innerText = dosDecimales(porc) + " %" ;
+  myPorc2.innerText = Decimales(porc,1) + " %" ;
 }
 
 function TotalesVFP(datos){
   if (datos && datos.length) {
     let totCre = datos.reduce((total, item) => total + parseFloat(item.Credito), 0);
     let totCon = datos.reduce((total, item) => total + parseFloat(item.Contado), 0);
-    var CreDec = totCre.toFixed(2); 
-    var ConDec = totCon.toFixed(2); 
-    let Porc1 = parseFloat(CreDec) / (parseFloat(CreDec) + parseFloat(ConDec)) * 100;
-    let Porc2 =  100 - Porc1.toFixed(2);
+    var Total  = parseFloat(totCre) +  parseFloat(totCon)
+    let Porc1  = 100.0 * totCre / (totCre + totCon) ;
+    let Porc2 =  100 - Porc1;
     Porc1 = 100 - Porc2;
     
-    cred = formatoMX(CreDec);
-    cont = formatoMX(ConDec);
-    porc1 = formatoMX(Porc1);
-    porc2 = formatoMX(Porc2);
-  
+    tot  = numberWithCommas(Total.toFixed(0));
+    cred = numberWithCommas(totCre.toFixed(0)); 
+    cont = numberWithCommas(totCon.toFixed(0));
+    porc0 = "100 %";
+    porc1 = Porc1.toFixed(1);
+    porc2 = Porc2.toFixed(1);
   }
   else {
+     tot  = "0";
      cred = "0";
      cont = "0";
-     porc1 = "0";
-     porc2 = "0";
+     porc0 = "0 %"
+     porc1 = "0.0";
+     porc2 = "0.0";
   }
+  myTit0.innerText = "Total";
+  MyNum0.innerText = tot
   MyNum1.innerText = cred ;
   MyNum2.innerText = cont  ;
+
+  myPorc0.style.display = "block";
+  myPorc0.innerText = "100 %" ;
   myPorc1.style.display = "block";
-  myPorc1.innerText = dosDecimales(porc1) + " %" ;
+  myPorc1.innerText = porc1 + " %" ;
   myPorc2.style.display = "block";
-  myPorc2.innerText = dosDecimales(porc2) + " %" ;
+  myPorc2.innerText = porc2 + " %" ;
 }
 
 function TotalesVta(Data){
   if (Data && Data.length) {  
-    let totPesos = Data.reduce((total, item) => total + parseFloat(item.Importe), 0);
+    let totPesos = Data.reduce((total, item) => total + parseInt(item.Importe), 0);
     let totUnits = Data.reduce((total, item) => total + parseInt(item.Unidades), 0);
 
-    pesos = totPesos.toLocaleString("es-MX", { style: 'currency', currency: 'MXN' });
+    //pesos = totPesos.toLocaleString("es-MX", { style: 'currency', currency: 'MXN' });
+    pesos = formatoMX(totPesos);
     unidades = formatoMX(totUnits);
   }
   else {
@@ -569,9 +581,9 @@ function TotalesVta(Data){
   myPorc2.style.display = "none";
 }
 
-function dosDecimales(n) {
+function Decimales(n, decimales) {
   let t=n.toString();
-  let regex=/(\d*.\d{0,2})/;
+  let regex=/(\d*.\d{0, decimales })/;
   return t.match(regex)[0];
 }
 
@@ -642,6 +654,7 @@ function ChartVentaFP(){
   periodo = $('#periodo')[0].selectedIndex;
 
   ActualizaFechas(rango, periodo);
+
   //Inicializa(NChart, 0, 0, '', '');
   
 }
@@ -649,10 +662,13 @@ function ChartVentaFP(){
 function CreaVarsHTML() {
   //Crea variables para manejo JavaScript conectadas a elementos HTML
   
+  MyNum0   = $("#num0")[0];
+  myPorc0  = $("#porc0")[0];
   MyNum1   = $("#num1")[0];
   MyNum2   = $("#num2")[0];
   myPorc1  = $("#porc1")[0];
   myPorc2  = $("#porc2")[0];
+  myTit0   = $("#tit0")[0];
   myTit1   = $("#tit1")[0];
   myTit2   = $("#tit2")[0];
   myCtx    = $("#chartCanvas")[0];
@@ -676,11 +692,16 @@ function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
 
   } else {
     sel_chart.nivel = Nivel;
-    
-    
+    if (NChart == 0) {
+      myTit0.innerText = "";
+      MyNum0.innerText = "";
+    }
+
     //Inicializa Totales desplegados
+    
     MyNum1.innerText = "0";
     MyNum2.innerText = "0";
+    myPorc0.innerText = "";
     myPorc1.innerText = "";
     myPorc2.innerText = "";
   
@@ -718,4 +739,12 @@ function getFormattedDate(input) {
         return (p1<10? p1:p1) + "-" + months[(p2-1)] + "-" + p3;
     });
     return result;
+}
+
+function numberWithCommas(x) {
+  x = x.toString();
+  var pattern = /(-?\d+)(\d{3})/;
+  while (pattern.test(x))
+      x = x.replace(pattern, "$1,$2");
+  return x;
 }

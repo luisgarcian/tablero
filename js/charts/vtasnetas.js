@@ -46,7 +46,8 @@ const vtas_scales = {
         //display:false
       },
       ticks: {
-          fontSize : 10,
+          fontSize : 11,
+          fontStyle: 'bold',
           autoSkip : false,
           maxRotation: 90,
           minRotation:90

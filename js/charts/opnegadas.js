@@ -29,7 +29,7 @@
               show:true,
           },
           ticks: {
-                 callback: function(value, index, values) {
+                 callback: function(value, index, values) { 
                      return  formatoMX(value);
                   }
           },
@@ -66,7 +66,8 @@
            //display:false
          },
          ticks: {
-             fontSize : 10,
+             fontSize : 11,
+             fontStyle: 'bold',
              autoSkip : false,
              maxRotation: 90,
              minRotation:90

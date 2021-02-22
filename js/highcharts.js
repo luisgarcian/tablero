@@ -20,12 +20,7 @@ function HighChart(data, titulo, subtitulo)
     } 
 
     
-    // let numberArray1 = dataSeries1.map(el=>parseInt(el)||0);
-    // let numberArray2 = dataSeries2.map(el=>parseInt(el)||0);
-    // let numberArray3 = dataSeries3.map(el=>parseInt(el)||0);
-    // let numberArray4 = dataSeries4.map(el=>parseInt(el)||0);
-
-    let Subtitulo = "<b>Anterior : </b>" + LetreroPeriodo(myPar3, myPar4) +'<br>' + "<b>Actual     : </b>" +LetreroPeriodo(myPar1, myPar2);
+    let Subtitulo = "<b>Actual : </b>" + LetreroPeriodo(myPar1, myPar2) +'<br>' + "<b>Anterior     : </b>" +LetreroPeriodo(myPar3, myPar4);
     Highcharts.setOptions({
         lang: {
           thousandsSep: ','

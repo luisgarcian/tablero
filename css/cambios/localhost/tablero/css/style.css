@@ -17,7 +17,7 @@ body {
 }
 
 h6 {
-   font-family :Arial, Helvetica, sans-serif !important
+   font-family :Arial, Helvetica, sans-serif !important;
 }
 a:hover {
     text-decoration: none;
@@ -237,7 +237,7 @@ select:focus{ outline: none;}
   background: #d6fcfd;
 }
 #myTable2 > tbody td {
-  /*text-align: center;¨*/
+  /*text-align: center;Â¨*/
   background: #FFFFFF;
 }
 #myTable2 > tbody tr.odd td { 
@@ -268,15 +268,15 @@ select:focus{ outline: none;}
 #divTit1,
 #divTit2 {
   /* position:absolute; */
-  text-align:center;
-  margin: -25px 0 0 -31px; 
+  /* text-align:center; */
+  margin: -25px 0 0 -31px;
 }
-#divTit1 h6 {
+#divTit1,
+#divTit2 h6 {
   /* margin:auto; */
-  line-height:50px; 
+  line-height:50px;
   vertical-align:middle;
   margin: 20px 5px 5px 5px;
-  font-size: 12px;
 }
 thead, th {text-align: center;}
 tbody, tr {font-size: 12px;}
@@ -382,6 +382,4 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
   text-align:center; 
   border-radius: 16px;
 }
-#Titulotabla1¨{
-  font-size: ;
-}
+

@@ -1,0 +1,64 @@
+/*custom font for text*/
+/* @import url(https://fonts.googleapis.com/css?family=Nunito); */
+/*CSS file for fontawesome - an iconfont we will be using. This CSS file imported contains the font-face declaration. More info: https://fortawesome.github.io/Font-Awesome/ */
+/* @import url(http://thecodeplayer.com/uploads/fonts/fontawesome/css/font-awesome.min.css); */
+
+/*Basic reset*/
+* {margin: 0;padding: 0;}
+
+
+#accordian {
+	background: #3C444D;
+	font-family: Nunito, arial, verdana;
+	width: 250px;
+	/*margin: 100px auto 0 auto;*/
+	color: white;
+	/*Some cool shadow and glow effect*/
+	box-shadow: 
+		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
+		0 0 200px 1px rgba(255, 255, 255, 0.5);
+}
+/*heading styles*/
+#accordian h3 {
+	font-size: 12px;
+	line-height: 34px;
+	padding: 0 0px;
+	cursor: pointer;
+	/*fallback for browsers not supporting gradients*/
+	background: #3C444D; 
+	background: linear-gradient(#3C444D, #2b2c2e);
+}
+/*heading hover effect*/
+#accordian h3:hover {
+	text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
+}
+/*iconfont styles*/
+#accordian h3 span {
+	font-size: 16px;
+	margin-right: 10px;
+}
+/*list items*/
+#accordian li {
+	list-style-type: none;
+}
+/*links*/
+#accordian ul ul li a {
+	color: white;
+	text-decoration: none;
+	font-size: 11px;
+	line-height: 27px;
+	display: block;
+	padding: 0 15px;
+	/*transition for smooth hover animation*/
+	transition: all 0.15s;
+}
+/*hover effect on links*/
+#accordian ul ul li a:hover {
+	background: #2b3136;
+	border-left: 5px solid lightskyblue;
+}
+/*Lets hide the non active LIs by default*/
+#accordian ul ul {
+	display: none;
+}
+

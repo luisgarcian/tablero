@@ -209,17 +209,17 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 </div>
                                 <div class="datatable-container">
                                     <div id="divTit1"> 
-                                       <h6 class="text-muted mb-0 ml-4" id ="TituloTabla1">Periodo Actual</h6>
+                                       <h6 class="mb-0 ml-4" id ="TituloTabla1">Periodo Actual</h6>
                                     </div>
                                     <div class="card-body pt-2">
                                         <table id="myTable" class="display table-hover" style="width:100%" ></table>
                                     </div>
-                                    <div id = "divTit2"> 
+                                    <!-- <div id = "divTit2"> 
                                        <h6 class="text-muted bg-light ml-4" id ="TituloTabla2">Periodo Anterior</h6>
                                     </div>
                                     <div class="card-body pt-2">
                                         <table id="myTable2" class="display table-hover" style="width:100%" ></table>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

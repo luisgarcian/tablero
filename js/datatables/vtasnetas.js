@@ -11,8 +11,6 @@ function DTable_vtasnetas(data) {
       $("#myTable2").empty();
     } 
 
-    $('#TituloTabla2').html("");  
-
     if (data && data.length) {
    
       var keys = Object.keys(data[0]);

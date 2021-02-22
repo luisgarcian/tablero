@@ -145,18 +145,9 @@ function ActualizaFechas(rango, periodo) {
   IndiceOp = $('#tipo')[0].selectedIndex;
   Inicializa(NChart, 0, IndiceOp, fecini_ant ,fecfin_ant);
 
-  Titulo1 = LetreroPeriodo(myPar1, myPar2) + "  -  " + LetreroPeriodo(myPar3, myPar4)
+  Titulo1 = "<b>Actual: </b>" + LetreroPeriodo(myPar1, myPar2) + "   " + "<b>Anterior: </b>" + LetreroPeriodo(myPar3, myPar4)
   $('#TituloTabla1').html(Titulo1);
-  
-  /*
-  if (miTabla2) {
-    Titulo2 = LetreroPeriodo(myPar3, myPar4)
-    $('#TituloTabla2').html(Titulo2);  
-  } else {
-    $('#TituloTabla2').html("");  
-  }
-  */
-  
+    
 }
 
 function GenChartVtas() {
@@ -323,8 +314,12 @@ function GenChartVFP() {
       let Credito = parseFloat(vtasfp_tot[0].Credito);
       let Contado = parseFloat(vtasfp_tot[0].Contado);
       let PorcTot = 100;
-      let PorcCre = 100 * Credito / Total ;
-      let PorcCon = 100 * Contado / Total ;
+      let PorcCre = 0;
+      let PorcCon = 0;
+      if (Total) { 
+        PorcCre = 100 * Credito / Total ;
+        PorcCon = 100 * Contado / Total ;
+      }
       ActualizaTotales('Total', 'Credito', 'Contado', Total, Credito, Contado, PorcTot, PorcCre, PorcCon );
   
       divCharts(1);
@@ -916,7 +911,7 @@ function LetreroPeriodo(fecini, fecfin) {
   fecha1 = fecini.split("-").reverse().join("-") ;
   fecha2 = fecfin.split("-").reverse().join("-") ;
 
-  txt = "Período del " + getFormattedDate(fecha1) + " al " + getFormattedDate(fecha2);
+  txt = "Del " + getFormattedDate(fecha1) + " al " + getFormattedDate(fecha2);
   return txt;
 }
 
@@ -1019,9 +1014,9 @@ function ActualizaTotales(Tit1, Tit2, Tit3, Tot1, Tot2, Tot3, Porc1, Porc2, Porc
   myTit1.innerText = Tit2;
   myTit2.innerText = Tit3;
 
-  myNum0.innerText = numberWithCommas(Tot1.toFixed(0));
-  myNum1.innerText = numberWithCommas(Tot2.toFixed(0));
-  myNum2.innerText = numberWithCommas(Tot3.toFixed(0));
+  myNum0.innerText = "$" + numberWithCommas(Tot1.toFixed(0));
+  myNum1.innerText = "$"+ numberWithCommas(Tot2.toFixed(0));
+  myNum2.innerText = "$" + numberWithCommas(Tot3.toFixed(0));
 
   
   myPorc0.style.display = "block";

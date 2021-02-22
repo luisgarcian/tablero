@@ -171,15 +171,14 @@ a:hover {
    overflow: hidden;
 }
 
-
 #PickerFecIni, #PickerFecFin {
- width: 100px; 
+ width: 80px; 
  font-size: 14px;
 }
 
 #BtnUpdate {
-  margin-left: auto !important;
-  width: 80px; 
+  margin-left: 10px !important;
+  width: 60px; 
   border: 1px solid #777;
   padding : 0;
   font: 1em/2em Arial, Helvetica;
@@ -191,6 +190,13 @@ a:hover {
   background-color: #ddd;
   background-image: -webkit-linear-gradient(top, #eee, #ccc);
   border-radius: .2em;
+/*
+  font-size:16px;
+  line-height: 38px;
+  letter-spacing: -0.044em;
+  font-weight: 200;
+  font-style: normal;
+*/
 }
 select:focus{ outline: none;}
 
@@ -329,3 +335,25 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
   width: 70vw;
   }
 */
+
+.form-control {
+  
+  vertical-align:baseline !important;
+  padding: 0  !important;
+  font-size: 1.2rem !important;
+  margin-bottom:0px  !important;
+}
+
+#firstDropDownTree {
+  font-size: 0.9rem;
+  line-height: 1.2;
+  letter-spacing: 0.052em;
+  font-weight: 300;
+  font-style: normal;
+}
+
+#firstDropDownTree  {
+  display:inline-flex
+  
+}
+

@@ -49,6 +49,11 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- DataTables  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <!-- DropDownTree  -->
+    <link rel="stylesheet" type="text/css" href="css/dropdowntree.css">
+    <!-- Jstree  -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
@@ -72,134 +77,83 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
         <div class="w-100">
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-			    <div class="container">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				        <form class="form-inline position-relative d-inline-block my-2">
-					        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-                  <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
-					        <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
-                    <option >Sucursal</option>
-						        <option >Division</option>
-                  </select>
-                  <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="rango">
-                    <option >Ultimos 7 días</option>
-						        <option >Ultimos 15 días</option>
-                    <option >Ultimos 30 días</option>
-                  </select>
-                  <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="periodo">
-                    <option >Año anterior</option>
-						        <option >Mes Anterior</option>
-                    <option >Semana Anterior</option>
-                  </select>
-				<!--	<select class="selectpicker" id="tipo"  class="btn btn-primary mb-2">
-						<option >Sucursal</option>
-						<option >Division</option>
-					</select>-->
-					<!-- <button type="button" class="btn btn-primary mb-3" Id="BtnUpdate">Actualizar</button> -->
-                <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
-                <div class="row">
-       
-     <!--  <div class="dropdown">
-     
-                 &nbsp;&nbsp; <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
-                     Sucursal <span class="caret"></span>
-                 </a>
-             <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                   <li><a href="#">Some action</a></li>
-                   <li><a href="#">Some other action</a></li>
-                   <li class="divider"></li>
-                   <li class="dropdown-submenu">
-                     <a tabindex="-1" href="#">Hover me for more options</a>
-                     <ul class="dropdown-menu">
-                       <li><a tabindex="-1" href="#">Second level</a></li>
-                       <li class="dropdown-submenu">
-                         <a href="#">Even More..</a>
-                         <ul class="dropdown-menu">
-                             <li><a href="#">3rd level</a></li>
-                           <li><a href="#">3rd level</a></li>
-                         </ul>
-                       </li>
-                       <li><a href="#">Second level</a></li>
-                       <li><a href="#">Second level</a></li>
-                     </ul>
-                   </li>
-                 </ul>
-                 &nbsp;&nbsp; <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
-                     Estructura <span class="caret"></span>
-                 </a>
-             <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                   <li><a href="#">Some action</a></li>
-                   <li><a href="#">Some other action</a></li>
-                   <li class="divider"></li>
-                   <li class="dropdown-submenu">
-                     <a tabindex="-1" href="#">Hover me for more options</a>
-                     <ul class="dropdown-menu">
-                       <li><a tabindex="-1" href="#">Second level</a></li>
-                       <li class="dropdown-submenu">
-                         <a href="#">Even More..</a>
-                         <ul class="dropdown-menu">
-                             <li><a href="#">3rd level</a></li>
-                           <li><a href="#">3rd level</a></li>
-                         </ul>
-                       </li>
-                       <li><a href="#">Second level</a></li>
-                       <li><a href="#">Second level</a></li>
-                     </ul>
-                   </li>
-                 </ul>
-             </div>
-             
-     </div>-->
-				</form>
-        </div>
-			  	    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-					      <li class="nav-item dropdown">
-						      <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+		    <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0 px-3">
+				    <li class="nav-item dropdown">
+
+					    <div class="dropdown dropdown-tree" id="firstDropDownTree">  </div> 
+
+					</li>
+                </ul>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
+
+
+					    <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
+				        <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
+                            <option >Sucursal</option>
+				            <option >Division</option>
+                        </select>
+                        <select type="text" class="form-control" class="selectpicker" id="rango">
+                            <option >Ultimos 7 días</option>
+					        <option >Ultimos 15 días</option>
+                            <option >Ultimos 30 días</option>
+                        </select>
+                        <select type="text" class="form-control" class="selectpicker" id="periodo">
+                            <option >Año anterior</option>
+					        <option >Mes Anterior</option>
+                            <option >Semana Anterior</option>
+                        </select>
+                        <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
+       	            </form>
+                </div>
+			    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+				    <li class="nav-item dropdown">
+						<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							      <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
-								    <?php echo $_SESSION['nombre']; ?>
-						      </a>
-						      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-							      <a class="dropdown-item" href="#">Mi perfil</a>
-							      <a class="dropdown-item" href="#">Suscripciones</a>
-							      <div class="dropdown-divider"></div>
-							        <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
-						        </div>
-					      </li>
-              </ul>
-  
-          </div>
-          
-        </nav>
-          <!-- Fin Navbar -->
-       
+						    <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
+							<?php echo $_SESSION['nombre']; ?>
+					    </a>
+					    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						    <a class="dropdown-item" href="#">Mi perfil</a>
+						    <a class="dropdown-item" href="#">Suscripciones</a>
+						    <div class="dropdown-divider"></div>
+						    <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
+						</div>
+					</li>
+                </ul>
+            </div>
+         </nav>
+        <!-- Fin Navbar -->
 	
         <!-- Page Content -->
         <div id="content" class="bg-grey w-100">
-              <section class="bg-mix py-1">
+              <section class="bg-mix pt-3 pb-1">
                 <div class="container">
                     <div class="card rounded-0">
                         <div class="card-body p-0">
                             <div class="row">
-                                <div class="col-lg-4 col-md-12 d-flex stat my-0">
+                                <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
                                         <h6 id = "tit0" class="text-muted">Total</h6>
                                         <h3 id = "num0" class="font-weight">$0</h3>
                                         <h6 id = "porc0"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12 d-flex stat my-0">
+                                <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
                                         <h6 id = "tit1" class="text-muted">Ventas Netas</h6>
                                         <h3 id = "num1" class="font-weight">$0</h3>
                                         <h6 id = "porc1"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12 d-flex stat my-0">
+                                <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
                                         <h6 id = "tit2" class="text-muted">Unidades Totales</h6>
                                         <h3 id = "num2" class="font-weight">0</h3>
@@ -301,8 +255,11 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <!-- highcharts -->
 <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
 <!-- <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> -->
+<!-- jstree -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<!-- dropdowntree -->
+<script type="text/javascript" src="js/dropdowntree.js"></script>
 <!-- app-js        -->
-<!-- <script type="text/javascript" src="js/charts.js"  ></script> -->
 <script type="text/javascript" src="js/charts/edocartera.js"></script>
 <script type="text/javascript" src="js/charts/opnegadas.js"></script>
 <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
@@ -312,6 +269,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/datatables/vtasnetas.js"></script>
 <script type="text/javascript" src="js/datatables/vtasfpago.js"></script>
 <script type="text/javascript" src="js/highcharts.js"  ></script>
+<script type="text/javascript" src="js/aggregate.js"  ></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <!-- Configuracion datetimepicker -->

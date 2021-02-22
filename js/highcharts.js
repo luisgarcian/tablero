@@ -1,22 +1,31 @@
 function HighChart(data, titulo, subtitulo)
 {  
-    const vals = ObtieneColumnas(data);
+
+    let filtered = data.filter(item => Filtro.includes(item.sucursal) );
+    const vals = ObtieneColumnas(filtered);
 
     yAxisLabels = vals[0];
+    numberArray1 = [];
+    numberArray2 = [];
+    numberArray3 = [];
+    numberArray4 = [];
     
     if (vals.length > 0 ) { 
        for (i=1; i <vals.length; i++) {
            str ="dataSeries"+ i +" = vals[" + i + "]";
            eval(str);
+           num = "numberArray" + i + "= dataSeries" + i + ".map(el=>parseInt(el)||0)";
+           eval (num);
        }
     } 
-    
-    let numberArray1 = dataSeries1.map(el=>parseInt(el)||0);
-    let numberArray2 = dataSeries2.map(el=>parseInt(el)||0);
-    let numberArray3 = dataSeries3.map(el=>parseInt(el)||0);
-    let numberArray4 = dataSeries4.map(el=>parseInt(el)||0);
 
-    let Subtitulo = "<b>Anterior : </b>" + LetreroPeriodo(myPar1, myPar2) +'<br>' + "<b>Actual     : </b>" +LetreroPeriodo(myPar3, myPar4);
+    
+    // let numberArray1 = dataSeries1.map(el=>parseInt(el)||0);
+    // let numberArray2 = dataSeries2.map(el=>parseInt(el)||0);
+    // let numberArray3 = dataSeries3.map(el=>parseInt(el)||0);
+    // let numberArray4 = dataSeries4.map(el=>parseInt(el)||0);
+
+    let Subtitulo = "<b>Anterior : </b>" + LetreroPeriodo(myPar3, myPar4) +'<br>' + "<b>Actual     : </b>" +LetreroPeriodo(myPar1, myPar2);
     Highcharts.setOptions({
         lang: {
           thousandsSep: ','

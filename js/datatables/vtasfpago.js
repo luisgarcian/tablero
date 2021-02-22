@@ -21,6 +21,8 @@ function DTable_vtasfpago(data) {
     } 
     
     // Credito, Contado por Sucursal 
+    //Sucursal, Total, Credito, %Cred, Contado, %Cont
+    //    0       1       2       3       4       5
     if (columns.length > 3) { 
 
       miTabla = $("#myTable").DataTable( {
@@ -62,10 +64,17 @@ function DTable_vtasfpago(data) {
             return nRow;
           },   
       }).draw();
-  
+
+      
+      miTabla.columns.adjust().draw();
+      var head_item = miTabla.columns(2).header();
+      $(head_item).html('Crédito');
+
     }
     else {
       // Formas de Pago Todas las Sucursales o una en específico
+      // Forma de pago, Importe, %
+      //    0       1       2       
       miTabla = $("#myTable").DataTable( {
         data     : data,
         columns  : columns,
@@ -96,7 +105,7 @@ function DTable_vtasfpago(data) {
         ],
         fnRowCallback: function( nRow, aData, iDisplayIndex ) {
           /* All cells in first row will be bolded  */
-          if ( iDisplayIndex == 0 ) {
+          if ( iDisplayIndex == 0 || iDisplayIndex == 1) {
               $('td', nRow).each(function(){
                   $(this).addClass('bold');
               });
@@ -105,10 +114,16 @@ function DTable_vtasfpago(data) {
         },   
     }).draw();
 
+    miTabla.columns.adjust().draw();
+    var head_item = miTabla.columns(0).header();
+    $(head_item ).html('Forma de Pago');
+    var head_item = miTabla.columns(2).header();
+    $(head_item ).html('%');
   }
 
-  var table = $('#myTable').DataTable();
-  table.columns.adjust().draw();
+  
+  
+  
   
   $('#myTable tbody').on('click', 'tr', function () {
 

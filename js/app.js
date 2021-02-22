@@ -9,6 +9,8 @@ var Charts = [
   },
 ];
 
+var Filtro = [];
+
 function changeType(button) {
   
   var btn = document.getElementById("btnChart");
@@ -18,8 +20,9 @@ function changeType(button) {
     else{
       btn.innerText="line";
       }
-  
 }
+
+
 //Variables Globales
 var myTit0 = "";
 var myTit1 = "";
@@ -50,6 +53,8 @@ $(function () {
   $("#btnChart").hide();
   $("#Chart-Container").hide();
 
+  //DropDownTreeOptions();
+  DropDownTree();
   //funcionalidad del menu en el sidebar
   $("#accordian h3").click(function(){
 	//slide up all the link lists
@@ -173,7 +178,6 @@ function GenChartVtas() {
   //myCtx.height = 450;
   myChart = CreaChartVtasNetas(myCtx,  Datos) ;
 
-  
 };
 
 function GenChartOpcs() {
@@ -211,72 +215,253 @@ function GenChartEdoC() {
     
 };
 
+function AplicaFiltro(data) {
+
+  Totales = ['TOTAL','TOTAL_ant'];
+  // Filtrar DataSet para incluir las sucursales del Filtro
+  let filtered = data.filter(item => Filtro.includes(item.Sucursal) );
+
+  if (filtered.hasOwnProperty('FPago')) { 
+    filtered = filtered.filter(item => !Totales.includes(item.FPago) );
+  }
+  return (filtered);
+
+}
+
+function TotalizarCreditoContado(data) {
+  objTotal = [];
+  var total_contado = 0;
+  var total_credito = 0;
+  var total_contado_ant = 0;
+  var total_credito_ant = 0;
+  $.each(data, function(index, value) {
+      if (!value.Sucursal.includes('_ant') ) {
+         total_contado += parseFloat(value.Contado);
+         total_credito +=  parseFloat(value.Credito);
+       }else {
+        total_contado_ant += parseFloat(value.Contado);
+        total_credito_ant +=  parseFloat(value.Credito);
+       }
+  });
+  // Periodo Actual
+  var total = total_contado + total_credito;
+  var porc_cont = (100 * total_contado) / total;
+  var porc_cred = (100 * total_credito) / total;
+  // Periodo Anterior
+  var total_ant = total_contado_ant + total_credito_ant;
+  var porc_cont_ant = (100 * total_contado_ant) / total_ant;
+  var porc_cred_ant = (100 * total_credito_ant) / total_ant;
+
+  objTotal  = {
+    "Sucursal"  : "TOTAL",
+    "Total"     : total,
+    "Credito"   : total_credito,
+    "%Part Cred": porc_cred,
+    "Contado"   : total_contado,
+    "%Part Cont": porc_cont,
+  }
+  objTotal_ant  = {
+    "Sucursal"  : "TOTAL_ant",
+    "Total"     : total_ant,
+    "Credito"   : total_credito_ant,
+    "%Part Cred": porc_cred_ant,
+    "Contado"   : total_contado_ant,
+    "%Part Cont": porc_cont_ant,
+  }
+  // Se agregan totales al principio 
+  data.unshift(objTotal_ant);
+  data.unshift(objTotal);
+  
+  return data;
+}
+
+function TotalizarFormasPago(data) {
+  objTotal = [];
+  var total_importe = 0;
+  var total_importe_ant = 0;
+  $.each(data, function(index, value) {
+      if (!value.FPago.includes('_ant') ) {
+         total_importe += value.Importe;
+       }else {
+         total_importe_ant += value.Importe;
+       }
+  });
+  objTotal  = {
+    "FPago"  : 'TOTAL',
+    "Importe": total_importe
+  }
+  objTotal_ant  = {
+    "FPago"  : 'TOTAL_ant',
+    "Importe": total_importe_ant
+  }
+  // Se agregan totales al principio 
+  data.unshift(objTotal_ant);
+  data.unshift(objTotal);
+  
+  return data;
+}
+
+//////////////////////////////////////////////////////
 function GenChartVFP() {
   // Primer Nivel por Sucursal
   sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
 
-  // primer datatable  -----------------------------
-  vtasfp_dt = TraeDatos_tb(myPar1, myPar2, myPar3, myPar4, myPar5);
-  DTable_vtasfpago( vtasfp_dt );
+  // Sucursal, FPago, Importe, %
+  vtas_data  = TraeDatos_tb(myPar1, myPar2, myPar3, myPar4, myPar5); // Todas las Sucursales
 
-  // segundo datatable  -----------------------------
-  //vtasfp_dt = TraeDatos_tb(myPar3, myPar4, myPar5);
-  //DTable_vtasfpago2( vtasfp_dt );
-
-  // datos para el chart  -----------------------------------------
-  parms =  {
-    "fecini":  myPar1,
-    "fecfin":  myPar2,
-    "fecini_ant":  myPar3,
-    "fecfin_ant":  myPar4,
-    "tipo"  :  myPar5,
-  }
-  Datos   = TraeDatos("chart/vtasfpago.php", parms);
   
-  myCtx   = $("#chartCanvas")[0];  
-  myCtx.width  = window.innerWidth;
-  myCtx.height  = window.innerHeight;
   if (sel_chart.seltipo == 0) {
-      //myChart = ChartVFP( "",myCtx,  Datos) ;
+      // Sucursal, FPago, Importe, %
+      vtasfp_dt  = AplicaFiltro(vtas_data); // Se aplica el Filtro de Sucursales, se eliminan Totales
+      // Sucursal, FPago, Importe, %
+      vtasfp_tot = TotalizarCreditoContado(vtasfp_dt); // Se recalculan totales y porc para cada periodo
+      DTable_vtasfpago( vtasfp_tot );
 
+      // Totales    -----------------------------
+      let Total = parseFloat(vtasfp_tot[0].Contado) + parseFloat(vtasfp_tot[0].Credito);
+      let Credito = parseFloat(vtasfp_tot[0].Credito);
+      let Contado = parseFloat(vtasfp_tot[0].Contado);
+      let PorcTot = 100;
+      let PorcCre = 100 * Credito / Total ;
+      let PorcCon = 100 * Contado / Total ;
+      ActualizaTotales('Total', 'Credito', 'Contado', Total, Credito, Contado, PorcTot, PorcCre, PorcCon );
+  
       divCharts(1);
-      //HighChart
-      Datos_hc   = TraeDatos("chart/vtasfpago_hc.php", parms);
-      HighChart(Datos_hc);
-      
+      parms = {
+        "fecini": myPar1,
+        "fecfin": myPar2,
+        "fecini_ant": myPar3,
+        "fecfin_ant": myPar4,
+        "tipo": myPar5,
+      }
+      Datos_hc  = TraeDatos("chart/vtasfpago_hc.php", parms);
+      myCtx   = $("#chartCanvas")[0];  
+      myCtx.width  = window.innerWidth;
+      myCtx.height  = window.innerHeight;
 
+      HighChart(Datos_hc);
       myCtx.addEventListener("click", function(evento){
         //VFP_DrillDown(evento);
       }); 
+
   } else {
+      // Dos Chart uno para cada periodo
       divCharts(0);
       DividirAreaChartCanvas(1);
+
       //Formas de Pago Todas las Sucursales
-      periodo = LetreroPeriodo(myPar1, myPar2);
-      myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", Datos, periodo);
-      myCtx2   = $("#chartCanvas2")[0];  
-      var data2 =  vtasfp_dt.filter(function(renglon) {
-        return renglon['Forma de Pago']  != 'TOTAL';
+      //***** Chart 1
+      
+      // filtrar para quitar las sucursales segun filtro y sin Totales
+      let SucursalSelected = vtas_data.filter(item => Filtro.includes(item.Sucursal) );
+
+      // filtrar para quitar peridodo ant
+      var SucursalSelectedPeriodo1 = SucursalSelected.filter((ren) => !ren['FPago'].includes("_ant") );
+      // Agrupar y Acumular Importe por Forma de Pago
+      //FormasdePagoSUM = groupByFPago(SucursalSelectedPeriodo1);
+      FormasdePagoSUM = groupAndSum(SucursalSelectedPeriodo1, ['FPago'], ['Importe']);
+      // Obtener el total de la suma de los importes
+      FPagoTot = FormasdePagoSUM.reduce(function(a, b) {
+        return a + b.Importe;
+      }, 0);
+      //Calcular el % por cada Forma de Pago en cada importe y agregarlo como propiedad
+      FormasdePagoSUM.forEach(function(itm){
+        itm.porc = 100.0 * itm.Importe / FPagoTot;
       });
-      periodo = LetreroPeriodo(myPar3, myPar4);
-      myChart = createChart( myCtx2, "TODAS LAS SUCURSALES", data2, periodo) ;
+
+      //DataTable
+      //Filtrar por Sucursales y quitar totales
+      vtasft_dt = AplicaFiltro(vtas_data);
+      //Quitar columna Sucursal 
+      var FormasPagoSuc = vtasft_dt.map(({Sucursal, ...item}) => item);
+            
+      //Agrupar por Forma de Pago
+      FormasPagoSUM = groupAndSum(FormasPagoSuc, ['FPago'], ['Importe']);
+      
+      // Incluir renglores con totales
+      FP_data = TotalizarFormasPago(FormasPagoSUM);
+      // Obtener totales 
+      FpagoTot     = FP_data[0].Importe;
+      FpagoTot_ant = FP_data[1].Importe;
+      // Agregar prorcentaje
+      FP_data.forEach(function(itm){
+        if (itm.FPago.includes("_ant")) {
+          if (FpagoTot_ant) { 
+              itm.porc = 100.0 * itm.Importe / FpagoTot_ant;
+          } else { itm.porc = 0;}
+        } else {
+          if (FpagoTot_ant) { 
+              itm.porc = 100.0 * itm.Importe / FpagoTot;
+          } else { itm.porc = 0;}
+        }
+      });
+
+      DTable_vtasfpago( FP_data );
+
+      //Crear Chart Periodo1
+      myCtx    = $("#chartCanvas")[0];  
+      periodo1 = LetreroPeriodo(myPar1, myPar2);
+      myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", FormasdePagoSUM, periodo1);
+      
+      //Formas de Pago Todas las Sucursales
+      //****** Chart 2
+      
+      // filtrar para quitar peridodo actual
+      var SucursalSelectedPeriodo2 = SucursalSelected.filter((ren) => ren['FPago'].includes("_ant") );
+      // Agrupar y Acumular Importe por Forma de Pago
+      //FormasdePagoSUM2 = groupByFPago(SucursalSelectedPeriodo2);
+      FormasdePagoSUM2 = groupAndSum(SucursalSelectedPeriodo2, ['FPago'], ['Importe']);
+      // Obtener el total de la suma de los importes
+      FPagoTot2 = FormasdePagoSUM2.reduce(function(a, b) {
+        return a + b.Importe;
+      }, 0);
+      //Calcular el % por cada Forma de Pago en cada importe y agregarlo como propiedad
+      FormasdePagoSUM2.forEach(function(itm){
+        itm.porc = 100.0 * itm.Importe / FPagoTot2;
+      });
+      //Crear Chart Periodo2
+      myCtx2   = $("#chartCanvas2")[0];  
+      periodo2 = LetreroPeriodo(myPar3, myPar4);
+      myChart  = createChart(myCtx2, "TODAS LAS SUCURSALES", FormasdePagoSUM2, periodo1);
+
   }
 
-  // datos para los totales  --------------------------------------
-  if (Opciones.children[0].selected) {  
-    parmsT =  {
-      "fecini":  myPar1,
-      "fecfin":  myPar2,
-      "fecini_ant":  myPar3,
-      "fecfin_ant":  myPar4,
-      "tipo"  :  "T",
-    }
-    DatosT   = TraeDatos("chart/vtasfpago.php", parmsT);
-    TotalesVFP(DatosT) ;
+};
 
-  }
 
+function groupAndSum(arr, groupKeys, sumKeys){
+  return Object.values(
+    arr.reduce((acc,curr)=>{
+      const group = groupKeys.map(k => curr[k]).join('-');
+      acc[group] = acc[group] || Object.fromEntries(groupKeys.map(k => [k, curr[k]]).concat(sumKeys.map(k => [k, 0])));
+      sumKeys.forEach(k => acc[group][k] += +curr[k]);
+      return acc;
+    }, {})
+  );
+}
+
+
+
+function groupByFPago (obj) {
+  const map = {};
+  let res = [];
+  res = obj.reduce((acc, val) => {
+     const { FPago, Importe } = val;
+     const { length: l } = acc;
+     if(map.hasOwnProperty(FPago)){
+        acc[map[FPago]]['Importe'] = +parseFloat(Importe);
+     }
+     else{
+        map[FPago] = l;
+        acc.push({
+           FPago: FPago,
+           Importe: +Importe,
+        });
+     };
+     return acc;
+  }, []);
+  return res;
 };
 
 function divCharts(on) {
@@ -307,6 +492,7 @@ function OpNeg_Vendedor (sucursal, parms) {
   myChart = CreaChartOpcNeg(sucursal, myCtx,  Datos)
 }
 
+////////////////////////////////////////
 function VFP_Sucursal (sucursal, parms) {
   
   Opciones = document.querySelector("#Tipo");
@@ -519,8 +705,8 @@ function TotalesOpc(Data){
      negs = "0";
      porc = "0";
   }
-  MyNum1.innerText = opcs ;
-  MyNum2.innerText = negs  ;
+  myNum1.innerText = opcs ;
+  myNum2.innerText = negs  ;
   myPorc2.style.display = "block";
   myPorc2.innerText = Decimales(porc,1) + " %" ;
 }
@@ -550,9 +736,9 @@ function TotalesVFP(datos){
      porc2 = "0.0";
   }
   myTit0.innerText = "Total";
-  MyNum0.innerText = tot
-  MyNum1.innerText = cred ;
-  MyNum2.innerText = cont  ;
+  myNum0.innerText = tot
+  myNum1.innerText = cred ;
+  myNum2.innerText = cont  ;
 
   myPorc0.style.display = "block";
   myPorc0.innerText = "100 %" ;
@@ -575,10 +761,11 @@ function TotalesVta(Data){
     pesos = "0";
     unidades = "0";
   }
-  MyNum1.innerText = pesos;
-  MyNum2.innerText = unidades;
+  myNum1.innerText = pesos;
+  myNum2.innerText = unidades;
   myPorc1.style.display = "none";
   myPorc2.style.display = "none";
+  
 }
 
 function Decimales(n, decimales) {
@@ -662,10 +849,10 @@ function ChartVentaFP(){
 function CreaVarsHTML() {
   //Crea variables para manejo JavaScript conectadas a elementos HTML
   
-  MyNum0   = $("#num0")[0];
+  myNum0   = $("#num0")[0];
   myPorc0  = $("#porc0")[0];
-  MyNum1   = $("#num1")[0];
-  MyNum2   = $("#num2")[0];
+  myNum1   = $("#num1")[0];
+  myNum2   = $("#num2")[0];
   myPorc1  = $("#porc1")[0];
   myPorc2  = $("#porc2")[0];
   myTit0   = $("#tit0")[0];
@@ -694,13 +881,13 @@ function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
     sel_chart.nivel = Nivel;
     if (NChart == 0) {
       myTit0.innerText = "";
-      MyNum0.innerText = "";
+      myNum0.innerText = "";
     }
 
     //Inicializa Totales desplegados
     
-    MyNum1.innerText = "0";
-    MyNum2.innerText = "0";
+    myNum1.innerText = "0";
+    myNum2.innerText = "0";
     myPorc0.innerText = "";
     myPorc1.innerText = "";
     myPorc2.innerText = "";
@@ -747,4 +934,159 @@ function numberWithCommas(x) {
   while (pattern.test(x))
       x = x.replace(pattern, "$1,$2");
   return x;
+}
+
+function DropDownTreeOptions() {
+
+  var nodo1=[
+    {title:"JUAREZ"},
+    {title:"HIDALGO"},
+    {title:"TRIANA"} ,
+    {title:"MATRIZ"}
+    ];
+  
+    var nodo2=[
+    {title:"AMAZON"},
+    {title:"ELEKTRA"},
+    {title:"MERCADO LIBRE"},
+    {title:"LINIO"},
+    {title:"CLAROSHOP"},
+    {title:"FULL ML"},
+    {title:"PAPPOS MX"},
+    {title:"PRIME"},
+    {title:"TR PRIME"}
+
+    ];
+  
+    var opciones=[
+    {title:"TORREÓN",href:"#1",dataAttrs:[], data:nodo1},
+    {title:"EN LÍNEA",href:"#3",dataAttrs:[],data:nodo2}
+    ];
+  
+    var options = {
+      title : "Filtro",
+      data: opciones,
+      maxHeight: 400,
+      clickHandler: function(element){
+        //element is the clicked element
+        console.log(element);
+        //$("#firstDropDownTree").SetTitle($(element).find("a").first().text());
+        //console.log("Selected Elements",$("#firstDropDownTree").GetSelected());
+      },
+      expandHandler: function(element,expanded){
+        //console.log("expand",element,expanded);
+      },
+      checkHandler: function(element,checked){
+        //console.log("check",element,checked);
+        arreglo = $("#firstDropDownTree").GetSelected();
+        GeneraFiltro(arreglo);
+      },
+      closedArrow: '<i class="fa fa-caret-right" aria-hidden="true"></i>',
+      openedArrow: '<i class="fa fa-caret-down" aria-hidden="true"></i>',
+      multiSelect: true,
+      selectChildren: true,
+    }
+  
+    $("#firstDropDownTree").DropDownTree(options);
+ 
+};
+
+function GeneraFiltro(data) {
+  var sucursales = [];
+  if (data.length > 0 ) {  
+      var dim = [
+          data.length,
+          data[0].length
+      ];
+      for (i = 0; i < dim[0]; i++)    {
+        for (j = 0; j < dim[1]; j++)    {
+          if (!data[i][j].innerText == "") {
+              sucursales.push( data[i][j].innerText)
+              sucursales.push( data[i][j].innerText + "_ant")
+          }
+        }
+      }
+  }
+  Filtro = sucursales;
+  window[Charts[NChart].funcion]();
+}
+
+function ActualizaTotales(Tit1, Tit2, Tit3, Tot1, Tot2, Tot3, Porc1, Porc2, Porc3) {
+  
+  myTit0.innerText = Tit1;
+  myTit1.innerText = Tit2;
+  myTit2.innerText = Tit3;
+
+  myNum0.innerText = numberWithCommas(Tot1.toFixed(0));
+  myNum1.innerText = numberWithCommas(Tot2.toFixed(0));
+  myNum2.innerText = numberWithCommas(Tot3.toFixed(0));
+
+  
+  myPorc0.style.display = "block";
+  myPorc1.style.display = "block";
+  myPorc2.style.display = "block";
+
+  myPorc0.innerText = Porc1.toFixed(1) + "%";
+  myPorc1.innerText = Porc2.toFixed(1) + "%";
+  myPorc2.innerText = Porc3.toFixed(1) + "%";
+
+
+}
+
+function DropDownTree() {
+  var nodo1=[
+    {title:"JUAREZ"},
+    {title:"HIDALGO"},
+    {title:"TRIANA"} ,
+    {title:"MATRIZ"}
+    ];
+  
+    var nodo2=[
+    {title:"AMAZON"},
+    {title:"ELEKTRA"},
+    {title:"MERCADO LIBRE"},
+    {title:"LINIO"},
+    {title:"CLAROSHOP"},
+    {title:"FULL ML"},
+    {title:"PAPPOS MX"},
+    {title:"PRIME"},
+    {title:"TR PRIME"}
+
+    ];
+  
+    var opciones=[
+    {title:"TORREÓN",href:"#1",dataAttrs:[], data:nodo1},
+    {title:"EN LÍNEA",href:"#3",dataAttrs:[],data:nodo2}
+    ];
+ 
+  
+    var options = {
+      title : "Filtro",
+      data: opciones,
+      maxHeight: 400,
+      clickHandler: function(element){
+        //element is the clicked element
+        console.log(element);
+        //$("#firstDropDownTree").SetTitle($(element).find("a").first().text());
+        //console.log("Selected Elements",$("#firstDropDownTree").GetSelected());
+      },
+      expandHandler: function(element,expanded){
+        //console.log("expand",element,expanded);
+      },
+      checkHandler: function(element,checked){
+        //console.log("check",element,checked);
+        
+        arreglo = $("#firstDropDownTree").GetSelected();
+        GeneraFiltro(arreglo);
+  
+      },
+      closedArrow: '<i class="fa fa-caret-right" aria-hidden="true"></i>',
+      openedArrow: '<i class="fa fa-caret-down" aria-hidden="true"></i>',
+      multiSelect: true,
+      selectChildren: true,
+    }
+  
+    $("#firstDropDownTree").DropDownTree(options);
+    
+
 }

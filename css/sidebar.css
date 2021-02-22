@@ -1,7 +1,7 @@
 /*custom font for text*/
-@import url(https://fonts.googleapis.com/css?family=Nunito);
+/* @import url(https://fonts.googleapis.com/css?family=Nunito); */
 /*CSS file for fontawesome - an iconfont we will be using. This CSS file imported contains the font-face declaration. More info: https://fortawesome.github.io/Font-Awesome/ */
-@import url(http://thecodeplayer.com/uploads/fonts/fontawesome/css/font-awesome.min.css);
+/* @import url(http://thecodeplayer.com/uploads/fonts/fontawesome/css/font-awesome.min.css); */
 
 /*Basic reset*/
 * {margin: 0; padding: 0;}
@@ -61,6 +61,4 @@
 #accordian ul ul {
 	display: none;
 }
-#accordian li.active ul {
-	display: block;
-}
+

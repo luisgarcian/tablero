@@ -138,7 +138,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                 <div class="container">
                     <div class="card rounded-0">
                         <div class="card-body p-0">
-                            <div class="row">
+                            <div class="row" style="height:90px">
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
                                         <h6 id = "tit0" class="text-muted">Total</h6>
@@ -148,7 +148,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit1" class="text-muted">Ventas Netas</h6>
+                                        <h6 id = "tit1" class="text-muted" >Ventas Netas</h6>
                                         <h3 id = "num1" class="font-weight">$0</h3>
                                         <h6 id = "porc1"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
@@ -269,7 +269,6 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/datatables/vtasnetas.js"></script>
 <script type="text/javascript" src="js/datatables/vtasfpago.js"></script>
 <script type="text/javascript" src="js/highcharts.js"  ></script>
-<script type="text/javascript" src="js/aggregate.js"  ></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <!-- Configuracion datetimepicker -->

@@ -761,8 +761,10 @@ function TotalesVta(Data){
     pesos = "0";
     unidades = "0";
   }
+  myNum0.innerText = "";
   myNum1.innerText = pesos;
   myNum2.innerText = unidades;
+  myPorc0.style.display = "none";
   myPorc1.style.display = "none";
   myPorc2.style.display = "none";
   

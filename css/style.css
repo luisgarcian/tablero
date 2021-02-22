@@ -345,8 +345,8 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
 }
 
 #firstDropDownTree {
-  font-size: 0.9rem;
-  line-height: 1.2;
+  font-size: 1.5rem;
+  line-height: 1.3;
   letter-spacing: 0.052em;
   font-weight: 300;
   font-style: normal;
@@ -355,5 +355,31 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
 #firstDropDownTree  {
   display:inline-flex
   
+}
+
+#tit0, #tit1, #tit2 {
+  font-size: 14px;margin-top: 10px !important; 
+  border-bottom-width: 10px !important; ;
+  margin-bottom: 5px !important; 
+  text-align: center !important; 
+}
+
+#num0, #num1, #num2 {
+  font-size:18px !important;
+}
+
+#porc0, #porc1, #porc2  {
+  display: block;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 56px;
+  margin-left: 10px;
+  background-color: #29ad29; 
+  color: white !important; 
+  margin-top: 5px;
+  text-align:center; 
+  border-radius: 16px;
 }
 

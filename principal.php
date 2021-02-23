@@ -123,7 +123,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             <select type="text" class="form-control" class="selectpicker" id="periodo">
                                 <option >Período anterior</option>
 					            <option >Año Anterior</option>
-                                <option >Mes Anterior</option>
+                                <!-- <option >Mes Anterior</option> -->
                             </select>
                          </div>   
                         <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
@@ -291,63 +291,8 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/highcharts.js"  ></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
-<!-- Configuracion datetimepicker -->
 <script >
 
-/*
-  //var start = moment().subtract(7, 'days');
-  //var end = moment();
-  var start = primerDia;
-  var end   = ultimoDia;
-
-  function cb(start, end) {
-    //$('#reportrange span').html(start.format('D-MM-YYYY') + ' al ' + end.format('DD-MM-YYYY'));
-  }
-
-  $('#reportrange').daterangepicker({
-    startDate: start,
-    endDate: end,
-    ranges: {
-       'Hoy': [moment(), moment()],
-       'Ultimos 7 Días': [moment().subtract(6, 'days'), moment()],
-       'Ultimos 30 Días': [moment().subtract(29, 'days'), moment()],
-       'Mes Actual': [moment().startOf('month'), moment().endOf('month')],
-       'Mes Pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-    }
-  }, cb);
-
-  cb(start, end),function(start, end, label) {
-     //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-     console.log(start, end);
-
-  };
-  
-  
-  $('#PickerFecIni').datetimepicker({
-      timepicker : false,
-      datepicker:true,
-      format: 'd-m-Y' ,
-      value: primerDia,
-      autoclose: true,
-      maxDate: "+1D",
-      weeks:true,
-      icons: {
-           time: "far fa-clock",
-           date: "far fa-calendar",
-           up: "fas fa-arrow-up",
-           down: "fas fa-arrow-down"
-      }
-    })
-
-    $('#PickerFecFin').datetimepicker({
-      timepicker : false,
-      datepicker:true,
-      format: 'd-m-Y' ,
-      value: ultimoDia,
-      weeks:true,
-      maxDate: "+1D"
-    })
-*/
     function openNav() {
      document.getElementById("sidebar-container").style.width = "250px";
      document.getElementById("content").style.marginLeft = "250px";

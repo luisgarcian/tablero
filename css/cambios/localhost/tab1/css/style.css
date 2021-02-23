@@ -237,7 +237,7 @@ select:focus{ outline: none;}
   background: #d6fcfd;
 }
 #myTable2 > tbody td {
-  /*text-align: center;¨*/
+  /*text-align: center;Â¨*/
   background: #FFFFFF;
 }
 #myTable2 > tbody tr.odd td { 
@@ -384,12 +384,10 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
 }
 
 #reportrange {
-  background: #fff; 
-  cursor: pointer; 
-  padding: 5px 10px; 
-  border: 1px solid #ccc; 
+  background: #fff;
+  cursor: pointer;
+  padding: 5px 10px !important;
+  border: 1px solid #ccc;
   width: 100%;
-}
-input, label, button {
-  display:block;
+  /* padding-bottom: 10px; */
 }

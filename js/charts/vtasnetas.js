@@ -58,15 +58,19 @@ const vtas_scales = {
  
 function CreaChartVtasNetas(myCtx, Data) {
     //Obtiene un objetos con los valores de las columnas
+    
     const vals = ObtieneColumnas(Data);
     //Inicializa los valores de la primera Columna como Labels
     yAxisLabels = vals[0];
+    dataSeries1 = [];
+    dataSeries2 = [];
     //Crea una variable tipo arreglo para cada valor de columna
-    for (i in vals) {
+    if (vals.length > 0 ) { 
+      for (i in vals) {
         var str ="dataSeries"+ i +" = vals[" + i + "]";
         eval(str);
+      }
     }
-  
     var chartdata = {
       labels: yAxisLabels,
       datasets: [

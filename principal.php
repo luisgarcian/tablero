@@ -54,6 +54,8 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <!-- Jstree  -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+    <!--  daterangepicker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
@@ -94,22 +96,36 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
 
 
-					    <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin">
-				        <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
+					    <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin"> -->
+
+                        <div style="float:left;margin-right:20px;">
+                            <label for="Tipo">Tipo</label>
+				            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
                             <option >Sucursal</option>
 				            <option >Division</option>
-                        </select>
-                        <select type="text" class="form-control" class="selectpicker" id="rango">
+                            </select>
+                        </div>
+                        <div style="float:left;margin-right:20px;">
+                            <label for="PeriodoAct">Período Principal</label>
+                            <div id="reportrange" class="form-control">
+                                <i class="fa fa-calendar"></i>&nbsp;
+                                <span></span> <i class="fa fa-caret-down"></i>
+                            </div>
+                        </div>
+                        <!-- <select type="text" class="form-control" class="selectpicker" id="rango">
                             <option >Ultimos 7 días</option>
 					        <option >Ultimos 15 días</option>
                             <option >Ultimos 30 días</option>
-                        </select>
-                        <select type="text" class="form-control" class="selectpicker" id="periodo">
-                            <option >Año anterior</option>
-					        <option >Mes Anterior</option>
-                            <option >Semana Anterior</option>
-                        </select>
+                        </select> -->
+                        <div style="float:left;margin-right:20px;">
+                            <label for="Compara">Comparar con</label>
+                            <select type="text" class="form-control" class="selectpicker" id="periodo">
+                                <option >Período anterior</option>
+					            <option >Año Anterior</option>
+                                <option >Mes Anterior</option>
+                            </select>
+                         </div>   
                         <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
        	            </form>
                 </div>
@@ -259,6 +275,10 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <!-- dropdowntree -->
 <script type="text/javascript" src="js/dropdowntree.js"></script>
+<!-- daterangepicker -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 <!-- app-js        -->
 <script type="text/javascript" src="js/charts/edocartera.js"></script>
 <script type="text/javascript" src="js/charts/opnegadas.js"></script>
@@ -274,10 +294,34 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <!-- Configuracion datetimepicker -->
 <script >
 
-  var parts1 ='<?php echo $fecini; ?>'.split('-');
-  var parts2 ='<?php echo $fecfin; ?>'.split('-');
-  var primerDia = new Date(parts1[0], parts1[1] - 1, parts1[2]); 
-  var ultimoDia = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
+/*
+  //var start = moment().subtract(7, 'days');
+  //var end = moment();
+  var start = primerDia;
+  var end   = ultimoDia;
+
+  function cb(start, end) {
+    //$('#reportrange span').html(start.format('D-MM-YYYY') + ' al ' + end.format('DD-MM-YYYY'));
+  }
+
+  $('#reportrange').daterangepicker({
+    startDate: start,
+    endDate: end,
+    ranges: {
+       'Hoy': [moment(), moment()],
+       'Ultimos 7 Días': [moment().subtract(6, 'days'), moment()],
+       'Ultimos 30 Días': [moment().subtract(29, 'days'), moment()],
+       'Mes Actual': [moment().startOf('month'), moment().endOf('month')],
+       'Mes Pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    }
+  }, cb);
+
+  cb(start, end),function(start, end, label) {
+     //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+     console.log(start, end);
+
+  };
+  
   
   $('#PickerFecIni').datetimepicker({
       timepicker : false,
@@ -303,7 +347,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
       weeks:true,
       maxDate: "+1D"
     })
-
+*/
     function openNav() {
      document.getElementById("sidebar-container").style.width = "250px";
      document.getElementById("content").style.marginLeft = "250px";

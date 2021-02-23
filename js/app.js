@@ -45,13 +45,77 @@ var miTabla = "";
 var miTabla2 = "";
 var myCtx  = "";
 var sel_chart = {nchart : 0, nivel : 0, seltipo : 0};
-
+var start = new Date();
+var end   = new Date();
+var fechahoy = moment();
 
 $(function () {
 
   $("#chart2").hide();
   $("#btnChart").hide();
   $("#Chart-Container").hide();
+
+
+//////////////////////////////////
+  fechas   = Ajax("config/ajaxfile.php", 7, 0);
+  var parts1 = fechas[0].fecini.split('-');
+  var parts2 = fechas[0].fecfin.split('-');
+  
+  var primerDia = new Date(parts1[0], parts1[1] - 1, parts1[2]); 
+  var ultimoDia = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
+
+  start = primerDia;
+  end   = ultimoDia;
+
+  //var start = moment().subtract(29, 'days');
+  //var end = moment();
+  /*
+  function cb(start, end) {
+      str1 = date2str(start, 'dd-MM-yyyy');
+      str2 = date2str(end, 'dd-MM-yyyy');
+
+        $('#reportrange span').html(str1 + ' - ' + str2);
+  }
+
+  $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Hoy': [end, end],
+           'Ayer': [ addDays(end,-1), addDays(end,-1)],
+           'Ultimos 7 Días': [addDays(end,-6), end],
+           'Ultimos 30 Días': [addDays(end,-29), end],
+           'Mes Actual': [moment().startOf('month'), moment().endOf('month')],
+           'Mes Pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+  }, cb);
+
+  cb(start, end);
+*/
+
+function cb(start, end) {
+  $('#reportrange span').html(start.format('D-MM-YYYY') + ' - ' + end.format('D-MM-YYYY'));
+}
+
+cb(moment(ultimoDia).subtract(6, 'days'), moment(ultimoDia));
+
+$('#reportrange').daterangepicker({
+  startDate: start,
+  endDate: end,
+  ranges: {
+    'Hoy': [moment(ultimoDia), moment(ultimoDia)],
+    'Ayer': [moment(ultimoDia).subtract(1, 'days'), moment(ultimoDia).subtract(1, 'days')],
+    'Ultimos 7 Días': [moment(ultimoDia).subtract(6, 'days'), moment(ultimoDia)],
+    'Ultimos 30 Días': [moment(ultimoDia).subtract(29, 'days'), moment(ultimoDia)],
+    'Este mes': [moment(ultimoDia).startOf('month'), moment(ultimoDia).endOf('month')],
+    'Mes pasado': [moment(ultimoDia).subtract(1, 'month').startOf('month'), moment(ultimoDia).subtract(1, 'month').endOf('month')]
+  }
+}, cb);
+
+
+//////////////////////////////////
+
+
 
   //DropDownTreeOptions();
   DropDownTree();
@@ -68,17 +132,14 @@ $(function () {
 
 
   CreaVarsHTML();
-
-  rango = $('#rango')[0].selectedIndex;
-  periodo = $('#periodo')[0].selectedIndex;
-  ActualizaFechas(rango, periodo);
+  IndiceOp = $('#tipo')[0].selectedIndex;
+  Inicializa(NChart, 0, IndiceOp);
 
   const btnupd = document.querySelector("#BtnUpdate");
   btnupd.addEventListener("click", function(evento){
         evento.preventDefault();
 
-        ActualizaParms();
-        window[Charts[NChart].funcion]();
+       Inicializa(NChart, 0, IndiceOp);
   });
   
   //Refrescar Chart en cambio de seleccion tipo
@@ -86,69 +147,39 @@ $(function () {
      myPar3   = $('#tipo').val().substring(0, 1);
      IndiceOp = $('#tipo')[0].selectedIndex;
      
-     Inicializa(NChart, 0, IndiceOp, '', '');
+     Inicializa(NChart, 0, IndiceOp);
      
   });
 
   //Actualizar Chart en cambio rango dias
   $('#rango').on('change', function () {
     
-    rango = $('#rango')[0].selectedIndex;
     periodo = $('#periodo')[0].selectedIndex;
-
-    ActualizaFechas(rango, periodo)
+    Inicializa(NChart, 0, IndiceOp);
+    
  });
 
   //Actualizar Chart en cambio periodo
   $('#periodo').on('change', function () {
     
-    rango = $('#rango')[0].selectedIndex;
     periodo = $('#periodo')[0].selectedIndex;
+    Inicializa(NChart, 0, IndiceOp);
+    
+ });
 
-    ActualizaFechas(rango, periodo)
+ $("#reportrange").on('apply.daterangepicker', function (ev, picker) {
+
+ // alert('apply clicked!');
+    periodo = $('#periodo')[0].selectedIndex;
+    Inicializa(NChart, 0, IndiceOp);
+  
  });
 
 });
 
-function ActualizaFechas(rango, periodo) {
-  switch(rango) {
-    case 0:
-      dias = "7";
-      break;
-    case 1:
-      dias = "15";
-      break;
-    case 2:
-      dias = "30";
-  }
-  
-  //llama a sp para traerse fechas
-  fechas   = Ajax("config/ajaxfile.php", dias, periodo);
-  var parts1 = fechas[0].fecini.split('-');
-  var parts2 = fechas[0].fecfin.split('-');
-  
-  var fecini = new Date(parts1[0], parts1[1] - 1, parts1[2]); 
-  var fecfin = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
 
-  //Actualiza datepicker
-  $('#PickerFecIni').datetimepicker({
-    value: fecini,
-  })
-  $('#PickerFecFin').datetimepicker({
-    value: fecfin,
-  })
-  var fecini_ant = fechas[0].fecini_ant
-  var fecfin_ant = fechas[0].fecfin_ant
-  document.getElementById('PickerFecIni_ant').value = fecini_ant;
-  document.getElementById('PickerFecFin_ant').value = fecfin_ant;
-  
-  IndiceOp = $('#tipo')[0].selectedIndex;
-  Inicializa(NChart, 0, IndiceOp, fecini_ant ,fecfin_ant);
-
-  Titulo1 = "<b>Actual: </b>" + LetreroPeriodo(myPar1, myPar2) + "   " + "<b>Anterior: </b>" + LetreroPeriodo(myPar3, myPar4)
-  $('#TituloTabla1').html(Titulo1);
-    
-}
+//var startDate = $('#reportrange').data('daterangepicker').startDate._d;
+//var endDate = $('#reportrange').data('daterangepicker').endDate._d;
 
 function GenChartVtas() {
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
@@ -662,7 +693,7 @@ function TraeDatos2 (url) {
 
 
 function ObtieneColumnas(Data){
-  // Inicializa Objeto para leer los datos
+  
   const res = {};
   if (Data && Data.length) { 
   // Extrae los nombres de las columnas
@@ -804,7 +835,7 @@ function ChartVta(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option><option>Division</option>";
   Opciones.children[0].selected=true;
-  Inicializa(NChart, 0, 0, '', '' );
+  Inicializa(NChart, 0, 0 );
   
 }
 
@@ -814,7 +845,7 @@ function ChartOpc(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option>"
 
-  Inicializa(NChart, 0, 0, '', '' );
+  Inicializa(NChart, 0, 0 );
   
 }
 
@@ -824,7 +855,7 @@ function ChartEdoC(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Todas</option>"
 
-  Inicializa(NChart, 0, 0, '', '');
+  Inicializa(NChart, 0, 0);
   
 }
 
@@ -834,12 +865,9 @@ function ChartVentaFP(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option><option>F. Pago</option>"
 
-  rango = $('#rango')[0].selectedIndex;
   periodo = $('#periodo')[0].selectedIndex;
 
-  ActualizaFechas(rango, periodo);
-
-  //Inicializa(NChart, 0, 0, '', '');
+  Inicializa(NChart, 0, 0);
   
 }
 
@@ -859,9 +887,10 @@ function CreaVarsHTML() {
   
 }
 
-function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
+function Inicializa(NChart, Nivel, OpSel) {
 
   ActualizaParms();
+
   sel_chart.nchart = NChart;
   sel_chart.seltipo = OpSel;
   if (NChart == 3 ) {
@@ -881,8 +910,6 @@ function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
       myNum0.innerText = "";
     }
 
-    //Inicializa Totales desplegados
-    
     myNum1.innerText = "0";
     myNum2.innerText = "0";
     myPorc0.innerText = "";
@@ -891,6 +918,8 @@ function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
   
   }
   
+  Titulo1 = "<b>Actual: </b>" + LetreroPeriodo(myPar1, myPar2) + "   " + "<b>Anterior: </b>" + LetreroPeriodo(myPar3, myPar4)
+  $('#TituloTabla1').html(Titulo1);
   
   // Genera Chart
   window[Charts[NChart].funcion]();
@@ -898,13 +927,60 @@ function Inicializa(NChart, Nivel, OpSel, FecIni_ant, FecFin_ant) {
 
 function ActualizaParms() {
   DividirAreaChartCanvas(0);
-  myPar1 = $('#PickerFecIni').val().split("-").reverse().join("-");
-  myPar2 = $('#PickerFecFin').val().split("-").reverse().join("-");
-  myPar3 = $('#PickerFecIni_ant').val();
-  myPar4 = $('#PickerFecFin_ant').val();
-  
-  myPar5 = $('#tipo').val().substring(0, 1);
 
+  var drp = $('#reportrange').data('daterangepicker');
+  myPar1 = drp.startDate.format("YYYY-MM-DD");
+  myPar2 = drp.endDate.format("YYYY-MM-DD");
+
+  parts1 = myPar1.split('-');
+  parts2 = myPar2.split('-');
+  var primerDia = new Date(parts1[0], parts1[1] - 1, parts1[2]); 
+  var ultimoDia = new Date(parts2[0], parts2[1] - 1, parts2[2]); 
+
+  var dif = ultimoDia - primerDia;
+  var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+ 
+  periodo = $('#periodo')[0].selectedIndex;
+
+  switch (periodo)
+    {
+    case 0:
+        myPar3 = formatDate(addDays(primerDia,(dias+1)*-1));
+        myPar4 = formatDate(addDays(primerDia, -1));
+        break;
+    case 1:
+        primerDiaAnoAnt = new Date(parts1[0]-1, parts1[1] , parts1[2]); 
+        ultimoDiaAnoAnt = new Date(parts2[0]-1, parts2[1] , parts2[2]);
+        myPar3 = formatDate(primerDiaAnoAnt);
+        myPar4 = formatDate(ultimoDiaAnoAnt);
+        break;
+    case 2:
+        primerDiaAnoAnt = new Date(parts1[0], parts1[1]-1 , parts1[2]); 
+        ultimoDiaAnoAnt = new Date(parts2[0], parts2[1]-1 , parts2[2]); 
+        myPar3 = formatDate(primerDiaAnoAnt);
+        myPar4 = formatDate(ultimoDiaAnoAnt);
+        break;
+    }
+    myPar5 = $('#tipo').val().substring(0, 1);
+}
+
+
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
 }
 
 function LetreroPeriodo(fecini, fecfin) {

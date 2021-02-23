@@ -99,26 +99,21 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 					    <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
                         <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin"> -->
 
-                        <div style="float:left;margin-right:20px;">
+                        <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Tipo">Tipo</label>
 				            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
                             <option >Sucursal</option>
 				            <option >Division</option>
                             </select>
                         </div>
-                        <div style="float:left;margin-right:20px;">
+                        <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="PeriodoAct">Período Principal</label>
                             <div id="reportrange" class="form-control">
                                 <i class="fa fa-calendar"></i>&nbsp;
                                 <span></span> <i class="fa fa-caret-down"></i>
                             </div>
                         </div>
-                        <!-- <select type="text" class="form-control" class="selectpicker" id="rango">
-                            <option >Ultimos 7 días</option>
-					        <option >Ultimos 15 días</option>
-                            <option >Ultimos 30 días</option>
-                        </select> -->
-                        <div style="float:left;margin-right:20px;">
+                        <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Compara">Comparar con</label>
                             <select type="text" class="form-control" class="selectpicker" id="periodo">
                                 <option >Período anterior</option>

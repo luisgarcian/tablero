@@ -323,6 +323,23 @@ function TotalizarFormasPago(data) {
   return data;
 }
 
+
+function DespliegaTotCredCont(datosfp) {
+  // Totales    -----------------------------
+  let Total = parseFloat(datosfp[0].Contado) + parseFloat(datosfp[0].Credito);
+  let Credito = parseFloat(datosfp[0].Credito);
+  let Contado = parseFloat(datosfp[0].Contado);
+  let PorcTot = 100;
+  let PorcCre = 0;
+  let PorcCon = 0;
+  if (Total) { 
+    PorcCre = 100 * Credito / Total ;
+    PorcCon = 100 * Contado / Total ;
+  }
+  ActualizaTotales('Total', 'Credito', 'Contado', Total, Credito, Contado, PorcTot, PorcCre, PorcCon );
+
+}
+
 //////////////////////////////////////////////////////
 function GenChartVFP() {
   // Primer Nivel por Sucursal
@@ -338,42 +355,32 @@ function GenChartVFP() {
       vtasfp_dt  = AplicaFiltro(vtas_data); // Se aplica el Filtro de Sucursales, se eliminan Totales
       // Sucursal, FPago, Importe, %
       vtasfp_tot = TotalizarCreditoContado(vtasfp_dt); // Se recalculan totales y porc para cada periodo
+      //DataTable
       DTable_vtasfpago( vtasfp_tot );
+      //Totales
+      DespliegaTotCredCont(vtasfp_tot);
 
-      // Totales    -----------------------------
-      let Total = parseFloat(vtasfp_tot[0].Contado) + parseFloat(vtasfp_tot[0].Credito);
-      let Credito = parseFloat(vtasfp_tot[0].Credito);
-      let Contado = parseFloat(vtasfp_tot[0].Contado);
-      let PorcTot = 100;
-      let PorcCre = 0;
-      let PorcCon = 0;
-      if (Total) { 
-        PorcCre = 100 * Credito / Total ;
-        PorcCon = 100 * Contado / Total ;
-      }
-      ActualizaTotales('Total', 'Credito', 'Contado', Total, Credito, Contado, PorcTot, PorcCre, PorcCon );
-  
-      divCharts(1);
-      parms = {
-        "fecini": myPar1,
-        "fecfin": myPar2,
-        "fecini_ant": myPar3,
-        "fecfin_ant": myPar4,
-        "tipo": myPar5,
-      }
-      Datos_hc  = TraeDatos("chart/vtasfpago_hc.php", parms);
+      //Chart Credito-Contado
+      divCharts(1); // Area para un Chart 
       myCtx   = $("#chartCanvas")[0];  
       myCtx.width  = window.innerWidth;
       myCtx.height  = window.innerHeight;
 
+      parms = { "fecini": myPar1, "fecfin": myPar2, "fecini_ant": myPar3, "fecfin_ant": myPar4, "tipo": myPar5, }
+      Datos_hc  = TraeDatos("chart/vtasfpago_hc.php", parms);
       HighChart(Datos_hc);
+
       myCtx.addEventListener("click", function(evento){
         //VFP_DrillDown(evento);
       }); 
 
   } else {
-      // Dos Chart uno para cada periodo
-      divCharts(0);
+
+      //DataTable
+      CreaDataTableVFP(vtas_data);
+
+      
+      divCharts(0);  // Area para 2 Chart uno para cada periodo
       DividirAreaChartCanvas(1);
 
       //Formas de Pago Todas las Sucursales
@@ -381,11 +388,9 @@ function GenChartVFP() {
       
       // filtrar para quitar las sucursales segun filtro y sin Totales
       let SucursalSelected = vtas_data.filter(item => Filtro.includes(item.Sucursal) );
-
       // filtrar para quitar peridodo ant
       var SucursalSelectedPeriodo1 = SucursalSelected.filter((ren) => !ren['FPago'].includes("_ant") );
       // Agrupar y Acumular Importe por Forma de Pago
-      //FormasdePagoSUM = groupByFPago(SucursalSelectedPeriodo1);
       FormasdePagoSUM = groupAndSum(SucursalSelectedPeriodo1, ['FPago'], ['Importe']);
       // Obtener el total de la suma de los importes
       FPagoTot = FormasdePagoSUM.reduce(function(a, b) {
@@ -395,48 +400,19 @@ function GenChartVFP() {
       FormasdePagoSUM.forEach(function(itm){
         itm.porc = 100.0 * itm.Importe / FPagoTot;
       });
-
-      //DataTable
-      //Filtrar por Sucursales y quitar totales
-      vtasft_dt = AplicaFiltro(vtas_data);
-      //Quitar columna Sucursal 
-      var FormasPagoSuc = vtasft_dt.map(({Sucursal, ...item}) => item);
-            
-      //Agrupar por Forma de Pago
-      FormasPagoSUM = groupAndSum(FormasPagoSuc, ['FPago'], ['Importe']);
-      
-      // Incluir renglores con totales
-      FP_data = TotalizarFormasPago(FormasPagoSUM);
-      // Obtener totales 
-      FpagoTot     = FP_data[0].Importe;
-      FpagoTot_ant = FP_data[1].Importe;
-      // Agregar prorcentaje
-      FP_data.forEach(function(itm){
-        if (itm.FPago.includes("_ant")) {
-          if (FpagoTot_ant) { 
-              itm.porc = 100.0 * itm.Importe / FpagoTot_ant;
-          } else { itm.porc = 0;}
-        } else {
-          if (FpagoTot_ant) { 
-              itm.porc = 100.0 * itm.Importe / FpagoTot;
-          } else { itm.porc = 0;}
-        }
-      });
-
-      DTable_vtasfpago( FP_data );
-
       //Crear Chart Periodo1
       myCtx    = $("#chartCanvas")[0];  
       periodo1 = LetreroPeriodo(myPar1, myPar2);
       myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", FormasdePagoSUM, periodo1);
       
+
+
       //Formas de Pago Todas las Sucursales
       //****** Chart 2
       
       // filtrar para quitar peridodo actual
       var SucursalSelectedPeriodo2 = SucursalSelected.filter((ren) => ren['FPago'].includes("_ant") );
       // Agrupar y Acumular Importe por Forma de Pago
-      //FormasdePagoSUM2 = groupByFPago(SucursalSelectedPeriodo2);
       FormasdePagoSUM2 = groupAndSum(SucursalSelectedPeriodo2, ['FPago'], ['Importe']);
       // Obtener el total de la suma de los importes
       FPagoTot2 = FormasdePagoSUM2.reduce(function(a, b) {
@@ -449,12 +425,38 @@ function GenChartVFP() {
       //Crear Chart Periodo2
       myCtx2   = $("#chartCanvas2")[0];  
       periodo2 = LetreroPeriodo(myPar3, myPar4);
-      myChart  = createChart(myCtx2, "TODAS LAS SUCURSALES", FormasdePagoSUM2, periodo1);
+      myChart  = createChart(myCtx2, "TODAS LAS SUCURSALES", FormasdePagoSUM2, periodo2);
 
   }
 
 };
 
+function CreaDataTableVFP(DataSuc) {
+    //Filtrar por Sucursales y quitar totales
+    vtasft_dt = AplicaFiltro(DataSuc);
+    //Quitar columna Sucursal 
+    var FormasPagoSuc = vtasft_dt.map(({Sucursal, ...item}) => item);
+    //Agrupar por Forma de Pago
+    FormasPagoSUM = groupAndSum(FormasPagoSuc, ['FPago'], ['Importe']);
+    // Incluir renglores con totales
+    FP_data = TotalizarFormasPago(FormasPagoSUM);
+    // Obtener totales 
+    FpagoTot     = FP_data[0].Importe;
+    FpagoTot_ant = FP_data[1].Importe;
+    // Agregar prorcentaje
+    FP_data.forEach(function(itm){
+      if (itm.FPago.includes("_ant")) {
+        if (FpagoTot_ant) { 
+            itm.porc = 100.0 * itm.Importe / FpagoTot_ant;
+        } else { itm.porc = 0;}
+      } else {
+        if (FpagoTot_ant) { 
+            itm.porc = 100.0 * itm.Importe / FpagoTot;
+        } else { itm.porc = 0;}
+      }
+    });
+    DTable_vtasfpago( FP_data );
+}
 
 function groupAndSum(arr, groupKeys, sumKeys){
   return Object.values(

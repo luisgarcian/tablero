@@ -181,26 +181,7 @@ $('#reportrange').daterangepicker({
 //var startDate = $('#reportrange').data('daterangepicker').startDate._d;
 //var endDate = $('#reportrange').data('daterangepicker').endDate._d;
 
-function GenChartVtas() {
-  document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
-  Parms =  {
-    "fecini":  myPar1,
-    "fecfin":  myPar2,
-    "div"   :  myPar5,
-  }
-  Datos   = TraeDatos("chart/vtasnetas.php", Parms);
-  TotalesVta(Datos);
-  
-  Datos_vtasnetas   = TraeDatos("datatable/vtasnetas.php", Parms);
-  DTable_vtasnetas(Datos_vtasnetas);
-  
-  //DTable_vtasnetas(Datos);
-  divCharts(0);
-  myCtx   = $("#chartCanvas")[0];  
-  //myCtx.height = 450;
-  myChart = CreaChartVtasNetas(myCtx,  Datos) ;
 
-};
 
 function GenChartOpcs() {
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
@@ -1092,19 +1073,45 @@ function ActualizaTotales(Tit1, Tit2, Tit3, Tot1, Tot2, Tot3, Porc1, Porc2, Porc
   myTit1.innerText = Tit2;
   myTit2.innerText = Tit3;
 
+  // document.getElementById('localbaseurilabel').style.color = "grey";
+  // document.getElementById( 'elemtId' ).style.display = 'none';
+  // $("#id").css("display", "none");
+  // $("#id").css({display: "none"});
+  // $("#id").css({display: "block"});
+
+  if (Tot1 == 0) {
+     myNum0.style.display = "none";
+     myPorc0.style.display = "none"
+  } else { 
+    myNum0.style.display = "block";
+    myPorc0.style.display = "block"
+  }
+
+
   myNum0.innerText = "$" + numberWithCommas(Tot1.toFixed(0));
   myNum1.innerText = "$"+ numberWithCommas(Tot2.toFixed(0));
   myNum2.innerText = "$" + numberWithCommas(Tot3.toFixed(0));
 
   
-  myPorc0.style.display = "block";
   myPorc1.style.display = "block";
   myPorc2.style.display = "block";
 
   myPorc0.innerText = Porc1.toFixed(1) + "%";
   myPorc1.innerText = Porc2.toFixed(1) + "%";
   myPorc2.innerText = Porc3.toFixed(1) + "%";
-
+ 
+  if (parseFloat(myPorc1.innerText) < 0) {
+    $('#porc1').css("background-color", '#ff0000')
+  } else { 
+    $('#porc1').css("background-color", '#29ad29')
+  }
+  
+  if (parseFloat(myPorc2.innerText) < 0) {
+    $('#porc2').css("background-color", '#ff0000')
+  } else { 
+    $('#porc2').css("background-color", '#29ad29')
+  }
+  
 
 }
 

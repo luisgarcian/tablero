@@ -12,11 +12,11 @@
 		   $this->conexion->conectar();
 	   }
 	   
-	   function Trae_Datos($fecini, $fecfin, $div) {
+	   function Trae_Datos($fecini, $fecfin, $fecini_ant, $fecfin_ant, $div) {
 		   
 		   $arreglo = array();
-		   $parms=array($fecini,$fecfin, $div);
-		   $sql = "exec usp_TraeVtasNetas '$fecini', '$fecfin', '$div' ";
+		   $parms=array($fecini,$fecfin, $fecini_ant, $fecfin_ant, $div);
+		   $sql = "exec usp_TraeVtasNetas '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant','$div' ";
 		   
 		   $stmt = $this->conexion->query($sql);
 

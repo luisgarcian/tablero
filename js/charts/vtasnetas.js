@@ -1,3 +1,218 @@
+function GenChartVtas() {
+  // document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+  Parms =  {
+    "fecini":  myPar1,
+    "fecfin":  myPar2,
+    "fecini_ant":  myPar3,
+    "fecfin_ant":  myPar4,
+    "div"   :  myPar5,
+  }
+  datos   = TraeDatos("chart/vtasnetas.php", Parms);
+  let sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
+
+  // Genera Chart
+  VentasNetas_Chart(sucursales, "Titulo", "SubTitulo");
+  // Genera Tabla de datos
+  DTable_vtasnetas(sucursales);
+  // Despliega Totales
+  VtasNetas_DespliegaTotales(sucursales)
+  
+};
+
+
+function VentasNetas_Chart(data_orig, titulo, subtitulo)
+{  
+  divCharts(1); // Area para un Chart 
+
+  //Quitar las columnas de porcentaje
+  var data = data_orig.map(({IncI,IncU, ...item}) => item);
+  
+  const vals = ObtieneColumnas(data);
+
+  yAxisLabels = vals[0];
+  numberArray1 = [];
+  numberArray2 = [];
+  numberArray3 = [];
+  numberArray4 = [];
+  
+  //Genera Series de Datos para Chart
+  if (vals.length > 0 ) { 
+     for (i=1; i <vals.length; i++) {
+         str ="dataSeries"+ i +" = vals[" + i + "]";
+         eval(str);
+         num = "numberArray" + i + "= dataSeries" + i + ".map(el=>parseInt(el)||0)";
+         eval (num);
+     }
+  } 
+  
+  Highcharts.setOptions({
+    lang: {
+      thousandsSep: ','
+    }
+  });
+
+  let Subtitulo = "<b>Actual : </b>" + LetreroPeriodo(myPar1, myPar2) +'<br>' + "<b>Anterior     : </b>" +LetreroPeriodo(myPar3, myPar4);
+  Highcharts.chart('Chart-Container', {
+    chart: {
+      zoomType: 'xy'
+    },
+    title: {
+      text: 'Ventas Netas por Sucursal',
+      align: 'center',
+      style: {
+        fontSize: '20px' 
+      }
+    },
+    subtitle: {
+      text: Subtitulo,
+      align: 'right',
+      x:-30
+    },
+    xAxis: [{
+      gridLineWidth: 1,
+      categories: yAxisLabels,
+      //crosshair: true
+    }],
+  
+    yAxis: [
+      { 
+        gridLineWidth: 2,
+        title: {
+          text: 'Importe',
+          style: { color: Highcharts.getOptions().colors[10] }
+        },
+        labels: {
+          format: '$ {value}',
+          style: { color: Highcharts.getOptions().colors[10] }
+        },
+      },
+      { 
+        gridLineWidth: 2,
+        title: {
+          text: 'Unidades',
+          style: { color: Highcharts.getOptions().colors[10] }
+        },
+        labels: {
+          format: '{value}',
+          style: {
+            color: Highcharts.getOptions().colors[10]
+          }
+        },
+        opposite: true,
+      }, 
+    ],
+    legend: {
+      layout: 'horizontal',
+      align: 'center',
+      x: 10,
+      verticalAlign: 'bottom',
+      y: 20,
+      backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || // theme
+        'rgba(255,255,255,0.25)'
+    },
+    plotOptions: {
+      series: {
+          lineWidth: 2
+      }
+    },
+    tooltip: {
+      backgroundColor: '#FCFFC5',
+      borderColor: 'black',
+      borderRadius: 10,
+      borderWidth: 2,
+      headerFormat: '<b>{point.x}</b><br/>',
+      pointFormat: '{series.name}: <b>{point.y:,.0f}</b></br>',
+      shared: true
+    },
+    series: [
+      {
+        name: 'Importe Anterior',
+        type: 'column',
+        yAxis: 0,
+        data: numberArray1,
+        color: '#d7df23',
+        tooltip: {
+          valuePrefix: '$ '
+        }
+      },
+      {
+        name: 'Importe Actual',
+        type: 'column',
+        yAxis: 0,
+        data: numberArray2,
+        color: '#00ACC1',  
+        tooltip: {
+          valuePrefix: '$ '
+        }
+      },
+      {
+        name: 'Unidades Anterior',
+        type: 'spline',
+        yAxis: 1,
+        data: numberArray3,
+        color : '#efa910',
+        marker: {
+          enabled: true
+        },
+        //dashStyle: 'shortdot',
+        tooltip: {
+          valueSuffix: ' '
+        }
+      }, 
+      {
+        name: 'Unidades Actual',
+        type: 'spline',
+        yAxis: 1,
+        data: numberArray4,
+        color : '#041f70',
+        marker: {
+          enabled: true
+        },
+        tooltip: {
+          valueSuffix: ' '
+        }
+      }
+    ],
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 600
+        },
+        chartOptions: {
+          legend: {
+            floating: false,
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+            x: 0,
+            y: 0
+          },
+          yAxis: [{
+            labels: {
+              align: 'right',
+              x: 0,
+              y: -6
+            },
+            showLastLabel: false
+          }, {
+            labels: {
+              align: 'left',
+              x: 0,
+              y: -6
+            },
+            showLastLabel: false
+          }, {
+            visible: false
+          }]
+        }
+      }]
+    }
+  });
+  
+}
+
+
+
 const vtas_scales = {
     yAxes: [{
       type: "linear",
@@ -152,3 +367,12 @@ function CreaChartVtasNetas(myCtx, Data) {
     return myChart;
   
   } // Function CreaChartVtasNetas
+
+  function VtasNetas_DespliegaTotales(datosvta) {
+    // Totales    -----------------------------
+    let Total_Importe = parseFloat(datosvta[0].Importe_Act);
+    let Total_Unidades = parseFloat(datosvta[0].Unidades_Act);
+    let PorcImp = parseFloat(datosvta[0].IncI);
+    let PorcUni = parseFloat(datosvta[0].IncU);
+    ActualizaTotales('', 'Importe', 'Unidades', 0, Total_Importe, Total_Unidades, 0, PorcImp, PorcUni );
+  }

@@ -70,6 +70,7 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
     },
     xAxis: [{
       gridLineWidth: 1,
+      tickWidth: 1,
       categories: yAxisLabels,
       //crosshair: true
     }],
@@ -130,7 +131,8 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         type: 'column',
         yAxis: 0,
         data: numberArray1,
-        color: '#d7df23',
+        maxPointWidth:20,
+       color: '#50A5F1',
         tooltip: {
           valuePrefix: '$ '
         }
@@ -140,7 +142,8 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         type: 'column',
         yAxis: 0,
         data: numberArray2,
-        color: '#00ACC1',  
+        maxPointWidth:26,
+        color: '#F1B44C',  
         tooltip: {
           valuePrefix: '$ '
         }
@@ -149,8 +152,9 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         name: 'Unidades Anterior',
         type: 'spline',
         yAxis: 1,
+        lineWidth :2,
         data: numberArray3,
-        color : '#efa910',
+        color : '#F46A6A',
         marker: {
           enabled: true
         },
@@ -163,8 +167,9 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         name: 'Unidades Actual',
         type: 'spline',
         yAxis: 1,
+        lineWidth :3,
         data: numberArray4,
-        color : '#041f70',
+        color : '#34C38F',
         marker: {
           enabled: true
         },
@@ -293,8 +298,8 @@ function CreaChartVtasNetas(myCtx, Data) {
           type : 'bar',
           label: 'IMPORTE',
           fill : false,
-          borderColor: '#00acc1',
-          backgroundColor:  '#00acc1',
+          borderColor: '#2C3179',
+          backgroundColor:  '#2C3179',
           yAxisID: 'y-axis-1',
           data: dataSeries1
         }, //dataset1
@@ -304,8 +309,8 @@ function CreaChartVtasNetas(myCtx, Data) {
           fill : false,
           borderWidth:4,
           
-          borderColor: '#d7df23',
-          backgroundColor:  '#d7df23',
+          borderColor: '#F8AC23',
+          backgroundColor:  '#F8AC23',
           data: dataSeries2,
           pointBorderColor: '#EC932F',
           pointBackgroundColor: '#EC932F',

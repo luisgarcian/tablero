@@ -43,6 +43,14 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
     <!-- datetimepicker-->
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" >
+
+
+
+    <!-- bootstrap multiselect  -->
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
+
+
+
     <!-- Ionic icons Botones Slide bar-->
     <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" >
     <!-- awesome icons -->
@@ -50,15 +58,16 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <!-- DataTables  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
     <!-- DropDownTree  -->
-    <link rel="stylesheet" type="text/css" href="css/dropdowntree.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/dropdowntree.css"> -->
     <!-- Jstree  -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <!--  daterangepicker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
 </head>
 
 <body>
@@ -84,17 +93,33 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0 px-3">
-				    <li class="nav-item dropdown">
-
-					    <div class="dropdown dropdown-tree" id="firstDropDownTree">  </div> 
-
-					</li>
-                </ul>
+                
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
 
+                        <div class="container-sel btn-group" style="float:left;margin-right:20px;">
+                            <label for="Filtro">Filtro</label>
+                            <select id="FiltroSucursales" multiple="multiple" class="form-control">
+                                <optgroup label="TORREON">
+                                    <option value="JUAREZ">JUAREZ</option>
+                                    <option value="MATRIZ">MATRIZ</option>
+                                    <option value="TRIANA">TRIANA</option>
+                                    <option value="HIDALGO">HIDALGO</option>
+                                </optgroup>
+                                <optgroup label="EN LINEA">
+                                    <option value="ELEKTRA">ELEKTRA</option>
+                                    <option value="MERCADO LIBRE">MERCADO LIBRE</option>
+                                    <option value="FULL ML">FULL ML</option>
+                                    <option value="CLAROSHOP">CLAROSHOP</option>
+                                    <option value="AMAZON">AMAZON</option>
+                                    <option value="LINIO">LINIO</option>
+                                    <option value="PAPPOSMX">PAPPOSMX</option>
+                                    <option value="PRIME">PRIME</option>
+                                    <option value="TR PRIME">TR PRIME</option>
+                                </optgroup>
+                            </select>
+                        </div>
 
 					    <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
                         <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin"> -->
@@ -106,6 +131,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 				            <option >Division</option>
                             </select>
                         </div>
+
                         <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="PeriodoAct">Período Principal</label>
                             <div id="reportrange" class="form-control">
@@ -124,6 +150,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
        	            </form>
                 </div>
+
 			    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 				    <li class="nav-item dropdown">
 						<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -269,10 +296,15 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <!-- jstree -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <!-- dropdowntree -->
-<script type="text/javascript" src="js/dropdowntree.js"></script>
+<!-- <script type="text/javascript" src="js/dropdowntree.js"></script> -->
 <!-- daterangepicker -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<!-- multiselect -->
+<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+
 
 <!-- app-js        -->
 <script type="text/javascript" src="js/charts/edocartera.js"></script>

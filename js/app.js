@@ -93,24 +93,42 @@ $(function () {
   cb(start, end);
 */
 
-function cb(start, end) {
-  $('#reportrange span').html(start.format('D-MM-YYYY') + ' - ' + end.format('D-MM-YYYY'));
-}
-
-cb(moment(ultimoDia).subtract(6, 'days'), moment(ultimoDia));
-
-$('#reportrange').daterangepicker({
-  startDate: start,
-  endDate: end,
-  ranges: {
-    'Hoy': [moment(ultimoDia), moment(ultimoDia)],
-    'Ayer': [moment(ultimoDia).subtract(1, 'days'), moment(ultimoDia).subtract(1, 'days')],
-    'Ultimos 7 Días': [moment(ultimoDia).subtract(6, 'days'), moment(ultimoDia)],
-    'Ultimos 30 Días': [moment(ultimoDia).subtract(29, 'days'), moment(ultimoDia)],
-    'Este mes': [moment(ultimoDia).startOf('month'), moment(ultimoDia).endOf('month')],
-    'Mes pasado': [moment(ultimoDia).subtract(1, 'month').startOf('month'), moment(ultimoDia).subtract(1, 'month').endOf('month')]
+  function cb(start, end) {
+    $('#reportrange span').html(start.format('D-MM-YYYY') + ' - ' + end.format('D-MM-YYYY'));
   }
-}, cb);
+
+  cb(moment(ultimoDia).subtract(6, 'days'), moment(ultimoDia));
+
+  $('#reportrange').daterangepicker({
+    startDate: start,
+    endDate: end,
+    ranges: {
+      'Hoy': [moment(ultimoDia), moment(ultimoDia)],
+      'Ayer': [moment(ultimoDia).subtract(1, 'days'), moment(ultimoDia).subtract(1, 'days')],
+      'Ultimos 7 Días': [moment(ultimoDia).subtract(6, 'days'), moment(ultimoDia)],
+      'Ultimos 30 Días': [moment(ultimoDia).subtract(29, 'days'), moment(ultimoDia)],
+      'Este mes': [moment(ultimoDia).startOf('month'), moment(ultimoDia).endOf('month')],
+      'Mes pasado': [moment(ultimoDia).subtract(1, 'month').startOf('month'), moment(ultimoDia).subtract(1, 'month').endOf('month')]
+    }
+  }, cb);
+
+
+
+  $('#FiltroSucursales').multiselect({
+    collapseOptGroupsByDefault: true,
+    enableClickableOptGroups:true,
+    enableCollapsibleOptGroups:true,
+    //buttonClass: 'btn btn-default btn-sm',
+    //selectedClass: 'text-info bg-info',
+    //inheritClass: true,
+    //includeSelectAllOption:true
+    onChange: function(element, checked) {
+        opsel =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
+        GeneraFiltroSucursales(opsel);
+    }
+  });
+  $('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA"]);
+  GeneraFiltroSucursales ($('#FiltroSucursales option:selected').map(function(a, item){return item.value;}));
 
 
 //////////////////////////////////
@@ -118,7 +136,8 @@ $('#reportrange').daterangepicker({
 
 
   //DropDownTreeOptions();
-  DropDownTree();
+  //DropDownTree();
+
   //funcionalidad del menu en el sidebar
   $("#accordian h3").click(function(){
 	//slide up all the link lists
@@ -1043,9 +1062,27 @@ function DropDownTreeOptions() {
       selectChildren: true,
     }
   
-    $("#firstDropDownTree").DropDownTree(options);
+    // $("#firstDropDownTree").DropDownTree(options);
  
 };
+
+
+function GeneraFiltroSucursales(data) {
+  var sucursales = [];
+  if (data.length > 0 ) {  
+     for (i = 0; i < data.length; i++)    {
+         if (!data[i] == "") {
+              sucursales.push( data[i])
+              sucursales.push( data[i] + "_ant")
+         }
+     }
+  }
+  Filtro = sucursales;
+  CreaVarsHTML();
+  ActualizaParms();
+
+  window[Charts[NChart].funcion]();
+}
 
 function GeneraFiltro(data) {
   var sucursales = [];

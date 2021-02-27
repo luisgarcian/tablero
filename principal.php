@@ -67,7 +67,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    
+
 </head>
 
 <body>
@@ -98,8 +98,9 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
 
-                        <div class="container-sel btn-group" style="float:left;margin-right:20px;">
-                            <label for="Filtro">Filtro</label>
+                        <div class="container-sel" style="float:left;margin-right:20px;">
+                            <label for="Filtro">Sucursales</label>
+
                             <select id="FiltroSucursales" multiple="multiple" class="form-control">
                                 <optgroup label="TORREON">
                                     <option value="JUAREZ">JUAREZ</option>
@@ -148,48 +149,53 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 <!-- <option >Mes Anterior</option> -->
                             </select>
                          </div>   
-                        <button class="btn btn-search form-control mb-2 mr-sm-2" Id="BtnUpdate"><i class="icon ion-md-search" style="height:80px"></i></button>
        	            
                     <!-- Filtrar resultados-->
                    <!-- <a href="#openModal"><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
   <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
 </svg></FONT> <FONT COLOR="black" href="#openModal">Filtrar Resultados</FONT> </a></button>-->
-<button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
-  <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-</svg></FONT><a href="#openModal"><FONT COLOR="black">Filtrar Resultados</FONT> </a></button>
+                        <button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>
+                            <FONT COLOR="black">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
+                                    <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                                </svg>
+                            </FONT>
+                                <a href="#openModal">
+                                    <FONT COLOR="black">Filtrar Resultados</FONT> 
+                                </a>
+                        </button>
 
-<div id="openModal" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close">X</a>
-	<h2><strong>Filtrar Resultados</strong></h2>
-  
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+                        <div id="openModal" class="modalDialog">
+	                        <div>
+		                        <a href="#close" title="Close" class="close">X</a>
+	                            <h2><strong>Filtrar Resultados</strong></h2>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
 
-        <button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Aplicar</button>
-        <button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Limpiar filtros</button>
-	</div>
-</div>
-<!--fin de filtro de resultados-->
+                                        <button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Aplicar</button>
+                                        <button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Limpiar filtros</button>
+	                    </div>
+                    </div>
+                    <!--fin de filtro de resultados-->
 
                     
                     </form>
@@ -336,7 +342,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
 <!-- highcharts -->
 <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
-<!-- <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> -->
+<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> 
 <!-- jstree -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <!-- dropdowntree -->

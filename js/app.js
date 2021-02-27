@@ -118,17 +118,26 @@ $(function () {
     collapseOptGroupsByDefault: true,
     enableClickableOptGroups:true,
     enableCollapsibleOptGroups:true,
+    nSelectedText: 'Seleccionadas',
+    allSelectedText: 'Todas',
+    nonSelectedText: 'Ninguna',
+
     //buttonClass: 'btn btn-default btn-sm',
     //selectedClass: 'text-info bg-info',
     //inheritClass: true,
     //includeSelectAllOption:true
     onChange: function(element, checked) {
         opsel =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
-        GeneraFiltroSucursales(opsel);
+        GeneraFiltroSucursales(opsel, true);
     }
   });
-  $('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA"]);
-  GeneraFiltroSucursales ($('#FiltroSucursales option:selected').map(function(a, item){return item.value;}));
+  
+  //$('#FiltroSucursales').multiselect('selectAll', true);
+  //$('#FiltroSucursales').multiselect('selectAll', false);
+  $('#FiltroSucursales').multiselect('selectAll')
+  
+  $('#FiltroSucursales').multiselect('refresh') ;
+  //GeneraFiltroSucursales ($('#FiltroSucursales option:selected').map(function(a, item){return item.value;}), true);
 
 
 //////////////////////////////////
@@ -154,12 +163,6 @@ $(function () {
   IndiceOp = $('#tipo')[0].selectedIndex;
   Inicializa(NChart, 0, IndiceOp);
 
-  const btnupd = document.querySelector("#BtnUpdate");
-  btnupd.addEventListener("click", function(evento){
-        evento.preventDefault();
-
-       Inicializa(NChart, 0, IndiceOp);
-  });
   
   //Refrescar Chart en cambio de seleccion tipo
   $('#tipo').on('change', function () {
@@ -342,6 +345,14 @@ function DespliegaTotCredCont(datosfp) {
 
 //////////////////////////////////////////////////////
 function GenChartVFP() {
+
+
+  $('#FiltroSucursales').multiselect('deselectAll', false);
+  $('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
+  Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
+
+  GeneraFiltroSucursales(Seleccion, false);
+
   // Primer Nivel por Sucursal
   sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
@@ -1067,7 +1078,7 @@ function DropDownTreeOptions() {
 };
 
 
-function GeneraFiltroSucursales(data) {
+function GeneraFiltroSucursales(data, genChart) {
   var sucursales = [];
   if (data.length > 0 ) {  
      for (i = 0; i < data.length; i++)    {
@@ -1078,10 +1089,13 @@ function GeneraFiltroSucursales(data) {
      }
   }
   Filtro = sucursales;
-  CreaVarsHTML();
-  ActualizaParms();
 
-  window[Charts[NChart].funcion]();
+  if (genChart) { 
+    CreaVarsHTML();
+    ActualizaParms();
+    window[Charts[NChart].funcion]();
+  }
+
 }
 
 function GeneraFiltro(data) {

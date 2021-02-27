@@ -1,5 +1,13 @@
 function GenChartVtas() {
   // document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+  
+  $('#FiltroSucursales').multiselect('selectAll', false);
+  //$('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
+  $('#FiltroSucursales').multiselect('refresh') ;
+  Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
+
+  GeneraFiltroSucursales(Seleccion, false);
+  
   Parms =  {
     "fecini":  myPar1,
     "fecfin":  myPar2,
@@ -8,6 +16,7 @@ function GenChartVtas() {
     "div"   :  myPar5,
   }
   datos   = TraeDatos("chart/vtasnetas.php", Parms);
+ 
   let sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
 
   // Genera Chart

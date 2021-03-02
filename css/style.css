@@ -453,3 +453,10 @@ transition: opacity 400ms ease-in;
 	box-shadow: 1px 1px 3px #000;
 }
 .close:hover { background: #8d9fa3; }
+
+.container-sel {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  /* height: 200px; */
+}

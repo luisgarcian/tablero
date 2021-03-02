@@ -226,7 +226,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                 <div class="container">
                     <div class="card rounded-0">
                         <div class="card-body p-0">
-                            <div class="row" style="height:90px">
+                            <div class="row" style="height:110px">
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
                                         <h6 id = "tit0" class="text-muted">Total</h6>

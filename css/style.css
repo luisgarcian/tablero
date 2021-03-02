@@ -358,14 +358,16 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
 }
 
 #tit0, #tit1, #tit2 {
-  font-size: 14px;margin-top: 10px !important; 
+  font-size: 20px;margin-top: 10px !important; 
   border-bottom-width: 10px !important; ;
   margin-bottom: 5px !important; 
+  font-weight: bold;
   text-align: center !important; 
 }
 
 #num0, #num1, #num2 {
-  font-size:18px !important;
+  font-size:20px !important;
+  text-align: center !important; 
 }
 
 #porc0, #porc1, #porc2  {
@@ -374,10 +376,13 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
   padding-top: 3px;
   padding-left: 10px;
   padding-right: 10px;
-  width: 58px;
+  width: 70px;
+  height: 20px;
+  font-size:small;
   margin-left: 10px;
   background-color: #29ad29; 
-  color: white !important; 
+  color: white !important;
+  text-align: center !important;  
   margin-top: 5px;
   text-align:center; 
   border-radius: 16px;

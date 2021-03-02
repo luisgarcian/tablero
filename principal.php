@@ -260,7 +260,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                               <div class="card rounded-0">
                                   <div class="card-header bg-light">
                                      <div class="row" id= "info-chart">
-                                           <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Gráfica</h6>
+                                           <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon></h6>
                                            <input type="hidden"  id="PickerFecIni_ant">
                                            <input type="hidden"  id="PickerFecFin_ant">
                                            <div class="text-right mb-3"> 
@@ -293,7 +293,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         <div class="col-lg-12 my-3">
                             <div class="card rounded-0">
                                 <div class="card-header bg-light">
-                                    <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon> Datos</h6>
+                                    <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon></h6>
                                 </div>
                                 <div class="datatable-container">
                                     <div id="divTit1"> 

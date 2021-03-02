@@ -140,7 +140,7 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         type: 'column',
         yAxis: 0,
         data: numberArray1,
-        maxPointWidth:20,
+        maxPointWidth:25,
        color: '#50A5F1',
         tooltip: {
           valuePrefix: '$ '
@@ -151,7 +151,7 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         type: 'column',
         yAxis: 0,
         data: numberArray2,
-        maxPointWidth:26,
+        maxPointWidth:25,
         color: '#F1B44C',  
         tooltip: {
           valuePrefix: '$ '
@@ -176,7 +176,7 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
         name: 'Unidades Actual',
         type: 'spline',
         yAxis: 1,
-        lineWidth :3,
+        lineWidth :2,
         data: numberArray4,
         color : '#34C38F',
         marker: {
@@ -264,7 +264,7 @@ const vtas_scales = {
       scaleLabel: {
         fontSize : 14,
         display: true,
-        labelString: 'Unidades'
+        labelString: 'Unidades',
      }
     }],
     xAxes: [{

@@ -369,23 +369,6 @@ function TotalizarFormasPago(data) {
 }
 
 
-function DespliegaTotCredCont(datosfp) {
-  // Totales    -----------------------------
-  let Total = parseFloat(datosfp[0].Contado) + parseFloat(datosfp[0].Credito);
-  let Credito = parseFloat(datosfp[0].Credito);
-  let Contado = parseFloat(datosfp[0].Contado);
-  let PorcTot = 100;
-  let PorcCre = 0;
-  let PorcCon = 0;
-  if (Total) { 
-    PorcCre = 100 * Credito / Total ;
-    PorcCon = 100 * Contado / Total ;
-  }
-  ActualizaTotales('Total', 'Credito', 'Contado', Total, Credito, Contado, PorcTot, PorcCre, PorcCon );
-
-}
-
-//////////////////////////////////////////////////////
 
 function CreaDataTableVFP(DataSuc) {
     //Filtrar por Sucursales y quitar totales

@@ -1,20 +1,5 @@
 function GenChartVFP() {
 
-
-  //$('#FiltroSucursales').multiselect('deselectAll', false);
-  //$('#FiltroSucursales').removeAttr("selected");
-  //$('#FiltroSucursales').multiselect("deselectAll", true).multiselect("refresh");
-  //$('#FiltroSucursales').multiselect('refresh') ;
-
-  //$('#DDL').selectpicker("deselectAll", true).selectpicker("refresh");
-    //$('#FiltroSucursales').multiselect('refresh') ;
-  // $('#FiltroSucursales').multiselect("deselectAll", false)
-  // $('#FiltroSucursales').multiselect("deselectAll", true);
-  // $('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
-
-  //Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
-  //GeneraFiltroSucursales(Seleccion, false);
-
   // Primer Nivel por Sucursal
   sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
@@ -78,8 +63,6 @@ function GenChartVFP() {
       periodo1 = LetreroPeriodo(myPar1, myPar2);
       myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", FormasdePagoSUM, periodo1);
       
-
-
       //Formas de Pago Todas las Sucursales
       //****** Chart 2
       
@@ -104,289 +87,7 @@ function GenChartVFP() {
 
 };
 
-
-
-
-const VFP_scales = {
-    yAxes: [
-      {
-          type: "linear",
-          display: true,
-          position: "left",
-          id: "y-axis-1",
-          labels: { 
-              show:true,
-          },
-          ticks: {
-            beginAtZero:true,
-            callback: function(value, index, values) {
-              return  formatoMX(value);
-            }
-          },
-          scaleLabel: {
-             display: true,
-             labelString: 'Crédito'
-          }
-      }, 
-      {
-          type: "linear",
-          display: true,
-          position: "right",
-          id: "y-axis-2",
-          labels: {
-              show:true,
-          },
-          ticks: {
-                 callback: function(value, index, values) {
-                     return  formatoMX(value);
-                  }
-          },
-          scaleLabel: {
-              display: true,
-              labelString: 'Contado'
-          }
-      },
-   ], //fin yAxes
-   xAxes: [
-     {
-         display:true,
-         maxBarThickness: 28,
-         maxBarLength: 2,  
-         gridLines: {
-           //display:false
-         },
-         ticks: {
-             fontSize : 10,
-             autoSkip : false,
-             maxRotation: 90,
-             minRotation:90
-         }
-      }
-   ] //fin xAxes
-  };
-  
-// Chart Bar Stacked
-function ChartVFP(TituloAdic, myCtx, Data) {
-  var dataSeries1 = "";
-  var dataSeries2 = "";
-  const vals = ObtieneColumnas(Data);
-
-  yAxisLabels = vals[0];
-  //Crea una variable tipo arreglo para cada valor de columna
-  if (vals.length > 0 ) { 
-     for (i in vals) {
-         str ="dataSeries"+ i +" = vals[" + i + "]";
-         eval(str);
-     }
-  } 
-  if (periodo == 0 ) {
-      myPer = "Año";
-  } else if (periodo == 1){
-      myPer = "Mes";
-  } else if (periodo == 1){
-    myPer = "Semana";
-  }
-
-  var txtTitle1 = "  Período Actual              "+ 
-  "                     " + myPer + " Anterior" ;
-  var txtTitle2 ="   " + myPar1.split("-").reverse().join("-") + " al " + myPar2.split("-").reverse().join("-") + "         "
-  + myPar3.split("-").reverse().join("-") + " al " + myPar4.split("-").reverse().join("-");
-  var config = {
-    type: 'bar',
-    data: {
-        labels: yAxisLabels,
-        datasets: [{
-            label: "Crédito",  
-            backgroundColor: '#104C60',
-            data: dataSeries1,
-            //backgroundColor: ["#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83", "#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63"],
-            backgroundColor: ["#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072","#CACCCE","#6e7072"]
-        }, {
-            label: "Contado",
-            backgroundColor: ["#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9","#FFE440","#00BBF9"],
-            data: dataSeries2,
-            //backgroundColor: ["#b57678", "#b57678", "#cb806e","#cb806e", "#e18a63", "#e18a63", "#5e4fa2", "#5e4fa2", "#745998", "#745998", "#8a638d", "#8a638d", "#a06d83", "#a06d83"],
-        } ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio:false,
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Sucursales'
-                },
-                barPercentage: 1,
-                categoryPercentage: 0.8,
-                stacked: true,
-                ticks: {
-                    min: 0,
-                    max: 100,
-                    padding : 5,
-                    autoSkip : false,
-                    maxRotation: 90,
-                    minRotation:90,
-                    callback: function(value){return value }
-                    
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display:true,
-                    labelString: 'Importe'
-                },
-                stacked: true,
-                ticks: {
-                  callback: function(value){return '$' + formatoMX(value) }
-                }
-
-            }]
-        },
-        title: {
-          display: true,
-          text:  [ "VENTAS POR FORMA DE PAGO", txtTitle1,txtTitle2],
-          fontSize: 14,
-          //fontFamily: 'sans-serif' 
-        },
-
-        legend:{
-          display: true,
-          position: 'bottom',
-          label:{
-              padding:5,
-              boxwidth:15,
-              fontFamily:'sans-serif',
-              fontColor: 'white',
-              fontSize : 2
-          }
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        tooltips: {
-            enabled: true,
-            mode: 'index',
-            intersect: false,
-            callbacks: {
-                label: function(tooltipItems, data) {
-                   
-                    const type = data.datasets[tooltipItems.datasetIndex].label;
-                    const value = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
-                    valor = "";
-                    if (formatoMX(value)  == ".0000") { valor = "0"} else { valor = formatoMX(Math.round(value))};
-                    return type + " : " + valor;
-                    
-                }
-            }
-        }
-    }
-  };
-  
-  var myChart = new Chart(myCtx, config);
  
-
-}
-
-
-
-function CreaChartVFP(TituloAdic, myCtx, Data) {
-
-    var dataSeries1 = "";
-    var dataSeries2 = "";
-    
-    //Obtiene un objetos con los valores de las columnas
-    const vals = ObtieneColumnas(Data);
-    //Inicializa los valores de la primera Columna como Labels
-    yAxisLabels = vals[0];
-    //Crea una variable tipo arreglo para cada valor de columna
-    if (vals.length > 0 ) { 
-       for (i in vals) {
-           str ="dataSeries"+ i +" = vals[" + i + "]";
-           eval(str);
-       }
-    } 
-  
-    var chartdata = {
-      labels: yAxisLabels,    
-      datasets: [
-        {
-          type : 'bar',
-          label: 'CREDITO',
-          fill : false,
-          borderColor: '#204a58',
-          backgroundColor:  '#204a58',
-          yAxisID: 'y-axis-1',
-          data: dataSeries1
-        }, //dataset1
-        {
-          type : 'bar',
-          label: 'CONTADO',
-          fill : false,
-          borderColor: '#44bcd8',
-          backgroundColor:  '#44bcd8',
-          yAxisID: 'y-axis-2',
-          data: dataSeries2
-        }, //dataset2
-  
-      ] //datasets
-    }; //var chartdata
-  
-    const tooltips = {
-      backgroundColor: '#F8AC23',
-      titleFontSize :14,
-      titleFontColor : '#2C3179',
-      bodyFontColor : 'black', 
-      xPadding: 20,
-      yPadding: 10,
-      bodyFontSize:14,
-      bodySpacing: 5,
-      mode: 'label', // point/label
-      callbacks: {
-        label: function(tooltipItem, data) {
-            //let label = data.labels[tooltipItem.index];
-            let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-            return formatoMX(value) ;
-        }
-      }
-    };
-
-    var TxtChart = "Ventas x Forma de Pago " + TituloAdic;
-    var myChart = new Chart(myCtx, {
-      type : 'bar',
-      data: chartdata,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        elements: {
-          line: {fill:false}
-        },
-        title: {
-          display: true,
-          text: TxtChart,
-          fontSize:16,
-          fontFamily: 'system-ui' 
-        },
-        legend:{
-          display: true,
-          position: 'bottom',
-          label:{
-              padding:5,
-              boxwidth:15,
-              fontFamily:'sans-serif',
-              fontColor: 'black',
-              fontSize : 2
-          }
-        },
-        tooltips: tooltips,
-        scales: VFP_scales,
-      },
-    }) 
-    return myChart;
-} 
   
 // Chart tipo DONA
 function createChart( ctx, suc, data, subtitulo) {
@@ -521,4 +222,163 @@ function calculatePoint(i, intervalSize, colorRangeInfo) {
     ? (colorEnd - (i * intervalSize))
     : (colorStart + (i * intervalSize)));
 }
-//createChart(Data);
+
+
+function DTable_vtasfpago(data) {
+
+  var columns = [];
+  
+  if (data && data.length) {
+ 
+    var keys = Object.keys(data[0]);
+    for (var i = 0; i < keys.length; i++) {
+      columns.push( { data : keys[i],  title: keys[i] });
+    }
+  }
+  else {
+    columns.push({data: [], title: ""});
+  }
+
+  if (miTabla) {
+    miTabla.destroy();
+    $("#myTable").empty();
+  } 
+  
+  // Credito, Contado por Sucursal 
+  //Sucursal, Total, Credito, %Cred, Contado, %Cont
+  //    0       1       2       3       4       5
+  if (columns.length > 3) { 
+
+    miTabla = $("#myTable").DataTable( {
+        data     : data,
+        columns  : columns,
+        paging   : false,
+        info     : false,
+        searching: false,
+        autoWidth: true,
+        ordering : false,
+        bFilter  : false,
+        bDestroy : true,
+        fixedColumns: {
+          leftColumns: 2
+        },
+        scrollY:        false,
+        scrollX:        true,
+        scrollX: "100%",
+        fixedColumns:   true,
+        language : {
+          "emptyTable": "No se encuentran datos disponibles"
+        },
+        columnDefs: [
+          { targets: [0,1,2,3,4,5], className: 'dt-body-right' },
+          { targets: [3,5],
+            render: $.fn.dataTable.render.number(',', '.', 1,'','%')
+          },
+          { targets: [1,2,4],
+            render: $.fn.dataTable.render.number(',', '.', 0)
+          }
+        ],
+        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+          /* All cells in first row will be bolded  */
+          if ( iDisplayIndex == 0 ) {
+              $('td', nRow).each(function(){
+                  $(this).addClass('bold');
+              });
+          }
+          return nRow;
+        },   
+    }).draw();
+
+    
+    miTabla.columns.adjust().draw();
+    var head_item = miTabla.columns(2).header();
+    $(head_item).html('Crédito');
+
+  }
+  else {
+    // Formas de Pago Todas las Sucursales o una en específico
+    // Forma de pago, Importe, %
+    //    0       1       2       
+    miTabla = $("#myTable").DataTable( {
+      data     : data,
+      columns  : columns,
+      paging   : false,
+      info     : false,
+      searching: false,
+      autoWidth: true,
+      ordering : false,
+      bFilter  : false,
+      bDestroy : true,
+      fixedColumns: {
+        leftColumns: 2
+      },
+      scrollY:        400,
+      scrollX:        true,
+      fixedColumns:   true,
+      language : {
+        "emptyTable": "No se encuentran datos disponibles"
+      },
+      columnDefs: [
+        { targets: [0,1,2], className: 'dt-body-right' },
+        { targets: [2],
+          render: $.fn.dataTable.render.number(',', '.', 1,'','%')
+        },
+        { targets: [1],
+          render: $.fn.dataTable.render.number(',', '.', 0)
+        }
+      ],
+      fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+        /* All cells in first row will be bolded  */
+        if ( iDisplayIndex == 0 || iDisplayIndex == 1) {
+            $('td', nRow).each(function(){
+                $(this).addClass('bold');
+            });
+        }
+        return nRow;
+      },   
+  }).draw();
+
+  miTabla.columns.adjust().draw();
+  var head_item = miTabla.columns(0).header();
+  $(head_item ).html('Forma de Pago');
+  var head_item = miTabla.columns(2).header();
+  $(head_item ).html('%');
+}
+
+
+
+  $('#myTable tbody').on('click', 'tr', function () {
+  
+    //Drill_Down Chart VFP por Sucursal
+    if ( sel_chart.nivel == 0 && sel_chart.seltipo == 0 ) { 
+      
+      var suc = this.children[0].innerText;
+      parms =  {
+        "fecini":  myPar1,
+        "fecfin":  myPar2,
+        "tipo"  :  suc
+      }
+      if (suc != 'TOTAL') {  
+         VFP_Sucursal(suc, parms);
+      }
+    }
+  }) 
+
+
+}
+
+function DespliegaTotCredCont(datosfp) {
+  // Totales    -----------------------------
+  let Total = parseFloat(datosfp[0].Contado) + parseFloat(datosfp[0].Credito);
+  let Credito = parseFloat(datosfp[0].Credito);
+  let Contado = parseFloat(datosfp[0].Contado);
+  let PorcTot = 100;
+  let PorcCre = 0;
+  let PorcCon = 0;
+  if (Total) { 
+    PorcCre = 100 * Credito / Total ;
+    PorcCon = 100 * Contado / Total ;
+  }
+  ActualizaTotales('Total', 'Credito', 'Contado', Total, Credito, Contado, PorcTot, PorcCre, PorcCon );
+
+}

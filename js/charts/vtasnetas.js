@@ -1,36 +1,21 @@
 function GenChartVtas() {
-  // document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   
-  //$('#FiltroSucursales').multiselect('selectAll', false);
-  //$('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
-  //$('#FiltroSucursales').multiselect('refresh') ;
-  //Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
-  //GeneraFiltroSucursales(Seleccion, false);
-  
-  Parms =  {
-    "fecini":  myPar1,
-    "fecfin":  myPar2,
-    "fecini_ant":  myPar3,
-    "fecfin_ant":  myPar4,
-    "div"   :  myPar5,
-  }
+  Parms =  { "fecini":  myPar1,  "fecfin":  myPar2,  "fecini_ant":  myPar3, "fecfin_ant":  myPar4, "div" :  myPar5 }
   datos   = TraeDatos("chart/vtasnetas.php", Parms);
  
   let sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
 
   // Genera Chart
-  VentasNetas_Chart(sucursales, "Titulo", "SubTitulo");
+  Chart_ventasnetas(sucursales, "Titulo", "SubTitulo");
   // Genera Tabla de datos
   DTable_vtasnetas(sucursales);
   // Despliega Totales
-  VtasNetas_DespliegaTotales(sucursales)
+  Totales_ventasnetas(sucursales)
 
-//  $('#FiltroSucursales').multiselect('selectAll', true);
-//  $('#FiltroSucursales').multiselect('refresh') ;
 };
 
 
-function VentasNetas_Chart(data_orig, titulo, subtitulo)
+function Chart_ventasnetas(data_orig, titulo, subtitulo)
 {  
   divCharts(1); // Area para un Chart 
 
@@ -93,7 +78,10 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
           style: { color: Highcharts.getOptions().colors[10] }
         },
         labels: {
-          format: '$ {value}',
+          //format: '$ {value}',
+          formatter: function () {
+            return '$' + this.axis.defaultLabelFormatter.call(this);
+          },
           style: { color: Highcharts.getOptions().colors[10] }
         },
       },
@@ -227,167 +215,126 @@ function VentasNetas_Chart(data_orig, titulo, subtitulo)
 }
 
 
+function DTable_vtasnetas(data_orig) {
+  var columns = [];
+  
+  if (miTabla) {
+    miTabla.destroy();
+    $("#myTable").empty();
+  } 
 
-const vtas_scales = {
-    yAxes: [{
-      type: "linear",
-      display: true,
-      position: "left",
-      id: "y-axis-1",
-      labels: {
-          show:true,
-      },
-      ticks: {
-        beginAtZero:true,
-        callback: function(value, index, values) {
-           return '$' + formatoMX(value);
-        }
-      },
-      scaleLabel: {
-        fontSize : 14,
-         display: true,
-         labelString: 'Importe'
-      }
-    }, 
-    {
-      type: "linear",
-      display: true,
-      position: "right",
-      id: "y-axis-2",
-      labels: {
-          show:true,
-      },
-      ticks: {
-        callback: function(value, index, values) {
-          return  formatoMX(value);
-      }
-      },
-      scaleLabel: {
-        fontSize : 14,
-        display: true,
-        labelString: 'Unidades',
-     }
-    }],
-    xAxes: [{
-      maxBarThickness: 30,
-      maxBarLength: 2,  
-      display:true,
-      gridLines: {
-        //display:false
-      },
-      ticks: {
-          fontSize : 11,
-          fontStyle: 'bold',
-          autoSkip : false,
-          maxRotation: 90,
-          minRotation:90
-      }
-    }]
- }
+  data = TotalizarVtasNetas(data_orig);
+  if (data && data.length) {
  
- 
-function CreaChartVtasNetas(myCtx, Data) {
-    //Obtiene un objetos con los valores de las columnas
-    
-    const vals = ObtieneColumnas(Data);
-    //Inicializa los valores de la primera Columna como Labels
-    yAxisLabels = vals[0];
-    dataSeries1 = [];
-    dataSeries2 = [];
-    //Crea una variable tipo arreglo para cada valor de columna
-    if (vals.length > 0 ) { 
-      for (i in vals) {
-        var str ="dataSeries"+ i +" = vals[" + i + "]";
-        eval(str);
-      }
+    var keys = Object.keys(data[0]);
+    for (var i = 0; i < keys.length; i++) {
+      columns.push( { data : keys[i],  title: keys[i] });
     }
-    var chartdata = {
-      labels: yAxisLabels,
-      datasets: [
-        {
-          type : 'bar',
-          label: 'IMPORTE',
-          fill : false,
-          borderColor: '#2C3179',
-          backgroundColor:  '#2C3179',
-          yAxisID: 'y-axis-1',
-          data: dataSeries1
-        }, //dataset1
-        {
-          type : 'line',
-          label: 'UNIDADES',
-          fill : false,
-          borderWidth:4,
-          
-          borderColor: '#F8AC23',
-          backgroundColor:  '#F8AC23',
-          data: dataSeries2,
-          pointBorderColor: '#EC932F',
-          pointBackgroundColor: '#EC932F',
-          yAxisID: 'y-axis-2'
-        } //dataset2
-      ] //datasets
-    }; //var chartdata
-  
-   
-    var myChart = new Chart(myCtx, {
-      type : 'bar',
-      data: chartdata,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        elements: {
-          line: {fill:false}
-        },
-        title: {
-          display: true,
-          text: 'Ventas Netas',
-          fontSize:16,
-          fontFamily: 'system-ui' 
-        },
-        legend:{
-          display: true,
-          position: 'bottom',
-          label:{
-              padding:5,
-              boxwidth:15,
-              fontFamily:'sans-serif',
-              fontColor: 'white',
-              fontSize : 2
-          }
-        },
-        tooltips: {
-          backgroundColor: '#31302D',
-          titleFontSize :14,
-          titleFontColor : '#FFFFFF',
-          bodyFontColor : 'white',
-          opacity: 2,
-          xPadding: 20,
-          yPadding: 10,
-          bodyFontSize:14,
-          bodySpacing: 5,
-          mode: 'label', // point/label
-          callbacks: {
-            label: function(tooltipItem, data) {
-                let label = data.labels[tooltipItem.index];
-                let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                return formatoMX(value) ;
-            }
-        }
-      },
-       scales: vtas_scales
-      },
-    }) 
-  
-    return myChart;
-  
-  } // Function CreaChartVtasNetas
+  }
+  else {
+    columns.push({data: [], title: ""});
+  }
 
-  function VtasNetas_DespliegaTotales(datosvta) {
+  
+  miTabla = $("#myTable").DataTable( {
+      data     : data,
+      columns  : columns,
+      paging   : false,
+      info     : false,
+      searching: false,
+      autoWidth: true,
+      ordering : false,
+      bFilter  : false,
+      bDestroy : true,
+      fixedColumns: {
+        leftColumns: 2
+      },
+      scrollY:        400,
+      scrollX:        true,
+      fixedColumns:   true,
+      language : {
+        "emptyTable": "No se encuentran datos disponibles"
+      },
+      columnDefs: [
+        { targets: [0,1,2,3,4,5,6], className: 'dt-body-right' },
+        { targets: [3,6],
+          render: $.fn.dataTable.render.number(',', '.', 1,'','%')
+        },
+        { targets: [1,2,4,5],
+          render: $.fn.dataTable.render.number(',', '.', 0)
+        }
+
+      ],
+      fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+        /* All cells in first row will be bolded  */
+        if ( iDisplayIndex == 0 ) {
+            $('td', nRow).each(function(){
+                $(this).addClass('bold');
+            });
+        }
+        return nRow;
+        },   
+  }).draw();
+
+  miTabla.columns.adjust().draw();
+   var head_Inc_Imp = miTabla.columns(3).header();
+   var head_Inc_Uni = miTabla.columns(6).header();
+   $(head_Inc_Imp).html('Inc %');
+   $(head_Inc_Uni).html('Inc %');
+   var head_ImpAct = miTabla.columns(1).header();
+   var head_ImpAnt = miTabla.columns(2).header();
+   $(head_ImpAct).html('Importe Actual');
+   $(head_ImpAnt).html('Importe Anterior');
+   var head_UniAct = miTabla.columns(4).header();
+   var head_UniAnt = miTabla.columns(5).header();
+   $(head_UniAct).html('Unidades Actual');
+   $(head_UniAnt).html('Unidades Anterior');
+}
+
+function TotalizarVtasNetas(data) {
+  var objTotal = [];
+  var total_importe_act = 0;
+  var total_importe_ant = 0;
+  var total_unidades_act = 0;
+  var total_unidades_ant = 0;
+  $.each(data, function(index, value) {
+      total_importe_act += parseFloat(value.Importe_Act);
+      total_importe_ant += parseFloat(value.Importe_Ant);
+      total_unidades_act += parseInt(value.Unidades_Act);
+      total_unidades_ant += parseInt(value.Unidades_Ant);
+  });
+  var Inc_Importe  = 0;
+  var Inc_Unidades = 0;
+  if (total_importe_ant) {
+      Inc_Importe  =  100.0 * (total_importe_act - total_importe_ant) / total_importe_ant;
+  }
+  if (total_unidades_ant) {
+     Inc_Unidades =  100.0 * (total_unidades_act - total_unidades_ant) / total_unidades_ant;
+  }
+  
+  objTotal  = {
+    "Sucursal"     : 'TOTAL',
+    "Importe_Act"  : total_importe_act.toFixed(2),
+    "Importe_Ant"  : total_importe_ant.toFixed(2),
+    "IncI"         : Inc_Importe.toFixed(6),
+    "Unidades_Act" : total_unidades_act.toFixed(0),
+    "Unidades_Ant" : total_unidades_ant.toFixed(0),
+    "IncU"         : Inc_Unidades.toFixed(6),
+  }
+  
+  // Se agregan totales al principio 
+  data.unshift(objTotal);
+  
+  return data;
+}
+
+
+
+function Totales_ventasnetas(datosvta) {
     // Totales    -----------------------------
     let Total_Importe = parseFloat(datosvta[0].Importe_Act);
     let Total_Unidades = parseFloat(datosvta[0].Unidades_Act);
     let PorcImp = parseFloat(datosvta[0].IncI);
     let PorcUni = parseFloat(datosvta[0].IncU);
     ActualizaTotales('', 'Importe', 'Unidades', 0, Total_Importe, Total_Unidades, 0, PorcImp, PorcUni );
-  }
+}

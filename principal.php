@@ -306,12 +306,6 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                     <div class="card-body pt-2">
                                         <table id="myTable" class="display table-hover" style="width:100%" ></table>
                                     </div>
-                                    <!-- <div id = "divTit2"> 
-                                       <h6 class="text-muted bg-light ml-4" id ="TituloTabla2">Periodo Anterior</h6>
-                                    </div>
-                                    <div class="card-body pt-2">
-                                        <table id="myTable2" class="display table-hover" style="width:100%" ></table>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -349,8 +343,6 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> 
 <!-- jstree -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<!-- dropdowntree -->
-<!-- <script type="text/javascript" src="js/dropdowntree.js"></script> -->
 <!-- daterangepicker -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -368,9 +360,6 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/charts/recupera.js"></script>
 <script type="text/javascript" src="js/datatables/edocartera.js"></script>
 <script type="text/javascript" src="js/datatables/opnegadas.js"></script>
-<script type="text/javascript" src="js/datatables/vtasnetas.js"></script>
-<script type="text/javascript" src="js/datatables/vtasfpago.js"></script>
-<script type="text/javascript" src="js/datatables/recupera.js"></script>
 <script type="text/javascript" src="js/highcharts.js"  ></script>
 
 <script type="text/javascript" src="js/app.js"  ></script>

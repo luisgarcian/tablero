@@ -1,4 +1,5 @@
 <?php
+                require_once("config/getip.php");
                 // se incluye el codigo de la clase para conexion
                 require_once("config/const.php");
                 require_once("config/odbc.php");
@@ -9,8 +10,12 @@
                 // se ejecuta la consulta para traerse las opciones de menu del usuario
 
                 $usuarioid = $_SESSION['idUser'] ;
+                $tipo_usuario = "";
+                if (get_ip_address() == "") {
+                    $tipo_usuario = '0';       // usuario local
+                } else { $tipo_usuario = '1';} // usuario remoto
 
-                $sql = "exec usp_TraeOpcUsr ".strval($usuarioid) ;
+                $sql = "exec usp_TraeOpcUsr ".strval($usuarioid).", ".strval($tipo_usuario) ;
                 // se trae el resultado de la consulta
                 $result = $cnn->query($sql);
 
@@ -26,6 +31,7 @@
                 $ul_txt1 = chr(13).'<li>';
                 $ul_txt2 = "</li>".chr(13);
                 $menu_activo = 0;
+                $chart_default = 1;
                 // menu dinamico
                 while ( $row = odbc_fetch_array($result )) { 
                     $idChart = $cnn->result("idchart");
@@ -35,7 +41,6 @@
                     $tagicon = '<ion-icon name='.$icon.'></ion-icon> ';
                     $h3 = chr(13).$h3_1.$h3_2.$tagicon.$nombre.$h3_3.chr(13);
                     $li = '<li onClick="'.$onclick.'()"'.$li1.$nombre.$li2.chr(13);
-                    
                     if ($idChart == 0 )   {
                         //Lista Principal con icono
                         if ($ul_2 > 0) {   // ul sec pendiente de cerrar?

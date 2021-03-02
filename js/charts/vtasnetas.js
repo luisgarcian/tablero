@@ -1,12 +1,11 @@
 function GenChartVtas() {
   // document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
   
-  $('#FiltroSucursales').multiselect('selectAll', false);
+  //$('#FiltroSucursales').multiselect('selectAll', false);
   //$('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
-  $('#FiltroSucursales').multiselect('refresh') ;
-  Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
-
-  GeneraFiltroSucursales(Seleccion, false);
+  //$('#FiltroSucursales').multiselect('refresh') ;
+  //Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
+  //GeneraFiltroSucursales(Seleccion, false);
   
   Parms =  {
     "fecini":  myPar1,
@@ -25,7 +24,9 @@ function GenChartVtas() {
   DTable_vtasnetas(sucursales);
   // Despliega Totales
   VtasNetas_DespliegaTotales(sucursales)
-  
+
+//  $('#FiltroSucursales').multiselect('selectAll', true);
+//  $('#FiltroSucursales').multiselect('refresh') ;
 };
 
 

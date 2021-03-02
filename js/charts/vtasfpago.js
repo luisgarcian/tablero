@@ -1,3 +1,112 @@
+function GenChartVFP() {
+
+
+  //$('#FiltroSucursales').multiselect('deselectAll', false);
+  //$('#FiltroSucursales').removeAttr("selected");
+  //$('#FiltroSucursales').multiselect("deselectAll", true).multiselect("refresh");
+  //$('#FiltroSucursales').multiselect('refresh') ;
+
+  //$('#DDL').selectpicker("deselectAll", true).selectpicker("refresh");
+    //$('#FiltroSucursales').multiselect('refresh') ;
+  // $('#FiltroSucursales').multiselect("deselectAll", false)
+  // $('#FiltroSucursales').multiselect("deselectAll", true);
+  // $('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
+
+  //Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
+  //GeneraFiltroSucursales(Seleccion, false);
+
+  // Primer Nivel por Sucursal
+  sel_chart.nivel = 0;
+  document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
+
+  // Sucursal, FPago, Importe, %
+  vtas_data  = TraeDatos_tb(myPar1, myPar2, myPar3, myPar4, myPar5); // Todas las Sucursales
+
+  
+  if (sel_chart.seltipo == 0) {
+      // Sucursal, FPago, Importe, %
+      vtasfp_dt  = AplicaFiltro(vtas_data); // Se aplica el Filtro de Sucursales, se eliminan Totales
+      // Sucursal, FPago, Importe, %
+      vtasfp_tot = TotalizarCreditoContado(vtasfp_dt); // Se recalculan totales y porc para cada periodo
+      //DataTable
+      DTable_vtasfpago( vtasfp_tot );
+      //Totales
+      DespliegaTotCredCont(vtasfp_tot);
+
+      //Chart Credito-Contado
+      divCharts(1); // Area para un Chart 
+      myCtx   = $("#chartCanvas")[0];  
+      myCtx.width  = window.innerWidth;
+      myCtx.height  = window.innerHeight;
+
+      parms = { "fecini": myPar1, "fecfin": myPar2, "fecini_ant": myPar3, "fecfin_ant": myPar4, "tipo": myPar5, }
+      Datos_hc  = TraeDatos("chart/vtasfpago_hc.php", parms);
+      HighChart(Datos_hc);
+
+      myCtx.addEventListener("click", function(evento){
+        //VFP_DrillDown(evento);
+      }); 
+
+  } else {
+
+      //DataTable
+      CreaDataTableVFP(vtas_data);
+
+      
+      divCharts(0);  // Area para 2 Chart uno para cada periodo
+      DividirAreaChartCanvas(1);
+
+      //Formas de Pago Todas las Sucursales
+      //***** Chart 1
+      
+      // filtrar para quitar las sucursales segun filtro y sin Totales
+      let SucursalSelected = vtas_data.filter(item => Filtro.includes(item.Sucursal) );
+      // filtrar para quitar peridodo ant
+      var SucursalSelectedPeriodo1 = SucursalSelected.filter((ren) => !ren['FPago'].includes("_ant") );
+      // Agrupar y Acumular Importe por Forma de Pago
+      FormasdePagoSUM = groupAndSum(SucursalSelectedPeriodo1, ['FPago'], ['Importe']);
+      // Obtener el total de la suma de los importes
+      FPagoTot = FormasdePagoSUM.reduce(function(a, b) {
+        return a + b.Importe;
+      }, 0);
+      //Calcular el % por cada Forma de Pago en cada importe y agregarlo como propiedad
+      FormasdePagoSUM.forEach(function(itm){
+        itm.porc = 100.0 * itm.Importe / FPagoTot;
+      });
+      //Crear Chart Periodo1
+      myCtx    = $("#chartCanvas")[0];  
+      periodo1 = LetreroPeriodo(myPar1, myPar2);
+      myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", FormasdePagoSUM, periodo1);
+      
+
+
+      //Formas de Pago Todas las Sucursales
+      //****** Chart 2
+      
+      // filtrar para quitar peridodo actual
+      var SucursalSelectedPeriodo2 = SucursalSelected.filter((ren) => ren['FPago'].includes("_ant") );
+      // Agrupar y Acumular Importe por Forma de Pago
+      FormasdePagoSUM2 = groupAndSum(SucursalSelectedPeriodo2, ['FPago'], ['Importe']);
+      // Obtener el total de la suma de los importes
+      FPagoTot2 = FormasdePagoSUM2.reduce(function(a, b) {
+        return a + b.Importe;
+      }, 0);
+      //Calcular el % por cada Forma de Pago en cada importe y agregarlo como propiedad
+      FormasdePagoSUM2.forEach(function(itm){
+        itm.porc = 100.0 * itm.Importe / FPagoTot2;
+      });
+      //Crear Chart Periodo2
+      myCtx2   = $("#chartCanvas2")[0];  
+      periodo2 = LetreroPeriodo(myPar3, myPar4);
+      myChart  = createChart(myCtx2, "TODAS LAS SUCURSALES", FormasdePagoSUM2, periodo2);
+
+  }
+
+};
+
+
+
+
 const VFP_scales = {
     yAxes: [
       {

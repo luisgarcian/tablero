@@ -35,7 +35,8 @@ function HighChart(data, titulo, subtitulo)
         title: {
             text: 'Ventas por Forma de Pago',
             style: {
-                fontSize: '20px' 
+                fontSize: '26px',
+               fontFamily:'Franklin Gothic'
              }
         },
         subtitle: {

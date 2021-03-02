@@ -7,9 +7,12 @@ var Charts = [
   },
   {"titulo" : "Ventas por Forma de Pago",  "funcion": "GenChartVFP",  "Tit1"   : "Credito", "Tit2": "Contado"
   },
+  {"titulo" : "Recuperacion de Cartera",  "funcion": "GenChartRecupera",  "Tit1"   : "", "Tit2": ""
+  },
 ];
 
 var Filtro = [];
+var TFiltro = 0;
 
 function changeType(button) {
   
@@ -55,8 +58,6 @@ $(function () {
   $("#btnChart").hide();
   $("#Chart-Container").hide();
 
-
-//////////////////////////////////
   fechas   = Ajax("config/ajaxfile.php", 7, 0);
   var parts1 = fechas[0].fecini.split('-');
   var parts2 = fechas[0].fecfin.split('-');
@@ -66,32 +67,6 @@ $(function () {
 
   start = primerDia;
   end   = ultimoDia;
-
-  //var start = moment().subtract(29, 'days');
-  //var end = moment();
-  /*
-  function cb(start, end) {
-      str1 = date2str(start, 'dd-MM-yyyy');
-      str2 = date2str(end, 'dd-MM-yyyy');
-
-        $('#reportrange span').html(str1 + ' - ' + str2);
-  }
-
-  $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Hoy': [end, end],
-           'Ayer': [ addDays(end,-1), addDays(end,-1)],
-           'Ultimos 7 Días': [addDays(end,-6), end],
-           'Ultimos 30 Días': [addDays(end,-29), end],
-           'Mes Actual': [moment().startOf('month'), moment().endOf('month')],
-           'Mes Pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-  }, cb);
-
-  cb(start, end);
-*/
 
   function cb(start, end) {
     $('#reportrange span').html(start.format('D-MM-YYYY') + ' - ' + end.format('D-MM-YYYY'));
@@ -109,9 +84,41 @@ $(function () {
       'Ultimos 30 Días': [moment(ultimoDia).subtract(29, 'days'), moment(ultimoDia)],
       'Este mes': [moment(ultimoDia).startOf('month'), moment(ultimoDia).endOf('month')],
       'Mes pasado': [moment(ultimoDia).subtract(1, 'month').startOf('month'), moment(ultimoDia).subtract(1, 'month').endOf('month')]
-    }
+    },
+    "locale": {
+      "format": "DD/MM/YYYY",
+      "separator": " - ",
+      "applyLabel": "Aplicar",
+      "cancelLabel": "Cancelar",
+      "fromLabel": "De",
+      "toLabel": "a",
+      "customRangeLabel": "Personalizado",
+      "daysOfWeek": [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa"
+      ],
+      "monthNames": [
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agusto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+      ],
+      "firstDay": 1
+  }
   }, cb);
-
 
 
   $('#FiltroSucursales').multiselect({
@@ -121,7 +128,7 @@ $(function () {
     nSelectedText: 'Seleccionadas',
     allSelectedText: 'Todas',
     nonSelectedText: 'Ninguna',
-
+    //includeSelectAllOption: true,
     //buttonClass: 'btn btn-default btn-sm',
     //selectedClass: 'text-info bg-info',
     //inheritClass: true,
@@ -132,21 +139,7 @@ $(function () {
     }
   });
   
-  //$('#FiltroSucursales').multiselect('selectAll', true);
-  //$('#FiltroSucursales').multiselect('selectAll', false);
-  $('#FiltroSucursales').multiselect('selectAll')
   
-  $('#FiltroSucursales').multiselect('refresh') ;
-  //GeneraFiltroSucursales ($('#FiltroSucursales option:selected').map(function(a, item){return item.value;}), true);
-
-
-//////////////////////////////////
-
-
-
-  //DropDownTreeOptions();
-  //DropDownTree();
-
   //funcionalidad del menu en el sidebar
   $("#accordian h3").click(function(){
 	//slide up all the link lists
@@ -158,11 +151,7 @@ $(function () {
 		}
   })  
 
-
-  CreaVarsHTML();
-  IndiceOp = $('#tipo')[0].selectedIndex;
-  Inicializa(NChart, 0, IndiceOp);
-
+  
   
   //Refrescar Chart en cambio de seleccion tipo
   $('#tipo').on('change', function () {
@@ -172,7 +161,8 @@ $(function () {
      Inicializa(NChart, 0, IndiceOp);
      
   });
-
+ 
+  
   //Actualizar Chart en cambio rango dias
   $('#rango').on('change', function () {
     
@@ -197,12 +187,64 @@ $(function () {
   
  });
 
-});
+ CreaVarsHTML();
+ IndiceOp = $('#tipo')[0].selectedIndex;
+ 
+ if (tipousr == 0)  {
+   NChart  = 3;  //Default Chart para administrador
+   TFiltro = 1;  //Default Filtro para administrador
+ } else {
+   NChart =  numchart - 1; //Default Chart segun usuario
+   TFiltro = tfiltro;
+ }
 
+ Update_Filtro(TFiltro);
+ 
+ Inicializa(NChart, 0, IndiceOp);
+
+
+}); // Fin de $(function ()
+
+
+function Update_Filtro(TFiltro) {
+  //Actualizar Filtro
+  switch (TFiltro)  {
+    case 0:  // Todas
+        Filtro = ["JUAREZ","MATRIZ","TRIANA","HIDALGO","ELEKTRA","MERCADO LIBRE","FULL ML","CLAROSHOP", "AMAZON", "LINIO", "PAPPOSMX","PRIME","TR PRIME"];
+        break;
+    case 1:  // Torreon
+        Filtro = ["JUAREZ","MATRIZ","TRIANA","HIDALGO"];
+        break; 
+    case 2:  //  En línea
+        Filtro = ["ELEKTRA","MERCADO LIBRE","FULL ML","CLAROSHOP", "AMAZON", "LINIO", "PAPPOSMX","PRIME","TR PRIME"];
+        break;
+  }
+  $('#FiltroSucursales').multiselect("deselectAll", false);
+  $('#FiltroSucursales').multiselect('select', Filtro );
+  $('#FiltroSucursales').multiselect('refresh') ;
+
+};
+
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
 //var startDate = $('#reportrange').data('daterangepicker').startDate._d;
 //var endDate = $('#reportrange').data('daterangepicker').endDate._d;
 
+function Ejecuta_Chart() {
+
+  parms =  { "idchart": NChart +1  };
+  datos   = TraeDatos("chart/filtro.php", parms);
+
+  TFiltro = parseInt(datos[0].filtro);
+  Update_Filtro(TFiltro);
+
+  Inicializa(NChart, 0, IndiceOp);
+
+}
 
 
 function GenChartOpcs() {
@@ -344,103 +386,6 @@ function DespliegaTotCredCont(datosfp) {
 }
 
 //////////////////////////////////////////////////////
-function GenChartVFP() {
-
-
-  $('#FiltroSucursales').multiselect('deselectAll', false);
-  $('#FiltroSucursales').multiselect('select', ["JUAREZ","MATRIZ","TRIANA","HIDALGO"]);
-  Seleccion =   $('#FiltroSucursales option:selected').map(function(a, item){return item.value;});
-
-  GeneraFiltroSucursales(Seleccion, false);
-
-  // Primer Nivel por Sucursal
-  sel_chart.nivel = 0;
-  document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';
-
-  // Sucursal, FPago, Importe, %
-  vtas_data  = TraeDatos_tb(myPar1, myPar2, myPar3, myPar4, myPar5); // Todas las Sucursales
-
-  
-  if (sel_chart.seltipo == 0) {
-      // Sucursal, FPago, Importe, %
-      vtasfp_dt  = AplicaFiltro(vtas_data); // Se aplica el Filtro de Sucursales, se eliminan Totales
-      // Sucursal, FPago, Importe, %
-      vtasfp_tot = TotalizarCreditoContado(vtasfp_dt); // Se recalculan totales y porc para cada periodo
-      //DataTable
-      DTable_vtasfpago( vtasfp_tot );
-      //Totales
-      DespliegaTotCredCont(vtasfp_tot);
-
-      //Chart Credito-Contado
-      divCharts(1); // Area para un Chart 
-      myCtx   = $("#chartCanvas")[0];  
-      myCtx.width  = window.innerWidth;
-      myCtx.height  = window.innerHeight;
-
-      parms = { "fecini": myPar1, "fecfin": myPar2, "fecini_ant": myPar3, "fecfin_ant": myPar4, "tipo": myPar5, }
-      Datos_hc  = TraeDatos("chart/vtasfpago_hc.php", parms);
-      HighChart(Datos_hc);
-
-      myCtx.addEventListener("click", function(evento){
-        //VFP_DrillDown(evento);
-      }); 
-
-  } else {
-
-      //DataTable
-      CreaDataTableVFP(vtas_data);
-
-      
-      divCharts(0);  // Area para 2 Chart uno para cada periodo
-      DividirAreaChartCanvas(1);
-
-      //Formas de Pago Todas las Sucursales
-      //***** Chart 1
-      
-      // filtrar para quitar las sucursales segun filtro y sin Totales
-      let SucursalSelected = vtas_data.filter(item => Filtro.includes(item.Sucursal) );
-      // filtrar para quitar peridodo ant
-      var SucursalSelectedPeriodo1 = SucursalSelected.filter((ren) => !ren['FPago'].includes("_ant") );
-      // Agrupar y Acumular Importe por Forma de Pago
-      FormasdePagoSUM = groupAndSum(SucursalSelectedPeriodo1, ['FPago'], ['Importe']);
-      // Obtener el total de la suma de los importes
-      FPagoTot = FormasdePagoSUM.reduce(function(a, b) {
-        return a + b.Importe;
-      }, 0);
-      //Calcular el % por cada Forma de Pago en cada importe y agregarlo como propiedad
-      FormasdePagoSUM.forEach(function(itm){
-        itm.porc = 100.0 * itm.Importe / FPagoTot;
-      });
-      //Crear Chart Periodo1
-      myCtx    = $("#chartCanvas")[0];  
-      periodo1 = LetreroPeriodo(myPar1, myPar2);
-      myChart  = createChart(myCtx, "TODAS LAS SUCURSALES", FormasdePagoSUM, periodo1);
-      
-
-
-      //Formas de Pago Todas las Sucursales
-      //****** Chart 2
-      
-      // filtrar para quitar peridodo actual
-      var SucursalSelectedPeriodo2 = SucursalSelected.filter((ren) => ren['FPago'].includes("_ant") );
-      // Agrupar y Acumular Importe por Forma de Pago
-      FormasdePagoSUM2 = groupAndSum(SucursalSelectedPeriodo2, ['FPago'], ['Importe']);
-      // Obtener el total de la suma de los importes
-      FPagoTot2 = FormasdePagoSUM2.reduce(function(a, b) {
-        return a + b.Importe;
-      }, 0);
-      //Calcular el % por cada Forma de Pago en cada importe y agregarlo como propiedad
-      FormasdePagoSUM2.forEach(function(itm){
-        itm.porc = 100.0 * itm.Importe / FPagoTot2;
-      });
-      //Crear Chart Periodo2
-      myCtx2   = $("#chartCanvas2")[0];  
-      periodo2 = LetreroPeriodo(myPar3, myPar4);
-      myChart  = createChart(myCtx2, "TODAS LAS SUCURSALES", FormasdePagoSUM2, periodo2);
-
-  }
-
-};
 
 function CreaDataTableVFP(DataSuc) {
     //Filtrar por Sucursales y quitar totales
@@ -848,9 +793,20 @@ function ChartVta(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option><option>Division</option>";
   Opciones.children[0].selected=true;
-  Inicializa(NChart, 0, 0 );
-  
+
+  Ejecuta_Chart();
+
 }
+
+function ChartRecupera(){
+  NChart = 4;
+  Opciones = document.querySelector("#Tipo");
+  Opciones.innerHTML = "<option></option>";
+  Opciones.children[0].selected=true;
+  
+  Ejecuta_Chart();
+}
+
 
 function ChartOpc(){
   NChart = 1;
@@ -858,8 +814,8 @@ function ChartOpc(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Sucursal</option>"
 
-  Inicializa(NChart, 0, 0 );
-  
+  Ejecuta_Chart();
+ 
 }
 
 function ChartEdoC(){
@@ -868,7 +824,7 @@ function ChartEdoC(){
   Opciones = document.querySelector("#Tipo");
   Opciones.innerHTML = "<option>Todas</option>"
 
-  Inicializa(NChart, 0, 0);
+  Ejecuta_Chart();
   
 }
 
@@ -880,7 +836,7 @@ function ChartVentaFP(){
 
   periodo = $('#periodo')[0].selectedIndex;
 
-  Inicializa(NChart, 0, 0);
+  Ejecuta_Chart();
   
 }
 
@@ -1022,61 +978,6 @@ function numberWithCommas(x) {
   return x;
 }
 
-function DropDownTreeOptions() {
-
-  var nodo1=[
-    {title:"JUAREZ"},
-    {title:"HIDALGO"},
-    {title:"TRIANA"} ,
-    {title:"MATRIZ"}
-    ];
-  
-    var nodo2=[
-    {title:"AMAZON"},
-    {title:"ELEKTRA"},
-    {title:"MERCADO LIBRE"},
-    {title:"LINIO"},
-    {title:"CLAROSHOP"},
-    {title:"FULL ML"},
-    {title:"PAPPOS MX"},
-    {title:"PRIME"},
-    {title:"TR PRIME"}
-
-    ];
-  
-    var opciones=[
-    {title:"TORREÓN",href:"#1",dataAttrs:[], data:nodo1},
-    {title:"EN LÍNEA",href:"#3",dataAttrs:[],data:nodo2}
-    ];
-  
-    var options = {
-      title : "Filtro",
-      data: opciones,
-      maxHeight: 400,
-      clickHandler: function(element){
-        //element is the clicked element
-        console.log(element);
-        //$("#firstDropDownTree").SetTitle($(element).find("a").first().text());
-        //console.log("Selected Elements",$("#firstDropDownTree").GetSelected());
-      },
-      expandHandler: function(element,expanded){
-        //console.log("expand",element,expanded);
-      },
-      checkHandler: function(element,checked){
-        //console.log("check",element,checked);
-        arreglo = $("#firstDropDownTree").GetSelected();
-        GeneraFiltro(arreglo);
-      },
-      closedArrow: '<i class="fa fa-caret-right" aria-hidden="true"></i>',
-      openedArrow: '<i class="fa fa-caret-down" aria-hidden="true"></i>',
-      multiSelect: true,
-      selectChildren: true,
-    }
-  
-    // $("#firstDropDownTree").DropDownTree(options);
- 
-};
-
 
 function GeneraFiltroSucursales(data, genChart) {
   var sucursales = [];
@@ -1166,60 +1067,3 @@ function ActualizaTotales(Tit1, Tit2, Tit3, Tot1, Tot2, Tot3, Porc1, Porc2, Porc
 
 }
 
-function DropDownTree() {
-  var nodo1=[
-    {title:"JUAREZ"},
-    {title:"HIDALGO"},
-    {title:"TRIANA"} ,
-    {title:"MATRIZ"}
-    ];
-  
-    var nodo2=[
-    {title:"AMAZON"},
-    {title:"ELEKTRA"},
-    {title:"MERCADO LIBRE"},
-    {title:"LINIO"},
-    {title:"CLAROSHOP"},
-    {title:"FULL ML"},
-    {title:"PAPPOS MX"},
-    {title:"PRIME"},
-    {title:"TR PRIME"}
-
-    ];
-  
-    var opciones=[
-    {title:"TORREÓN",href:"#1",dataAttrs:[], data:nodo1},
-    {title:"EN LÍNEA",href:"#3",dataAttrs:[],data:nodo2}
-    ];
- 
-  
-    var options = {
-      title : "Filtro",
-      data: opciones,
-      maxHeight: 400,
-      clickHandler: function(element){
-        //element is the clicked element
-        console.log(element);
-        //$("#firstDropDownTree").SetTitle($(element).find("a").first().text());
-        //console.log("Selected Elements",$("#firstDropDownTree").GetSelected());
-      },
-      expandHandler: function(element,expanded){
-        //console.log("expand",element,expanded);
-      },
-      checkHandler: function(element,checked){
-        //console.log("check",element,checked);
-        
-        arreglo = $("#firstDropDownTree").GetSelected();
-        GeneraFiltro(arreglo);
-  
-      },
-      closedArrow: '<i class="fa fa-caret-right" aria-hidden="true"></i>',
-      openedArrow: '<i class="fa fa-caret-down" aria-hidden="true"></i>',
-      multiSelect: true,
-      selectChildren: true,
-    }
-  
-    $("#firstDropDownTree").DropDownTree(options);
-    
-
-}

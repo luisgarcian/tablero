@@ -39,6 +39,17 @@ if(!empty($_SESSION['active']))
                  $_SESSION['nombre'] = $cnn->result('nombre');
                  $_SESSION['user']   = $cnn->result('usuario');
                  $_SESSION['tipo']   = $cnn->result('tipo');
+                 $chart = $cnn->result('chart_default');
+                 $_SESSION['chart']  = $chart;
+
+                 $sql = "SELECT filtro FROM opc_chart where idchart = $chart ";
+                 $result = $cnn->query($sql);
+                 if ($cnn->num_rows>0) {
+                    $_SESSION['filtro']  = $cnn->result('filtro');
+                 } else {
+                    $_SESSION['filtro']  = 0;
+                 }
+
 
                  header("location: principal.php");
               } else

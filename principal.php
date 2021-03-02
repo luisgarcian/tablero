@@ -25,6 +25,8 @@ $fecfin = date("Y-m-d", strtotime($cnn->result('fecfin')));
 $fecini_ant = date("Y-m-d", strtotime($cnn->result('fecini_ant')));
 $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
+
+
 ?>
 <?
   session_start();
@@ -38,28 +40,18 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS v 4.5.3-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
     <!-- datetimepicker-->
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" >
-
-
-
     <!-- bootstrap multiselect  -->
     <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
-
-
-
     <!-- Ionic icons Botones Slide bar-->
     <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" >
     <!-- awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- DataTables  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
-    <!-- DropDownTree  -->
-    <!-- <link rel="stylesheet" type="text/css" href="css/dropdowntree.css"> -->
-    <!-- Jstree  -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <!--  daterangepicker -->
@@ -101,23 +93,23 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Filtro">Sucursales</label>
 
-                            <select id="FiltroSucursales" multiple="multiple" class="form-control">
+                            <select id="FiltroSucursales" multiple="multiple" class="selectpicker form-control">
                                 <optgroup label="TORREON">
-                                    <option value="JUAREZ">JUAREZ</option>
-                                    <option value="MATRIZ">MATRIZ</option>
-                                    <option value="TRIANA">TRIANA</option>
-                                    <option value="HIDALGO">HIDALGO</option>
+                                    <option selected="selected" value="JUAREZ">JUAREZ</option>
+                                    <option selected="selected" value="MATRIZ">MATRIZ</option>
+                                    <option selected="selected" value="TRIANA">TRIANA</option>
+                                    <option selected="selected" value="HIDALGO">HIDALGO</option>
                                 </optgroup>
                                 <optgroup label="EN LINEA">
-                                    <option value="ELEKTRA">ELEKTRA</option>
-                                    <option value="MERCADO LIBRE">MERCADO LIBRE</option>
-                                    <option value="FULL ML">FULL ML</option>
-                                    <option value="CLAROSHOP">CLAROSHOP</option>
-                                    <option value="AMAZON">AMAZON</option>
-                                    <option value="LINIO">LINIO</option>
-                                    <option value="PAPPOSMX">PAPPOSMX</option>
-                                    <option value="PRIME">PRIME</option>
-                                    <option value="TR PRIME">TR PRIME</option>
+                                    <option selected="selected" value="ELEKTRA">ELEKTRA</option>
+                                    <option selected="selected" value="MERCADO LIBRE">MERCADO LIBRE</option>
+                                    <option selected="selected" value="FULL ML">FULL ML</option>
+                                    <option selected="selected" value="CLAROSHOP">CLAROSHOP</option>
+                                    <option selected="selected" value="AMAZON">AMAZON</option>
+                                    <option selected="selected" value="LINIO">LINIO</option>
+                                    <option selected="selected" value="PAPPOSMX">PAPPOSMX</option>
+                                    <option selected="selected" value="PRIME">PRIME</option>
+                                    <option selected="selected" value="TR PRIME">TR PRIME</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -149,12 +141,24 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 <!-- <option >Mes Anterior</option> -->
                             </select>
                          </div>   
-       	            
+
+                         <!-- <div class="container-sel" style="display: flex"">
+                            <ion-buttons end>
+                                <button ion-button (click)="modal_opt()" >
+                                    <ion-icon name="options"></ion-icon>
+                                </button>
+                            </ion-buttons>
+                        </div> -->
+
                     <!-- Filtrar resultados-->
                    <!-- <a href="#openModal"><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
   <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
 </svg></FONT> <FONT COLOR="black" href="#openModal">Filtrar Resultados</FONT> </a></button>-->
-                        <button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>
+
+
+
+
+                        <!-- <button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>
                             <FONT COLOR="black">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
                                     <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
@@ -194,7 +198,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                         <button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Aplicar</button>
                                         <button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Limpiar filtros</button>
 	                    </div>
-                    </div>
+                    </div> -->
                     <!--fin de filtro de resultados-->
 
                     
@@ -361,14 +365,21 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/charts/opnegadas.js"></script>
 <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
 <script type="text/javascript" src="js/charts/vtasfpago.js"></script>
+<script type="text/javascript" src="js/charts/recupera.js"></script>
 <script type="text/javascript" src="js/datatables/edocartera.js"></script>
 <script type="text/javascript" src="js/datatables/opnegadas.js"></script>
 <script type="text/javascript" src="js/datatables/vtasnetas.js"></script>
 <script type="text/javascript" src="js/datatables/vtasfpago.js"></script>
+<script type="text/javascript" src="js/datatables/recupera.js"></script>
 <script type="text/javascript" src="js/highcharts.js"  ></script>
+
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <script >
+
+    var numchart = <?php  echo $_SESSION['chart']; ?>; 
+    var tipousr  = <?php  echo $_SESSION['tipo']; ?>; 
+    var tfiltro  = <?php  echo $_SESSION['filtro']; ?>; 
 
     function openNav() {
      document.getElementById("sidebar-container").style.width = "250px";

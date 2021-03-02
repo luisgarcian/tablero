@@ -91,7 +91,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Filtro">Sucursales</label>
+                            <label for="Filtro" style="font-size:14px; font-weight: bold;">Sucursales</label>
 
                             <select id="FiltroSucursales" multiple="multiple" class="selectpicker form-control">
                                 <optgroup label="TORREON">
@@ -118,7 +118,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin"> -->
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Tipo">Tipo</label>
+                            <label for="Tipo"  style="font-size:14px; font-weight: bold;">Tipo</label>
 				            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
                             <option >Sucursal</option>
 				            <option >Division</option>
@@ -126,14 +126,14 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         </div>
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="PeriodoAct">Período Principal</label>
+                            <label for="PeriodoAct"  style="font-size:14px; font-weight: bold;">Período Principal</label>
                             <div id="reportrange" class="form-control">
                                 <i class="fa fa-calendar"></i>&nbsp;
                                 <span></span> <i class="fa fa-caret-down"></i>
                             </div>
                         </div>
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Compara">Comparar con</label>
+                            <label for="Compara"  style="font-size:14px; font-weight: bold;">Comparar con</label>
                             <select type="text" class="form-control" class="selectpicker" id="periodo">
                                 <option >Período anterior</option>
 					            <option >Año Anterior</option>
@@ -233,22 +233,22 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             <div class="row" style="height:110px">
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit0" class="text-muted">Total</h6>
+                                        <h6 id = "tit0" class="text-muted fe-arrow-up text-success mr-1">Total</h6>
                                         <h3 id = "num0" class="font-weight">$0</h3>
                                         <h6 id = "porc0"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit1" class="text-muted" >Ventas Netas</h6>
+                                        <h6 id = "tit1" class="text-muted fe-arrow-up text-success mr-1" >Ventas Netas</h6>
                                         <h3 id = "num1" class="font-weight">$0</h3>
                                         <h6 id = "porc1"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit2" class="text-muted">Unidades Totales</h6>
-                                        <h3 id = "num2" class="font-weight">0</h3>
+                                        <h6 id = "tit2" class="text-muted fe-arrow-up text-success mr-1">Unidades Totales</h6>
+                                        <h3 id = "num2" class="font-weight ">0</h3>
                                         <h6 id = "porc2"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>

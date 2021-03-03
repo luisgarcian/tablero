@@ -425,8 +425,8 @@ label {
 	pointer-events: auto;
 }
 .modalDialog > div {
-	width: 700px;
-  height: 500px;
+	width: 425px;
+  height: 480px;
 	position: relative;
 	margin: 10% auto;
 	padding: 5px 20px 13px 20px;

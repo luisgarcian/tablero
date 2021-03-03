@@ -16,7 +16,7 @@ function GenChartVFP() {
       //DataTable
       DTable_vtasfpago( vtasfp_tot );
       //Totales
-      DespliegaTotCredCont(vtasfp_tot);
+      Totales_vtasfpago(vtasfp_tot);
 
       //Chart Credito-Contado
       divCharts(1); // Area para un Chart 
@@ -26,7 +26,7 @@ function GenChartVFP() {
 
       parms = { "fecini": myPar1, "fecfin": myPar2, "fecini_ant": myPar3, "fecfin_ant": myPar4, "tipo": myPar5, }
       Datos_hc  = TraeDatos("chart/vtasfpago_hc.php", parms);
-      HighChart(Datos_hc);
+      Chart_ventasformapago(Datos_hc);
 
       myCtx.addEventListener("click", function(evento){
         //VFP_DrillDown(evento);
@@ -85,9 +85,131 @@ function GenChartVFP() {
 
   }
 
+  Llena_Filtro(vtas_data, false);
+  Check_Filtro(TFiltro);
+
+
 };
 
  
+function Chart_ventasformapago(data, titulo, subtitulo)
+{  
+
+    let filtered = data.filter(item => Filtro.includes(item.sucursal) );
+    const vals = ObtieneColumnas(filtered);
+
+    yAxisLabels = vals[0];
+    numberArray1 = [];
+    numberArray2 = [];
+    numberArray3 = [];
+    numberArray4 = [];
+    
+    if (vals.length > 0 ) { 
+       for (i=1; i <vals.length; i++) {
+           str ="dataSeries"+ i +" = vals[" + i + "]";
+           eval(str);
+           num = "numberArray" + i + "= dataSeries" + i + ".map(el=>parseInt(el)||0)";
+           eval (num);
+       }
+    } 
+
+    
+    let Subtitulo = "<b>Actual : </b>" + LetreroPeriodo(myPar1, myPar2) +'<br>' + "<b>Anterior     : </b>" +LetreroPeriodo(myPar3, myPar4);
+    Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+      }
+    })
+
+    Highcharts.chart('Chart-Container', {
+        chart: {
+            type: 'column'
+        },
+        colors : ['#FFE440','#CACCCE','#00BBF9','#6E7072'],
+        title: {
+            text: 'Ventas por Forma de Pago',
+            style: {
+                fontSize: '20px' 
+             }
+        },
+        subtitle: {
+            text: Subtitulo,
+            align: 'right',
+            x:-30
+        },
+        xAxis: [{
+            categories: yAxisLabels,
+        }],
+        yAxis: [{ // Primary yAxis
+            title: {
+                text: 'Importe de Ventas',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+              formatter: function () {
+                return '$' + this.axis.defaultLabelFormatter.call(this);
+              },
+              style: { color: Highcharts.getOptions().colors[10] }
+            },
+        }],
+        tooltip: {
+            shared: true,
+            backgroundColor: '#FCFFC5',
+            borderColor: 'black',
+            borderRadius: 10,
+            borderWidth: 2,
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: <b>{point.y}</b></br>',
+            positioner: function(labelWidth, labelHeight, point) {
+                var tooltipX = point.plotX + 20;
+                var tooltipY = point.plotY - 30;
+                return {
+                    x: tooltipX,
+                    y: tooltipY
+                };
+            }
+        },
+        plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Crédito Anterior',
+            data: numberArray1,
+            stack: 'anterior'
+          },  {
+            name: 'Contado Anterior',
+            data: numberArray2,
+            stack: 'anterior'
+          },{
+            name: 'Crédito Actual',
+            data: numberArray3,
+            stack: 'actual'
+          }, {
+            name: 'Contado Actual',
+            data: numberArray4,
+            stack: 'actual'
+        }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal'
+                    }
+                }
+            }]
+        }
+    });
+    
+}
   
 // Chart tipo DONA
 function createChart( ctx, suc, data, subtitulo) {
@@ -364,10 +486,10 @@ function DTable_vtasfpago(data) {
     }
   }) 
 
-
 }
 
-function DespliegaTotCredCont(datosfp) {
+
+function Totales_vtasfpago(datosfp) {
   // Totales    -----------------------------
   let Total = parseFloat(datosfp[0].Contado) + parseFloat(datosfp[0].Credito);
   let Credito = parseFloat(datosfp[0].Credito);

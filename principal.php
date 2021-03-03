@@ -94,23 +94,8 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             <label for="Filtro">Sucursales</label>
 
                             <select id="FiltroSucursales" multiple="multiple" class="selectpicker form-control">
-                                <optgroup label="TORREON">
-                                    <option selected="selected" value="JUAREZ">JUAREZ</option>
-                                    <option selected="selected" value="MATRIZ">MATRIZ</option>
-                                    <option selected="selected" value="TRIANA">TRIANA</option>
-                                    <option selected="selected" value="HIDALGO">HIDALGO</option>
-                                </optgroup>
-                                <optgroup label="EN LINEA">
-                                    <option selected="selected" value="ELEKTRA">ELEKTRA</option>
-                                    <option selected="selected" value="MERCADO LIBRE">MERCADO LIBRE</option>
-                                    <option selected="selected" value="FULL ML">FULL ML</option>
-                                    <option selected="selected" value="CLAROSHOP">CLAROSHOP</option>
-                                    <option selected="selected" value="AMAZON">AMAZON</option>
-                                    <option selected="selected" value="LINIO">LINIO</option>
-                                    <option selected="selected" value="PAPPOSMX">PAPPOSMX</option>
-                                    <option selected="selected" value="PRIME">PRIME</option>
-                                    <option selected="selected" value="TR PRIME">TR PRIME</option>
-                                </optgroup>
+                                
+								
                             </select>
                         </div>
 
@@ -360,7 +345,6 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/charts/recupera.js"></script>
 <script type="text/javascript" src="js/datatables/edocartera.js"></script>
 <script type="text/javascript" src="js/datatables/opnegadas.js"></script>
-<script type="text/javascript" src="js/highcharts.js"  ></script>
 
 <script type="text/javascript" src="js/app.js"  ></script>
 

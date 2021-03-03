@@ -3,6 +3,7 @@ function GenChartVtas() {
   Parms =  { "fecini":  myPar1,  "fecfin":  myPar2,  "fecini_ant":  myPar3, "fecfin_ant":  myPar4, "div" :  myPar5 }
   datos   = TraeDatos("chart/vtasnetas.php", Parms);
  
+    
   let sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
 
   // Genera Chart
@@ -11,6 +12,9 @@ function GenChartVtas() {
   DTable_vtasnetas(sucursales);
   // Despliega Totales
   Totales_ventasnetas(sucursales)
+
+  Llena_Filtro(datos, false);
+  Check_Filtro(TFiltro);
 
 };
 

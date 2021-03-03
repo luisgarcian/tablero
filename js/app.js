@@ -190,35 +190,101 @@ $(function () {
  CreaVarsHTML();
  IndiceOp = $('#tipo')[0].selectedIndex;
  
- if (tipousr == 0)  {
-   NChart  = 3;  //Default Chart para administrador
-   TFiltro = 1;  //Default Filtro para administrador
- } else {
-   NChart =  numchart - 1; //Default Chart segun usuario
-   TFiltro = tfiltro;
- }
-
- Update_Filtro(TFiltro);
  
- Inicializa(NChart, 0, IndiceOp);
+ NChart =  numchart - 1; //Default Chart segun usuario
+ TFiltro = tfiltro;      // Default Filtro segun chart
+ 
 
+ Llena_Filtro([], true);
+ Check_Filtro(TFiltro);
+
+ Inicializa(NChart, 0, IndiceOp);
+ 
 
 }); // Fin de $(function ()
 
 
-function Update_Filtro(TFiltro) {
-  //Actualizar Filtro
-  switch (TFiltro)  {
-    case 0:  // Todas
-        Filtro = ["JUAREZ","MATRIZ","TRIANA","HIDALGO","ELEKTRA","MERCADO LIBRE","FULL ML","CLAROSHOP", "AMAZON", "LINIO", "PAPPOSMX","PRIME","TR PRIME"];
-        break;
-    case 1:  // Torreon
-        Filtro = ["JUAREZ","MATRIZ","TRIANA","HIDALGO"];
-        break; 
-    case 2:  //  En línea
-        Filtro = ["ELEKTRA","MERCADO LIBRE","FULL ML","CLAROSHOP", "AMAZON", "LINIO", "PAPPOSMX","PRIME","TR PRIME"];
-        break;
+
+function Llena_Filtro(datos, incluirtodas) {
+
+  //sucursales en seleccion
+  seleccion = [];
+
+  //Todas las sucursales
+  todas = Object.values(TraeDatos("config/optsucursal.php",[]));
+    
+  if (incluirtodas){
+    opcs = todas;
+  } 
+  else { 
+    for (i=0; i< datos.length; i++) {
+      seleccion.push(datos[i].Sucursal);
+    }
+    opcs = todas.filter(item => seleccion.includes(item.nomsucursal) );
   }
+  
+  optsfiltro = 'optgroups =  [';
+  plaza_ant = "";
+  gpo = 0;
+
+  // Crea variable para crear el menu de filtro por sucursales
+  var optgroups = "";
+  for (var i = 0; i < opcs.length; i++)  {
+    plaza       = opcs[i].plaza;
+    if (plaza != plaza_ant) {
+        if (gpo > 0) {
+          optsfiltro += ']},'
+          gpo = 0;
+        }
+        optsfiltro +=  '{ label : "' + opcs[i].nomplaza + '", children: [ '; 
+        gpo++;
+        plaza_ant = plaza
+    }
+    optsfiltro += '{label: "' + opcs[i].nomsucursal + '", value: "' + opcs[i].nomsucursal + '"},'
+  }
+  if (gpo > 0) {
+    optsfiltro += ']}  ];'
+  }
+  
+  eval(optsfiltro);
+
+  $('#FiltroSucursales').multiselect('dataprovider', optgroups);
+
+}
+
+
+function Check_Filtro(TFiltro) {
+
+  //Todas las sucursales
+  todas = Object.values(TraeDatos("config/optsucursal.php",[]));
+  $plaza = "";
+  switch (TFiltro)  {
+    case 0:
+      $plaza = '00';
+      break;
+    case 1:
+      $plaza = '01';
+      break;
+    case 2:  
+      $plaza = '02';
+      break;
+  }
+  Filtro = [];
+  todas.map( function( el ){ 
+    if ($plaza == '00') {
+      //return el.nomsucursal; 
+      Filtro.push(el.nomsucursal)
+      Filtro.push(el.nomsucursal+ "_ant")
+    } else   {
+      if (el.plaza == $plaza ) { 
+        //return el.nomsucursal; 
+        Filtro.push(el.nomsucursal)
+        Filtro.push(el.nomsucursal+ "_ant")
+      }   
+    }  
+   
+  });
+  
   $('#FiltroSucursales').multiselect("deselectAll", false);
   $('#FiltroSucursales').multiselect('select', Filtro );
   $('#FiltroSucursales').multiselect('refresh') ;
@@ -236,12 +302,17 @@ function getCookie(name) {
 
 function Ejecuta_Chart() {
 
+  // Llena Filtro con todas las sucursales
+  //Llena_Filtro([], true);
+
   parms =  { "idchart": NChart +1  };
   datos   = TraeDatos("chart/filtro.php", parms);
-
   TFiltro = parseInt(datos[0].filtro);
-  Update_Filtro(TFiltro);
 
+  // Check opciones del Chart
+  Check_Filtro(TFiltro);
+
+  // Llama el Chart
   Inicializa(NChart, 0, IndiceOp);
 
 }
@@ -875,6 +946,8 @@ function Inicializa(NChart, Nivel, OpSel) {
   
   // Genera Chart
   window[Charts[NChart].funcion]();
+
+  
 }
 
 function ActualizaParms() {

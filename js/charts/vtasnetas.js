@@ -59,7 +59,8 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
       text: 'Ventas Netas por Sucursal',
       align: 'center',
       style: {
-        fontSize: '20px' 
+        fontSize: '26px',
+       fontFamily:'Franklin Gothic',
       }
     },
     subtitle: {

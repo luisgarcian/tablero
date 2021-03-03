@@ -362,11 +362,13 @@ table#myTable.dataTable tbody tr:hover > .sorting_1 {
   border-bottom-width: 10px !important; ;
   margin-bottom: 5px !important; 
   font-weight: bold;
+  color: rgb(0, 0, 0) !important;
   text-align: center !important; 
 }
 
 #num0, #num1, #num2 {
   font-size:20px !important;
+  color: rgb(95, 95, 95) !important;
   text-align: center !important; 
 }
 
@@ -423,8 +425,8 @@ label {
 	pointer-events: auto;
 }
 .modalDialog > div {
-	width: 700px;
-  height: 500px;
+	width: 425px;
+  height: 480px;
 	position: relative;
 	margin: 10% auto;
 	padding: 5px 20px 13px 20px;

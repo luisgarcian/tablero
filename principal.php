@@ -91,7 +91,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Filtro">Sucursales</label>
+                            <label for="Filtro" style="font-size:14px; font-weight: bold;">Sucursales</label>
 
                             <select id="FiltroSucursales" multiple="multiple" class="selectpicker form-control">
                                 
@@ -103,7 +103,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin"> -->
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Tipo">Tipo</label>
+                            <label for="Tipo"  style="font-size:14px; font-weight: bold;">Tipo</label>
 				            <select type="text" class="form-control mb-2 mr-sm-2" class="selectpicker" id="tipo">
                             <option >Sucursal</option>
 				            <option >Division</option>
@@ -111,14 +111,14 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         </div>
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="PeriodoAct">Período Principal</label>
+                            <label for="PeriodoAct"  style="font-size:14px; font-weight: bold;">Período Principal</label>
                             <div id="reportrange" class="form-control">
                                 <i class="fa fa-calendar"></i>&nbsp;
                                 <span></span> <i class="fa fa-caret-down"></i>
                             </div>
                         </div>
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Compara">Comparar con</label>
+                            <label for="Compara"  style="font-size:14px; font-weight: bold;">Comparar con</label>
                             <select type="text" class="form-control" class="selectpicker" id="periodo">
                                 <option >Período anterior</option>
 					            <option >Año Anterior</option>
@@ -135,56 +135,237 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             </ion-buttons>
                         </div> -->
 
-                    <!-- Filtrar resultados-->
+                  <!-- Filtrar resultados-->
                    <!-- <a href="#openModal"><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
   <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
 </svg></FONT> <FONT COLOR="black" href="#openModal">Filtrar Resultados</FONT> </a></button>-->
+<div class="container-sel" style="float:left;margin-right:20px;">
+                            <label for="Compara"  style="font-size:14px; font-weight: bold;">Filtro</label>
+                            <button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
+  <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+</svg></FONT><a href="#openModal"><FONT COLOR="black">Filtrar Resultados</FONT> </a></button>
+<br>
+<div id="openModal" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+	<h2><strong>Filtrar Resultados</strong></h2>
+    <br>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row"> 
+                <label asp-for="Division" class="control-label" ><h5>División</h5></label>
+            
+                    <input list="browsers" name="myBrowser" /></label>
+                     <datalist id="browsers">
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Calzado">
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Accesorios">  
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Electronica">
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+
+                     </datalist>
+                  
+              
+                <span asp-validation-for="Division" class="text-danger"></span>
+                </div>
+                <br>
+            <div class="row"> 
+            <label asp-for="Division" class="control-label" ><h5>Departamento</h5></label>
+            
+            <input list="browsers1" name="myBrowser1"/></label>
+             <datalist id="browsers1">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Damas">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Caballeros">  
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Niño">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Niña">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Accesorios calzado">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Audio">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Entretenimiento">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+
+            </div>
+            <br>
+            <div class="row">
+            <label asp-for="Division" class="control-label" ><h5>Familia</h5></label>
+            
+            <input list="browsers2" name="myBrowser2"/></label>
+             <datalist id="browsers2">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Descontinuado basico">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Moda">  
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Basico">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Celulares">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Escritorio">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Laptop">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Conectividad">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+
+          
+ 
+                </div>
+                <br>
+                
+            <div class="row">
+            <label asp-for="Division" class="control-label" ><h5>Linea</h5></label>
+            
+            <input list="browsers3" name="myBrowser3"/></label>
+             <datalist id="browsers3">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Zapatilla">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Confort">  
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Tenis">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Tipo crocs">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Sueco">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Plantillas">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Mochila">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Lapicera">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            
+            
+            
+            
+            
+            </div>
+                <br>
+            <div class="row"> 
+            
+            <label asp-for="Division" class="control-label" ><h5>L1</h5></label>
+            
+            <input list="browsers4" name="myBrowser4"/></label>
+             <datalist id="browsers4">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Fiesta">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Tacon">  
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Plataforma">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Clasico">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Clinico">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Dama">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Caballero">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Recortable">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Gel">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Memoria">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Esponja">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Cera">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            </div>
 
 
 
+                <br>
+            <div class="row"> 
+            <label asp-for="Division" class="control-label" ><h5>L2</h5></label>
+            <input list="browsers5" name="myBrowser5"/></label>
+             <datalist id="browsers5">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Diabetico">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Tacon">  
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Deportivo">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Hebilla">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Uruguayo">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Danza">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Pantunflas">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Jazz">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <div class="row">
 
-                        <!-- <button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>
-                            <FONT COLOR="black">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
-                                    <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                                </svg>
-                            </FONT>
-                                <a href="#openModal">
-                                    <FONT COLOR="black">Filtrar Resultados</FONT> 
-                                </a>
-                        </button>
+            <label asp-for="Division" class="control-label" ><h5>L3</h5></label>
+            <input list="browsers6" name="myBrowser6"/></label>
+             <datalist id="browsers6">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Clasico">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Carrito">  
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Botin">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Choclo">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Hebilla">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Skato">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Cintas">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Velcro">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+                </div>
 
-                        <div id="openModal" class="modalDialog">
-	                        <div>
-		                        <a href="#close" title="Close" class="close">X</a>
-	                            <h2><strong>Filtrar Resultados</strong></h2>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <br>
+                <br>
 
-                                        <button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Aplicar</button>
-                                        <button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Limpiar filtros</button>
-	                    </div>
-                    </div> -->
-                    <!--fin de filtro de resultados-->
+            <div class="row">  
+            
+            <label asp-for="Division" class="control-label" ><h5>L4</h5></label>
+            <input list="browsers7" name="myBrowser7"/></label>
+             <datalist id="browsers7">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cintas">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Velcro">  
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Pata de gallo">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cruzada">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cerrada">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Mocasín">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Accesorios calcetines">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Boca de pescado">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            </div>
+            <br>
+                <div class="row"> 
+                <label asp-for="Division" class="control-label" ><h5>L5</h5></label>
+            <input list="browsers8" name="myBrowser8"/></label>
+             <datalist id="browsers8">
+              <option v-for="l in lineas5" v-bind:value="l.idl5" value="Con talon">
+              <option v-for="l in lineas5" v-bind:value="l.idl5" value="Sin talon"> 
+             </datalist>
+            <span asp-validation-for="Division" class="text-danger"></span>
+
+             </div>
+                    <br>
+                <div class="row"> 
+                
+                <label asp-for="Division" class="control-label" ><h5>L6</h5></label>
+            <input list="browsers9" name="myBrowser9"/></label>
+             <datalist id="browsers9">
+              <option v-for="l in lineas6" v-bind:value="l.idl6" value="Traba">
+              <option v-for="l in lineas6" v-bind:value="l.idl6" value="Cerrada"> 
+             </datalist>
+            <span asp-validation-for="Division" class="text-danger"></span>
+        </div>
+                
+
+<br>
+<br>
+    
+<button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Aplicar</button>
+<br>
+<br>
+<button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Limpiar filtros</button>
+               
+         
+        </div>
+    </div>
+
+        
+
+	</div>
+</div>
+                            
+</div>   
+
+<!--fin de filtro de resultados-->
 
                     
                     </form>
@@ -218,22 +399,22 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             <div class="row" style="height:110px">
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit0" class="text-muted">Total</h6>
+                                        <h6 id = "tit0" class="text-muted fe-arrow-up text-success mr-1">Total</h6>
                                         <h3 id = "num0" class="font-weight">$0</h3>
                                         <h6 id = "porc0"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit1" class="text-muted" >Ventas Netas</h6>
+                                        <h6 id = "tit1" class="text-muted fe-arrow-up text-success mr-1" >Ventas Netas</h6>
                                         <h3 id = "num1" class="font-weight">$0</h3>
                                         <h6 id = "porc1"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-12 d-flex stat my-2">
                                     <div class="mx-auto">
-                                        <h6 id = "tit2" class="text-muted">Unidades Totales</h6>
-                                        <h3 id = "num2" class="font-weight">0</h3>
+                                        <h6 id = "tit2" class="text-muted fe-arrow-up text-success mr-1">Unidades Totales</h6>
+                                        <h3 id = "num2" class="font-weight ">0</h3>
                                         <h6 id = "porc2"class="text-success"><i class="icon ion-md-arrow-dropup-circle"></i>0.0%</h6>
                                     </div>
                                 </div>

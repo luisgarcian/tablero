@@ -170,207 +170,195 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
         <div class="col-md-5">
             <div class="row"> 
                 <label asp-for="Division" class="control-label" ><h5>División</h5></label>
-                <select asp-for="Division" v-model="iddivision" v-bind:style="iddivision ? '' : 'border: 1px solid orange;'" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                    <option selected="selected" value="0">Seleccionar división</option>
-                    <!--<option v-for="d in divisiones" v-bind:value="d.iddivisiones">@{{d.descrip}}</option>-->
-                    <option v-for="d in divisiones" v-bind:value="d.iddivisiones">CALZADO</option>
-                    <option v-for="d in divisiones" v-bind:value="d.iddivisiones">ACCESORIOS</option>
-                    <option v-for="d in divisiones" v-bind:value="d.iddivisiones">ELECTRONICA</option>
-                    <option v-for="d in divisiones" v-bind:value="d.iddivisiones">GENERAL</option>
-                    
-                </select>
+            
+                    <input list="browsers" name="myBrowser" /></label>
+                     <datalist id="browsers">
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Calzado">
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Accesorios">  
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Electronica">
+                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+
+                     </datalist>
+                  
+              
                 <span asp-validation-for="Division" class="text-danger"></span>
                 </div>
                 <br>
-            <div class="row">  <label asp-for="Division" class="control-label" ><h5>Departamento</h5></label>
-                <select asp-for="Division" v-model="iddepto" v-bind:style="iddepto ? '' : 'border: 1px solid orange;'" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                    <option selected="selected" value="0">Seleccionar departamento</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DAMAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CABALLEROS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">NIÑO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">NIÑA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS CALZADO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS ESCOLARES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS CALCETINES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CUIDADO DE CALZADO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS CABALLERO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS DAMA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS DEPORTIVOS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">INFANTIL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BEBES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CELULARES Y TABLETS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">GENERAL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">COMPUTADORAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TV Y VIDEO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">AUDIO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SMART WHATCH</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">OTROS ACCESORIOS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ENTRETENIMIENTO</option>
-                </select>
-                
+            <div class="row"> 
+            <label asp-for="Division" class="control-label" ><h5>Departamento</h5></label>
+            
+            <input list="browsers1" name="myBrowser1"/></label>
+             <datalist id="browsers1">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Damas">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Caballeros">  
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Niño">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Niña">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Accesorios calzado">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Audio">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Entretenimiento">
+             </datalist>
+          
+      
                 <span asp-validation-for="Division" class="text-danger"></span>
+
             </div>
             <br>
-            <div class="row"> <label asp-for="Division" class="control-label" ><h5>Familia</h5></label>
-                <select asp-for="Division" v-model="idfamilia" v-bind:style="idfamilia ? '' : 'border: 1px solid orange;'" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                    <option  selected="selected" value="0">Seleccionar familia</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DESCONTINUADO BASICO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">MODA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BASICO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">PRIMAVERA-VERANO 2013</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">OTOÑO-INVIERNO 2013</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CELULARES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">GENERAL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TABLETS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ESCRITORIO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">LAPTOP</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TELEVISION</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOCINAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOCINAS AMPLIFICADAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">AUDIFONOS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SMART WHATCH</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">JUEGOS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">MEMORIAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CONECTIVIDAD</option>
-                </select>
-                <span asp-validation-for="Division" class="text-danger"></span></div>
+            <div class="row">
+            <label asp-for="Division" class="control-label" ><h5>Familia</h5></label>
+            
+            <input list="browsers2" name="myBrowser2"/></label>
+             <datalist id="browsers2">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Descontinuado basico">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Moda">  
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Basico">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Celulares">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Escritorio">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Laptop">
+              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Conectividad">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+
+          
+ 
+                </div>
                 <br>
                 
-            <div class="row"> <label asp-for="Division" class="control-label" ><h5>Linea</h5></label>
-                <select asp-for="Division"  v-model="idlinea" v-bind:style="idlinea ? '' : 'border: 1px solid orange;'" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                    <option selected="selected" value="0">Seleccionar linea</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ZAPATILLA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CONFORT</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TENIS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TIPO CROCS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SUECO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">PLANTILLAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">MOCHILA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">LAPICERA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CALCETON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOLSAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BALON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">GORRAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">NIÑA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">NIÑO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BEBO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOTA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOTIN</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SOCCER</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">INDUSTRIAL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">VESTIR</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SOMBREROS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">AGUJETAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DISPLAY4.9"</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DAMAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CABALLEROS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CALCETON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DRONES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">UNIFORMES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">VIDEO JUEGOS</option>
-                </select>
-                <span asp-validation-for="Division" class="text-danger"></span></div>
+            <div class="row">
+            <label asp-for="Division" class="control-label" ><h5>Linea</h5></label>
+            
+            <input list="browsers3" name="myBrowser3"/></label>
+             <datalist id="browsers3">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Zapatilla">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Confort">  
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Tenis">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Tipo crocs">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Sueco">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Plantillas">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Mochila">
+              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Lapicera">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            
+            
+            
+            
+            
+            </div>
                 <br>
-            <div class="row"> <label asp-for="Division" class="control-label" ><h5>L1</h5></label>
-                <select asp-for="Division" v-model="idl1" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                    <option selected="selected" value="0">Seleccionar l1</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">FIESTA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TACON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">PLATAFORMA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CLASICO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CLINICO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DAMA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CABALLERO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">RECORTABLE</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">GEL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">MEMORIA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ZAPATILLA DE TACON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ESPOLONERA DE TALON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ESPONJA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CERA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DESODORANTE</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">REPELENTE</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">JABON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SENCILLA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DOBLE</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TRIPLE</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CASUAL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">FIESTA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">MENSAJERO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">VESTIR</option>
+            <div class="row"> 
+            
+            <label asp-for="Division" class="control-label" ><h5>L1</h5></label>
+            
+            <input list="browsers4" name="myBrowser4"/></label>
+             <datalist id="browsers4">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Fiesta">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Tacon">  
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Plataforma">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Clasico">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Clinico">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Dama">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Caballero">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Recortable">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Gel">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Memoria">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Esponja">
+              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Cera">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            </div>
 
-                </select>
-                <span asp-validation-for="Division" class="text-danger"></span></div>
+
+
                 <br>
-            <div class="row"> <label asp-for="Division" class="control-label" ><h5>L2</h5></label>
-                <select asp-for="Division" v-model="idl2" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                    <option selected="selected" value="0">Seleccionar l2</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TACON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DIABETICO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DEPORTIVO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">HEBILLA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DEPORTIVO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">URUGUAYO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DANZA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">PANTUNFLAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">JAZZ</option>
-                </select>
-                <span asp-validation-for="Division" class="text-danger"></span></div>
+            <div class="row"> 
+            <label asp-for="Division" class="control-label" ><h5>L2</h5></label>
+            <input list="browsers5" name="myBrowser5"/></label>
+             <datalist id="browsers5">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Diabetico">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Tacon">  
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Deportivo">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Hebilla">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Uruguayo">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Danza">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Pantunflas">
+              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Jazz">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+            </div>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-5">
             <div class="row">
-                <label class="control-label" ><h5>L3</h5></label>
-                <select v-model="idl3" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDepartamento>()">
-                    <option selected="selected" value="0">Seleccionar l3</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CLASICO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CARRITO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOTIN</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CHOCLO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">HEBILLA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SKATO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CINTAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">VELCRO</option>
-                </select>
-                <span asp-validation-for="Departamento" class="text-danger"></span></div>
+
+            <label asp-for="Division" class="control-label" ><h5>L3</h5></label>
+            <input list="browsers6" name="myBrowser6"/></label>
+             <datalist id="browsers6">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Clasico">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Carrito">  
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Botin">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Choclo">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Hebilla">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Skato">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Cintas">
+              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Velcro">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
+                </div>
+
                 <br>
-            <div class="row">   <label class="control-label" ><h5>L4</h5></label>
-                <select v-model="idl4" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDepartamento>()">
-                    <option selected="selected" value="0">Seleccionar l4</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CINTAS</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">VELCRO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">PATA DE GALLO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CRUZADA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CERRADA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">MOCASÍN</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">ACCESORIOS CALCETINES</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">BOCA DE PESCADO</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">DESTALONADA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">TALON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SIN TALON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CON TALON</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">GENERAL</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CLASICO</option>
-                </select>
-                <span asp-validation-for="Departamento" class="text-danger"></span>
+
+            <div class="row">  
+            
+            <label asp-for="Division" class="control-label" ><h5>L4</h5></label>
+            <input list="browsers7" name="myBrowser7"/></label>
+             <datalist id="browsers7">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cintas">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Velcro">  
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Pata de gallo">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cruzada">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cerrada">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Mocasín">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Accesorios calcetines">
+              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Boca de pescado">
+             </datalist>
+          
+      
+                <span asp-validation-for="Division" class="text-danger"></span>
             </div>
             <br>
-                <div class="row"> <label class="control-label"><h5>L5</h5></label>
-                    <select v-model="idl5" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                        <option selected="selected" value="0">Seleccionar l5</option>
-                        <option v-for="d in departamentos" v-bind:value="d.iddepto">CON TALÓN</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">SIN TALÓN</option>
-                    </select>
-                    <span class="text-danger"></span></div>
+                <div class="row"> 
+                <label asp-for="Division" class="control-label" ><h5>L5</h5></label>
+            <input list="browsers8" name="myBrowser8"/></label>
+             <datalist id="browsers8">
+              <option v-for="l in lineas5" v-bind:value="l.idl5" value="Con talon">
+              <option v-for="l in lineas5" v-bind:value="l.idl5" value="Sin talon"> 
+             </datalist>
+            <span asp-validation-for="Division" class="text-danger"></span>
+
+             </div>
                     <br>
-                <div class="row"> <label class="control-label"><h5>L6</h5></label>
-                    <select v-model="idl6" class="form-control dropdown-toggle col-lg-12" asp-items="Html.GetEnumSelectList<TipoDivision>()">
-                        <option selected="selected" value="0">Seleccionar l6</option>
-                        <option v-for="d in departamentos" v-bind:value="d.iddepto">TRABA</option>
-                    <option v-for="d in departamentos" v-bind:value="d.iddepto">CERRADA</option>
-                    </select>
-                    <span class="text-danger"></span></div>
+                <div class="row"> 
+                
+                <label asp-for="Division" class="control-label" ><h5>L6</h5></label>
+            <input list="browsers9" name="myBrowser9"/></label>
+             <datalist id="browsers9">
+              <option v-for="l in lineas6" v-bind:value="l.idl6" value="Traba">
+              <option v-for="l in lineas6" v-bind:value="l.idl6" value="Cerrada"> 
+             </datalist>
+            <span asp-validation-for="Division" class="text-danger"></span>
+        </div>
                 
 
 <br>

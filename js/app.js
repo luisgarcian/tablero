@@ -140,6 +140,19 @@ $(function () {
         GeneraFiltroSucursales(opsel, true);
     }
   });
+
+  $('#FiltroAdicional').multiselect({
+    collapseOptGroupsByDefault: true,
+    enableClickableOptGroups:true,
+    enableCollapsibleOptGroups:true,
+    nSelectedText: 'Seleccionadas',
+    allSelectedText: 'Todas',
+    nonSelectedText: 'Ninguna',
+    onChange: function(element, checked) {
+        opsel =   $('#FiltroAdicional option:selected').map(function(a, item){return item.value;});
+        GeneraFiltroAdicional(opsel);
+    }
+  });
   
   
   //funcionalidad del menu en el sidebar
@@ -153,7 +166,12 @@ $(function () {
 		}
   })  
 
+  $(".modal").on("shown.bs.modal", alignModal); 
   
+  /* Resizing the modal according the screen size */ 
+  $(window).on("resize", function() { 
+      $(".modal:visible").each(alignModal); 
+  }); 
   
   //Refrescar Chart en cambio de seleccion tipo
   $('#tipo').on('change', function () {
@@ -171,7 +189,7 @@ $(function () {
     periodo = $('#periodo')[0].selectedIndex;
     Inicializa(NChart, 0, IndiceOp);
     
- });
+  });
 
   //Actualizar Chart en cambio periodo
   $('#periodo').on('change', function () {
@@ -179,35 +197,50 @@ $(function () {
     periodo = $('#periodo')[0].selectedIndex;
     Inicializa(NChart, 0, IndiceOp);
     
- });
+  });
 
- $("#reportrange").on('apply.daterangepicker', function (ev, picker) {
+  $("#reportrange").on('apply.daterangepicker', function (ev, picker) {
 
  // alert('apply clicked!');
     periodo = $('#periodo')[0].selectedIndex;
     Inicializa(NChart, 0, IndiceOp);
   
- });
+  });
 
- CreaVarsHTML();
- IndiceOp = $('#tipo')[0].selectedIndex;
- 
- 
- NChart =  numchart - 1; //Default Chart segun usuario
- TFiltro = tfiltro;      // Default Filtro segun chart
- 
+  $('.btn-open-dialog').on('click', function(){
+    $('#myModal .modal-body').load('http://www.espncricinfo.com', function(){
+      /* load finished, show dialog */
+      $('#myModal').modal('show')
 
- Llena_Filtro([], true);
- Check_Filtro(TFiltro);
+      Llena_Filtro_Adicional();
+      
+    });
+  });
 
- Inicializa(NChart, 0, IndiceOp);
+  CreaVarsHTML();
+  IndiceOp = $('#tipo')[0].selectedIndex;
+  
+  NChart =  numchart - 1; //Default Chart segun usuario
+  TFiltro = tfiltro;      // Default Filtro segun chart
  
+  //Inicializa Filtros de Sucursales
+  Llena_Filtro_Sucursales([], true);
+  Check_Filtro_Sucursales(TFiltro);
+
+  //Abre Chart Default del Usuario
+  Inicializa(NChart, 0, IndiceOp);
 
 }); // Fin de $(function ()
 
 
+function alignModal() { 
+    var modalDialog = $(this).find(".modal-dialog"); 
+    modalDialog.css("margin-top", Math.max(0,  
+    ($(window).height() - modalDialog.height()) / 2)); 
+} 
 
-function Llena_Filtro(datos, incluirtodas) {
+
+function Llena_Filtro_Sucursales(datos, incluirtodas) {
 
   //sucursales en seleccion
   seleccion = [];
@@ -255,7 +288,7 @@ function Llena_Filtro(datos, incluirtodas) {
 }
 
 
-function Check_Filtro(TFiltro) {
+function Check_Filtro_Sucursales(TFiltro) {
 
   //Todas las sucursales
   todas = Object.values(TraeDatos("config/optsucursal.php",[]));
@@ -304,15 +337,13 @@ function getCookie(name) {
 
 function Ejecuta_Chart() {
 
-  // Llena Filtro con todas las sucursales
-  //Llena_Filtro([], true);
 
   parms =  { "idchart": NChart +1  };
   datos   = TraeDatos("chart/filtro.php", parms);
   TFiltro = parseInt(datos[0].filtro);
 
   // Check opciones del Chart
-  Check_Filtro(TFiltro);
+  //Check_Filtro_Sucursales(TFiltro);
 
   // Llama el Chart
   Inicializa(NChart, 0, IndiceOp);
@@ -1054,8 +1085,23 @@ function GeneraFiltroSucursales(data, genChart) {
     ActualizaParms();
     window[Charts[NChart].funcion]();
   }
-
 }
+
+
+function GeneraFiltroAdicional(data) {
+  var filtroadic = [];
+  if (data.length > 0 ) {  
+     for (i = 0; i < data.length; i++)    {
+         if (!data[i] == "") {
+              filtroadic.push( data[i])
+         }
+     }
+  }
+
+  FiltroAdic = filtroadic;
+ }
+
+
 
 function GeneraFiltro(data) {
   var sucursales = [];

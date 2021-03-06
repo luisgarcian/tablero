@@ -85,22 +85,15 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <form class="form-inline form-horizontal position-relative d-inline-block my-2">
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Filtro" style="font-size:14px; font-weight: bold;">Sucursales</label>
-
                             <select id="FiltroSucursales" multiple="multiple" class="selectpicker form-control">
-                                
-								
                             </select>
                         </div>
-
-					    <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecIni">
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="PickerFecFin"> -->
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Tipo"  style="font-size:14px; font-weight: bold;">Tipo</label>
@@ -117,6 +110,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 <span></span> <i class="fa fa-caret-down"></i>
                             </div>
                         </div>
+
                         <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Compara"  style="font-size:14px; font-weight: bold;">Comparar con</label>
                             <select type="text" class="form-control" class="selectpicker" id="periodo">
@@ -125,156 +119,82 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                                 
                                 <!-- <option >Mes Anterior</option> -->
                             </select>
-                         </div>   
-
+                        </div>   
 
                         <div class="container-sel" style="float:left;margin-right:20px;">
-                            <label for="Compara"  style="font-size:14px; font-weight: bold;">Filtro</label>
-                            <button onclick="cargacombos()" type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' >
+                            <label style="font-size:14px; font-weight: bold;">Filtro</label>
+                            <!-- <button type="button" class="btn btn-light btn-open-dialog"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' >
                                 <FONT COLOR="black">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
                                         <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
                                     </svg>
                                 </FONT>
-                                <a href="#openModal">     <FONT COLOR="black">Filtrar Resultados</FONT>   </a>
-                            </button>
+                                <a href=""><FONT COLOR="black">Filtrar Resultados</FONT>   </a>
+                            </button> -->
+
+                            <!-- Button HTML (to Trigger Modal) -->
+                            <button class="btn-open-dialog" type="button" title="Filtro Seleccion" style="font-size: 10pt"><ion-icon name="options"></ion-icon></button>
                             <br>
 
                         </div>
-                                                    
-                    </div>   
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-				    <li class="nav-item dropdown">
-						<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
-							<?php echo $_SESSION['nombre']; ?>
-					    </a>
-					    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-						    <a class="dropdown-item" href="#">Mi perfil</a>
-						    <a class="dropdown-item" href="#">Suscripciones</a>
-						    <div class="dropdown-divider"></div>
-						    <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
-						</div>
-					</li>
-                </ul>   
-                    <div id="openModal" class="modalDialog">
-	                            <div>
-		                            <a href="#close" title="Close" class="close" id="Cerrar">X</a>
-	                                <h2><strong>Filtrar Resultados</strong></h2>
-                                    <br>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-5">
 
-                                                <div class="row"> 
-                                                <label class="control-label"><h5>División</h5></label>
-                                                <input list="divisiones" id= "indiv" name="lstdiv" autocomplete=”on” onchange="get_div(this)" />
-                                                <datalist id="divisiones">
-                                                </datalist>
-
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                            <br>
-                                            <div class="row"> 
-                                                <label class="control-label" ><h5>Departamento</h5></label>
-                                                <input list="deptos" id= "indep" name="lstdep" autocomplete=”on” onchange="get_dep(this)"/>
-                                                <datalist id="deptos">
-                                                </datalist>
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <label class="control-label" ><h5>Familia</h5></label>
-                                                <input list="familias" id= "infam" name="lstfam" autocomplete=”on” onchange="get_fam(this)"/>
-                                                <datalist id="familias">
-                                                </datalist>
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <label class="control-label" ><h5>Linea</h5></label>
-                                                <input list="lineas" id= "inlin" name="lstlin" onchange="get_lin(this)"/>
-                                                <datalist id="lineas">
-                                                </datalist>
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                            <br>
-                                            <div class="row"> 
-                                                <label class="control-label" ><h5>L1</h5></label>
-                                                <input list="l1s" id= "inl1" name="lstl1" onchange="get_l1(this)"/>
-                                                <datalist id="l1s">
-                                                </datalist>
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                            <br>
-                                            <div class="row"> 
-                                                <label class="control-label" ><h5>L2</h5></label>
-                                                <input list="l2s" id= "inl2" name="lstl2" onchange="get_l2(this)"/>
-                                                <datalist id="l2s">
-                                                </datalist>
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-5">
-                                            <div class="row">
-                                                <label asp-for="Division" class="control-label" ><h5>L3</h5></label>
-                                                <input list="l3s" id= "inl3" name="lstl3" onchange="get_l3(this)"/>
-                                                <datalist id="l3s">
-                                                </datalist>
-                                                <span asp-validation-for="Division" class="text-danger"></span>
-                                            </div>
-                                            <br>
-                                            <div class="row">  
-                                            <label asp-for="Division" class="control-label" ><h5>L4</h5></label>
-                                            <input list="l4s" id= "inl4" name="lstl4" onchange="get_l4(this)"/>
-                                            <datalist id="l4s">
-                                            </datalist>
-                                            <span asp-validation-for="Division" class="text-danger"></span>
-                                        </div>
-                                        <br>
-                                        <div class="row"> 
-                                            <label asp-for="Division" class="control-label" ><h5>L5</h5></label>
-                                            <input list="l5s" id= "inl5" name="lstl5" onchange="get_l5(this)"/>
-                                            <datalist id="l5s">
-                                            </datalist>
-                                            <span asp-validation-for="Division" class="text-danger"></span>
-                                        </div>
-                                        <br>
-                                        <div class="row"> 
-                                            <label asp-for="Division" class="control-label" ><h5>L6</h5></label>
-                                            <input list="l6s" id= "inl6" name="lstl6" onchange="get_l6(this)"/>
-                                            <datalist id="l6s">
-                                            </datalist>
-                                            <span asp-validation-for="Division" class="text-danger"></span>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' onclick="aplicar_filtro()" >Aplicar</button>
-                                        <br>
-                                        <br>
-                                        <button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' onclick="limpiar_filtro()">Limpiar filtros</button>
-                                    </div>
-                                </div>
-
-                            </div> 
-                            <!-- openmodal -->
-                        <!--fin de filtro de resultados-->
-                         
                     </form>
                 </div>
+                                                    
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0 style="float:right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="img/user-1.png" class="img-fluid rounded-circle avatar mr-2"/>
+                            <?php echo $_SESSION['nombre']; ?>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Mi perfil</a>
+                            <a class="dropdown-item" href="#">Suscripciones</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
+                        </div>
+                    </li>
+                </ul>   
 
-                
-			    
             </div>
+            <!--Fin div class container -->
          </nav>
         <!-- Fin Navbar -->
-        
+
+        <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal root -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">Filtros Adicionales</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div class="modal-body inputs">
+                        <!-- load contents here -->
+
+                        <div class="container-sel" style="float:left;margin-right:20px;">
+                            <select id="FiltroAdicional" multiple="multiple" class="selectpicker form-control"> </select>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer footer">
+                        <button type="button" class="btn" >Borrar Selecciones</button>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> -->
+
+                        <button type="button" class="btn btn-primary">Aplicar Cambios</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Page Content -->
         <div id="content" class="bg-grey w-100">
-
         
               <section class="bg-mix pt-3 pb-1">
                 <div class="container">
@@ -399,20 +319,18 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-
 <!-- multiselect -->
 <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 
-
 <!-- app-js        -->
-<script type="text/javascript" src="js/charts/edocartera.js"></script>
-<script type="text/javascript" src="js/charts/opnegadas.js"></script>
+<!-- <script type="text/javascript" src="js/charts/edocartera.js"></script>
+<script type="text/javascript" src="js/charts/opnegadas.js"></script> -->
 <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
 <script type="text/javascript" src="js/charts/vtasfpago.js"></script>
 <script type="text/javascript" src="js/charts/recupera.js"></script>
-<script type="text/javascript" src="js/datatables/edocartera.js"></script>
-<script type="text/javascript" src="js/datatables/opnegadas.js"></script>
-<script type="text/javascript" src="js/combos.js"  ></script>
+<!-- <script type="text/javascript" src="js/datatables/edocartera.js"></script> -->
+<!-- <script type="text/javascript" src="js/datatables/opnegadas.js"></script> -->
+<script type="text/javascript" src="js/filtros.js"  ></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <script >

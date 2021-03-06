@@ -15,8 +15,8 @@ function GenChartVtas(datos =[]) {
   // Despliega Totales
   Totales_ventasnetas(sucursales)
 
-  Llena_Filtro(datos, false);
-  Check_Filtro(TFiltro);
+  Llena_Filtro_Sucursales(datos, false);
+  Check_Filtro_Sucursales(TFiltro);
 
 };
 

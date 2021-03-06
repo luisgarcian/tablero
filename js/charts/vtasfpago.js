@@ -85,9 +85,8 @@ function GenChartVFP() {
 
   }
 
-  Llena_Filtro(vtas_data, false);
-  Check_Filtro(TFiltro);
-
+  Llena_Filtro_Sucursales(vtas_data, false);
+  Check_Filtro_Sucursales(TFiltro);
 
 };
 

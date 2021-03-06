@@ -32,7 +32,7 @@
 		   if ($modelo == '') { $modelo = '0' ;}
 
 
-		   $sql = "exec usp_TraeVtasNetas_est '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant', $plaza, $division, $depto, $familia, $linea, $l1, $l2, $l3, $l4, $l5, $l6, $marca, $modelo ";
+		   $sql = "exec usp_TraeVtasNetas_tree '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant', $plaza, $division, $depto, $familia, $linea, $l1, $l2, $l3, $l4, $l5, $l6, $marca, $modelo ";
 		   
 		   
 		   $stmt = $this->conexion->query($sql);

@@ -77,15 +77,6 @@ a:hover {
     border-right: 1px solid var(--grey);
 }
 
- 
-@media (max-width: 768px) {
-    #sidebar-container {
-      display: none;
-    }
-    .stat {
-        border: 0;
-    }
-  }
   
 .dropdown-submenu {
   position: relative;
@@ -203,18 +194,6 @@ select:focus{ outline: none;}
 #BtnUpdate:hover {
   background-color: RoyalBlue;
 }
-
-/*Media Querie*/
-@media only screen and (min-width : 150px) and (max-width : 530px){
-  .login-form h3 {
-    text-align:center;
-    margin:0;
-  }
-  .login-button {
-    margin-bottom:10px;
-  }
-}
-
 
 
 #myTable #myTable2{
@@ -467,3 +446,33 @@ transition: opacity 400ms ease-in;
   align-items: center;
   /* height: 200px; */
 }
+
+@media (max-width: 768px) {
+  #sidebar-container {
+    display: none;
+  }
+  .stat {
+      border: 0;
+  }
+}
+
+@media (max-width: 551px) {
+  #Chart-Container {height:800px;}
+
+}
+@media (min-width: 550px) {
+  #Chart-Container {height:500px;}
+
+}
+
+/*Media Querie*/
+@media only screen and (min-width : 150px) and (max-width : 530px){
+  .login-form h3 {
+    text-align:center;
+    margin:0;
+  }
+  .login-button {
+    margin-bottom:10px;
+  }
+}
+

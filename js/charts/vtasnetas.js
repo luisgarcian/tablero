@@ -1,8 +1,10 @@
-function GenChartVtas() {
+
+function GenChartVtas(datos =[]) {
   
-  Parms =  { "fecini":  myPar1,  "fecfin":  myPar2,  "fecini_ant":  myPar3, "fecfin_ant":  myPar4, "div" :  myPar5 }
-  datos   = TraeDatos("chart/vtasnetas.php", Parms);
- 
+  if (datos === undefined || datos.length == 0 ) {
+    Parms =  { "fecini":  myPar1,  "fecfin":  myPar2,  "fecini_ant":  myPar3, "fecfin_ant":  myPar4, "div" :  myPar5 }
+    datos   = TraeDatos("chart/vtasnetas.php", Parms);
+  } 
     
   let sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
 
@@ -59,14 +61,14 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
       text: 'Ventas Netas por Sucursal',
       align: 'center',
       style: {
-        fontSize: '26px',
-       fontFamily:'Franklin Gothic',
+        fontSize: '24px',
+        fontFamily:'Lucida Grande',
       }
     },
     subtitle: {
       text: Subtitulo,
-      align: 'right',
-      x:-30
+      align: 'center',
+      y:50
     },
     xAxis: [{
       gridLineWidth: 1,
@@ -77,6 +79,9 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
   
     yAxis: [
       { 
+        startOnTick: false,
+        endOnTick : false,
+        showLastlabel: true,
         gridLineWidth: 2,
         title: {
           text: 'Importe',
@@ -98,6 +103,7 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
         },
         labels: {
           format: '{value}',
+          overflow: "justify",
           style: {
             color: Highcharts.getOptions().colors[10]
           }
@@ -181,40 +187,72 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
         }
       }
     ],
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 600
-        },
-        chartOptions: {
-          legend: {
-            floating: false,
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom',
-            x: 0,
-            y: 0
-          },
-          yAxis: [{
-            labels: {
-              align: 'right',
-              x: 0,
-              y: -6
-            },
-            showLastLabel: false
-          }, {
-            labels: {
-              align: 'left',
-              x: 0,
-              y: -6
-            },
-            showLastLabel: false
-          }, {
-            visible: false
-          }]
-        }
-      }]
-    }
+    // responsive: {
+    //   rules: [{
+    //     condition: {
+    //       maxWidth: 600
+    //     },
+    //     chartOptions: {
+    //       legend: {
+    //         floating: false,
+    //         layout: 'horizontal',
+    //         align: 'center',
+    //         verticalAlign: 'bottom',
+    //         x: 0,
+    //         y: 0
+    //       },
+    //       yAxis: [{
+    //         labels: {
+    //           align: 'right',
+    //           x: 0,
+    //           y: -6
+    //         },
+    //         showLastLabel: false
+    //       }, {
+    //         labels: {
+    //           align: 'left',
+    //           x: 0,
+    //           y: -6
+    //         },
+    //         showLastLabel: false
+    //       }, {
+    //         visible: false
+    //       }]
+    //     }
+    //   }]
+    // }
+
+  //   responsive: {
+  //     rules: [{
+  //         condition: {
+  //             maxWidth: 500
+  //         },
+  //         chartOptions: {
+  //             legend: {
+  //                 align: 'center',
+  //                 verticalAlign: 'bottom',
+  //                 layout: 'horizontal'
+  //             },
+  //             yAxis: {
+  //                 labels: {
+  //                     align: 'left',
+  //                     x: 0,
+  //                     y: -5
+  //                 },
+  //                 title: {
+  //                     text: null
+  //                 }
+  //             },
+  //             subtitle: {
+  //                 text: null
+  //             },
+  //             credits: {
+  //                 enabled: false
+  //             }
+  //         }
+  //     }]
+  //  }
+
   });
   
 }

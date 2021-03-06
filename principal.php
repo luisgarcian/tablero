@@ -127,251 +127,23 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             </select>
                          </div>   
 
-                         <!-- <div class="container-sel" style="display: flex"">
-                            <ion-buttons end>
-                                <button ion-button (click)="modal_opt()" >
-                                    <ion-icon name="options"></ion-icon>
-                                </button>
-                            </ion-buttons>
-                        </div> -->
 
-                  <!-- Filtrar resultados-->
-                   <!-- <a href="#openModal"><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
-  <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-</svg></FONT> <FONT COLOR="black" href="#openModal">Filtrar Resultados</FONT> </a></button>-->
-<div class="container-sel" style="float:left;margin-right:20px;">
+                        <div class="container-sel" style="float:left;margin-right:20px;">
                             <label for="Compara"  style="font-size:14px; font-weight: bold;">Filtro</label>
-                            <button type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'><FONT COLOR="black"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
-  <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-</svg></FONT><a href="#openModal"><FONT COLOR="black">Filtrar Resultados</FONT> </a></button>
-<br>
-<div id="openModal" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close">X</a>
-	<h2><strong>Filtrar Resultados</strong></h2>
-    <br>
-    <div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="row"> 
-                <label asp-for="Division" class="control-label" ><h5>División</h5></label>
-            
-                    <input list="browsers" name="myBrowser" /></label>
-                     <datalist id="browsers">
-                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Calzado">
-                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Accesorios">  
-                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Electronica">
-                      <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
+                            <button onclick="cargacombos()" type="button" class="btn btn-light"style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' >
+                                <FONT COLOR="black">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="currentColor" class="bi bi-filter-left" viewBox="0 0 16 16">
+                                        <path d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                                    </svg>
+                                </FONT>
+                                <a href="#openModal">     <FONT COLOR="black">Filtrar Resultados</FONT>   </a>
+                            </button>
+                            <br>
 
-                     </datalist>
-                  
-              
-                <span asp-validation-for="Division" class="text-danger"></span>
-                </div>
-                <br>
-            <div class="row"> 
-            <label asp-for="Division" class="control-label" ><h5>Departamento</h5></label>
-            
-            <input list="browsers1" name="myBrowser1"/></label>
-             <datalist id="browsers1">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Damas">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Caballeros">  
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Niño">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Niña">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Accesorios calzado">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Audio">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Entretenimiento">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-
-            </div>
-            <br>
-            <div class="row">
-            <label asp-for="Division" class="control-label" ><h5>Familia</h5></label>
-            
-            <input list="browsers2" name="myBrowser2"/></label>
-             <datalist id="browsers2">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Descontinuado basico">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Moda">  
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Basico">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Celulares">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="General">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Escritorio">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Laptop">
-              <option v-for="d in divisiones" v-bind:value="d.iddivisiones" value="Conectividad">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-
-          
- 
-                </div>
-                <br>
-                
-            <div class="row">
-            <label asp-for="Division" class="control-label" ><h5>Linea</h5></label>
-            
-            <input list="browsers3" name="myBrowser3"/></label>
-             <datalist id="browsers3">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Zapatilla">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Confort">  
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Tenis">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Tipo crocs">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Sueco">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Plantillas">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Mochila">
-              <option v-for="l in lineas" v-bind:value="l.idlinea" value="Lapicera">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-            
-            
-            
-            
-            
-            </div>
-                <br>
-            <div class="row"> 
-            
-            <label asp-for="Division" class="control-label" ><h5>L1</h5></label>
-            
-            <input list="browsers4" name="myBrowser4"/></label>
-             <datalist id="browsers4">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Fiesta">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Tacon">  
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Plataforma">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Clasico">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Clinico">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Dama">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Caballero">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Recortable">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Gel">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Memoria">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Esponja">
-              <option v-for="l in lineas1" v-bind:value="l.idl1" value="Cera">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-            </div>
-
-
-
-                <br>
-            <div class="row"> 
-            <label asp-for="Division" class="control-label" ><h5>L2</h5></label>
-            <input list="browsers5" name="myBrowser5"/></label>
-             <datalist id="browsers5">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Diabetico">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Tacon">  
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Deportivo">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Hebilla">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Uruguayo">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Danza">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Pantunflas">
-              <option v-for="l in lineas2" v-bind:value="l.idl2" value="Jazz">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <div class="row">
-
-            <label asp-for="Division" class="control-label" ><h5>L3</h5></label>
-            <input list="browsers6" name="myBrowser6"/></label>
-             <datalist id="browsers6">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Clasico">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Carrito">  
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Botin">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Choclo">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Hebilla">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Skato">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Cintas">
-              <option v-for="l in lineas3" v-bind:value="l.idl3" value="Velcro">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-                </div>
-
-                <br>
-
-            <div class="row">  
-            
-            <label asp-for="Division" class="control-label" ><h5>L4</h5></label>
-            <input list="browsers7" name="myBrowser7"/></label>
-             <datalist id="browsers7">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cintas">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Velcro">  
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Pata de gallo">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cruzada">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Cerrada">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Mocasín">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Accesorios calcetines">
-              <option v-for="l in lineas4" v-bind:value="l.idl4" value="Boca de pescado">
-             </datalist>
-          
-      
-                <span asp-validation-for="Division" class="text-danger"></span>
-            </div>
-            <br>
-                <div class="row"> 
-                <label asp-for="Division" class="control-label" ><h5>L5</h5></label>
-            <input list="browsers8" name="myBrowser8"/></label>
-             <datalist id="browsers8">
-              <option v-for="l in lineas5" v-bind:value="l.idl5" value="Con talon">
-              <option v-for="l in lineas5" v-bind:value="l.idl5" value="Sin talon"> 
-             </datalist>
-            <span asp-validation-for="Division" class="text-danger"></span>
-
-             </div>
-                    <br>
-                <div class="row"> 
-                
-                <label asp-for="Division" class="control-label" ><h5>L6</h5></label>
-            <input list="browsers9" name="myBrowser9"/></label>
-             <datalist id="browsers9">
-              <option v-for="l in lineas6" v-bind:value="l.idl6" value="Traba">
-              <option v-for="l in lineas6" v-bind:value="l.idl6" value="Cerrada"> 
-             </datalist>
-            <span asp-validation-for="Division" class="text-danger"></span>
-        </div>
-                
-
-<br>
-<br>
-    
-<button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Aplicar</button>
-<br>
-<br>
-<button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;'>Limpiar filtros</button>
-               
-         
-        </div>
-    </div>
-
-        
-
-	</div>
-</div>
-                            
-</div>   
-
-<!--fin de filtro de resultados-->
-
-                    
-                    </form>
-                </div>
-
-			    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        </div>
+                                                    
+                    </div>   
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 				    <li class="nav-item dropdown">
 						<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -385,13 +157,125 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 						    <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
 						</div>
 					</li>
-                </ul>
+                </ul>   
+                    <div id="openModal" class="modalDialog">
+	                            <div>
+		                            <a href="#close" title="Close" class="close" id="Cerrar">X</a>
+	                                <h2><strong>Filtrar Resultados</strong></h2>
+                                    <br>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-5">
+
+                                                <div class="row"> 
+                                                <label class="control-label"><h5>División</h5></label>
+                                                <input list="divisiones" id= "indiv" name="lstdiv" autocomplete=”on” onchange="get_div(this)" />
+                                                <datalist id="divisiones">
+                                                </datalist>
+
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="row"> 
+                                                <label class="control-label" ><h5>Departamento</h5></label>
+                                                <input list="deptos" id= "indep" name="lstdep" autocomplete=”on” onchange="get_dep(this)"/>
+                                                <datalist id="deptos">
+                                                </datalist>
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <label class="control-label" ><h5>Familia</h5></label>
+                                                <input list="familias" id= "infam" name="lstfam" autocomplete=”on” onchange="get_fam(this)"/>
+                                                <datalist id="familias">
+                                                </datalist>
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <label class="control-label" ><h5>Linea</h5></label>
+                                                <input list="lineas" id= "inlin" name="lstlin" onchange="get_lin(this)"/>
+                                                <datalist id="lineas">
+                                                </datalist>
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="row"> 
+                                                <label class="control-label" ><h5>L1</h5></label>
+                                                <input list="l1s" id= "inl1" name="lstl1" onchange="get_l1(this)"/>
+                                                <datalist id="l1s">
+                                                </datalist>
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="row"> 
+                                                <label class="control-label" ><h5>L2</h5></label>
+                                                <input list="l2s" id= "inl2" name="lstl2" onchange="get_l2(this)"/>
+                                                <datalist id="l2s">
+                                                </datalist>
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-5">
+                                            <div class="row">
+                                                <label asp-for="Division" class="control-label" ><h5>L3</h5></label>
+                                                <input list="l3s" id= "inl3" name="lstl3" onchange="get_l3(this)"/>
+                                                <datalist id="l3s">
+                                                </datalist>
+                                                <span asp-validation-for="Division" class="text-danger"></span>
+                                            </div>
+                                            <br>
+                                            <div class="row">  
+                                            <label asp-for="Division" class="control-label" ><h5>L4</h5></label>
+                                            <input list="l4s" id= "inl4" name="lstl4" onchange="get_l4(this)"/>
+                                            <datalist id="l4s">
+                                            </datalist>
+                                            <span asp-validation-for="Division" class="text-danger"></span>
+                                        </div>
+                                        <br>
+                                        <div class="row"> 
+                                            <label asp-for="Division" class="control-label" ><h5>L5</h5></label>
+                                            <input list="l5s" id= "inl5" name="lstl5" onchange="get_l5(this)"/>
+                                            <datalist id="l5s">
+                                            </datalist>
+                                            <span asp-validation-for="Division" class="text-danger"></span>
+                                        </div>
+                                        <br>
+                                        <div class="row"> 
+                                            <label asp-for="Division" class="control-label" ><h5>L6</h5></label>
+                                            <input list="l6s" id= "inl6" name="lstl6" onchange="get_l6(this)"/>
+                                            <datalist id="l6s">
+                                            </datalist>
+                                            <span asp-validation-for="Division" class="text-danger"></span>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <button type="button" class="btn btn-secondary" style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' onclick="aplicar_filtro()" >Aplicar</button>
+                                        <br>
+                                        <br>
+                                        <button type="button" class="btn btn-info"      style='width:145px; height:33px; font-family: Arial; font-size: 10pt;' onclick="limpiar_filtro()">Limpiar filtros</button>
+                                    </div>
+                                </div>
+
+                            </div> 
+                            <!-- openmodal -->
+                        <!--fin de filtro de resultados-->
+                         
+                    </form>
+                </div>
+
+                
+			    
             </div>
          </nav>
         <!-- Fin Navbar -->
-	
+        
+
         <!-- Page Content -->
         <div id="content" class="bg-grey w-100">
+
+        
               <section class="bg-mix pt-3 pb-1">
                 <div class="container">
                     <div class="card rounded-0">
@@ -430,16 +314,18 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                               <div class="card rounded-0">
                                   <div class="card-header bg-light">
                                      <div class="row" id= "info-chart">
-                                           <h6 id = "Chart" class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon></h6>
+                                           <h6 id = "Chart" class="font-weight-bold mb-0"></h6>
                                            <input type="hidden"  id="PickerFecIni_ant">
                                            <input type="hidden"  id="PickerFecFin_ant">
-                                           <div class="text-right mb-3"> 
+                                           <!-- <div class="text-right mb-3"> 
                                               <button type="button" class="btn btn-primary btn-lg float-right tChart" onclick="changeType()" id="btnChart">line</button>
-                                          </div>
+                                           </div> -->
                                       </div>
                                   </div>
                                   <!-- HighCharts Charts -->
-                                  <div id="Chart-Container" style="min-width: 100%; height: 400px; margin: 0 auto"></div>
+                                  <div id="Chart-Container" style="width:100%; max-width: 900px; margin: 0 auto"></div>
+
+
                                   <div id= "Chart-Canvas" class="card-body bg-light">
                                       <div class="row">
                                           <div id="chart1" class ="col-lg-6 my-3">
@@ -463,7 +349,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                         <div class="col-lg-12 my-3">
                             <div class="card rounded-0">
                                 <div class="card-header bg-light">
-                                    <h6 class="font-weight-bold mb-0"><ion-icon name="arrow-dropup"></ion-icon></h6>
+                                    <h6 class="font-weight-bold mb-0"></h6>
                                 </div>
                                 <div class="datatable-container">
                                     <div id="divTit1"> 
@@ -526,7 +412,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <script type="text/javascript" src="js/charts/recupera.js"></script>
 <script type="text/javascript" src="js/datatables/edocartera.js"></script>
 <script type="text/javascript" src="js/datatables/opnegadas.js"></script>
-
+<script type="text/javascript" src="js/combos.js"  ></script>
 <script type="text/javascript" src="js/app.js"  ></script>
 
 <script >

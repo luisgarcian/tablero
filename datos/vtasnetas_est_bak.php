@@ -12,13 +12,17 @@
 		   $this->conexion->conectar();
 	   }
 	   
-	   function Trae_Datos_dt($fecini, $fecfin, $div) {
+	   function Trae_Datos($fecini, $fecfin, $fecini_ant, $fecfin_ant ) { 
+	   //, $idplaza, $division, $depto, $familia, $linea, $l1, $l2, $l3, $l4, $l5, $l6, $marca, $modelo, $estilo) {
 		   
 		   $arreglo = array();
-		   $parms=array($fecini,$fecfin, $div);
-		   $sql = "exec usp_TraeVtasNetas_dt '$fecini', '$fecfin', '$div' ";
-
+		   
+		   //$sql = "exec usp_TraeVtasNetas_est '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant', $idplaza, $division, $depto, $familia, $linea, $l1, $l2, $l3, $l4, $l5, $l6, $marca, $modelo, $estilo ";
+			
+		   $sql = "exec usp_TraeVtasNetas_est '$fecini', '$fecfin', '$fecini_ant', '$fecfin_ant' ";
+		   
 		   $stmt = $this->conexion->query($sql);
+
 
 		   while ( $row = odbc_fetch_array($stmt) ) { 
 				array_push($arreglo, $row);

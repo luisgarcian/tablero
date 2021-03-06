@@ -129,13 +129,13 @@ function Chart_ventasformapago(data, titulo, subtitulo)
         title: {
             text: 'Ventas por Forma de Pago',
             style: {
-                fontSize: '20px' 
-             }
-        },
+              fontSize: '24px',
+              fontFamily:'Lucida Grande',             }
+            },
         subtitle: {
             text: Subtitulo,
-            align: 'right',
-            x:-30
+            align: 'center',
+            y:50,
         },
         xAxis: [{
             categories: yAxisLabels,

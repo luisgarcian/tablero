@@ -54,13 +54,14 @@ function Chart_recupera(data_orig, titulo, subtitulo)
       text: 'Recuperacion de Cartera',
       align: 'center',
       style: {
-        fontSize: '20px' 
+        fontSize: '24px',
+        fontFamily:'Lucida Grande',
       }
     },
     subtitle: {
       text: Subtitulo,
-      align: 'right',
-      x:-30
+      align: 'center',
+      y:50,
     },
     xAxis: [{
       gridLineWidth: 1,

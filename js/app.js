@@ -13,6 +13,8 @@ var Charts = [
 
 var Filtro = [];
 var TFiltro = 0;
+var Consulta_Filtro = [];
+var Select_Opcs     = [];
 
 function changeType(button) {
   
@@ -1012,7 +1014,7 @@ function LetreroPeriodo(fecini, fecfin) {
   fecha1 = fecini.split("-").reverse().join("-") ;
   fecha2 = fecfin.split("-").reverse().join("-") ;
 
-  txt = "Del " + getFormattedDate(fecha1) + " al " + getFormattedDate(fecha2);
+  txt = "del " + getFormattedDate(fecha1) + " al " + getFormattedDate(fecha2);
   return txt;
 }
 

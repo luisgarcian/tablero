@@ -16,7 +16,6 @@ var TFiltro = 0;
 var Consulta_Filtro = [];
 var Select_Opcs     = [];
 var nodeData = [];
-var ObjChecked = [];
 
 function changeType(button) {
   
@@ -204,11 +203,55 @@ $(function () {
     
       $('#myModal').modal('show')
 
-      Muestra_Filtro_Estructura();
+      Llena_Filtro_Adicional();
       
     
   });
 
+
+  $('#treeview').treeview({
+    data: nodeData,
+    showBorder: false,
+    showCheckbox: true,
+    multiSelect: true,
+    color: "black",
+    backColor: "white",
+    showBorder: false,
+    onNodeChecked: function(event, node) {
+      //$('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
+
+      //checked = $('#treeview').treeview('getChecked');
+      //getStructure(checked);
+
+      checkedNodeId=node.nodeId;
+      nodeIdList.push(checkedNodeId);
+
+    },
+    onNodeUnchecked: function (event, node) {
+      //$('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+      
+      Nodechecked = $('#treeview').treeview('getChecked');
+      getStructure(Nodechecked);
+
+      /////////////////////////////
+      // uncheckedNodeId=node.nodeId;
+      // filtered = nodeIdList.filter(function(value, index, arr){ 
+      //    return value != uncheckesNodeId;
+      // });
+      // nodeIdList = Filtered;
+
+    },
+    onNodeSelected: function (event, node) {
+      // slectedNodeId=node.nodeId;
+      // nodeIdList=[];
+      // hasSelect=false;
+
+      // $(this).treeview('unselectNode', [ node.nodeId, { silent: false } ]);
+    },
+    onNodeUnselected: function (event, node) {
+        // $(this).treeview('selectNode', [ node.nodeId, { silent: true } ]);             
+    }
+  });
 
   // var checkedNodeId, hasCheck=false, nodeIdList=[];
 
@@ -217,9 +260,6 @@ $(function () {
   //   console.log( JSON.stringify(getAllNodes() ));
   //   console.log('node selected = ' + JSON.stringify(event) + '; data = ' + JSON.stringify(data));
   // });
-
-
-
 
 
   CreaVarsHTML();

@@ -62,7 +62,8 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
       align: 'center',
       style: {
         fontSize: '24px',
-        fontFamily:'Lucida Grande',
+        fontFamily: 'Work Sans",sans-serif'
+        //fontFamily:'Lucida Grande',
       }
     },
     subtitle: {
@@ -187,71 +188,6 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
         }
       }
     ],
-    // responsive: {
-    //   rules: [{
-    //     condition: {
-    //       maxWidth: 600
-    //     },
-    //     chartOptions: {
-    //       legend: {
-    //         floating: false,
-    //         layout: 'horizontal',
-    //         align: 'center',
-    //         verticalAlign: 'bottom',
-    //         x: 0,
-    //         y: 0
-    //       },
-    //       yAxis: [{
-    //         labels: {
-    //           align: 'right',
-    //           x: 0,
-    //           y: -6
-    //         },
-    //         showLastLabel: false
-    //       }, {
-    //         labels: {
-    //           align: 'left',
-    //           x: 0,
-    //           y: -6
-    //         },
-    //         showLastLabel: false
-    //       }, {
-    //         visible: false
-    //       }]
-    //     }
-    //   }]
-    // }
-
-  //   responsive: {
-  //     rules: [{
-  //         condition: {
-  //             maxWidth: 500
-  //         },
-  //         chartOptions: {
-  //             legend: {
-  //                 align: 'center',
-  //                 verticalAlign: 'bottom',
-  //                 layout: 'horizontal'
-  //             },
-  //             yAxis: {
-  //                 labels: {
-  //                     align: 'left',
-  //                     x: 0,
-  //                     y: -5
-  //                 },
-  //                 title: {
-  //                     text: null
-  //                 }
-  //             },
-  //             subtitle: {
-  //                 text: null
-  //             },
-  //             credits: {
-  //                 enabled: false
-  //             }
-  //         }
-  //     }]
-  //  }
 
   });
   
@@ -259,7 +195,7 @@ function Chart_ventasnetas(data_orig, titulo, subtitulo)
 
 
 function DTable_vtasnetas(data_orig) {
-  var columns = [];
+  var columnas = [];
   
   if (miTabla) {
     miTabla.destroy();
@@ -271,17 +207,77 @@ function DTable_vtasnetas(data_orig) {
  
     var keys = Object.keys(data[0]);
     for (var i = 0; i < keys.length; i++) {
-      columns.push( { data : keys[i],  title: keys[i] });
+      columnas.push( { data : keys[i],  title: keys[i] });
     }
   }
   else {
-    columns.push({data: [], title: ""});
+    columnas.push({data: [], title: ""});
   }
+ 
+  columns2 = [
+    {
+      data: 'Sucursal'
+    },
+    {
+      data: 'Importe_Act'
+    },
+    {
+      data: 'Importe_Ant'
+    },
+    {
+      data: 'IncI',
+      render : function(data, type, row) {
+        if (type === 'display') {
 
+          var dateSplit = data.split('.');
+          var num = dateSplit[0] +'.'+ dateSplit[1].substring(0,1) ;
+          
+            if (data < 0 ) {
+              return '<img src="' +  'img/trending-down.png' + '" alt="' + '' + '"height="16" width="16"/>' + ' ' +  num  + '%';
+            }
+            else {
+              return '<img src="' +  'img/trending-up.png' + '" alt="' + '' + '"height="16" width="16"/>' + ' '+  num + '%';
+            }
+            //Math.round( ( row.price - row.cost ) / row.price * 100 )+'%';
+
+            /*
+            
+            
+            */
+            return data;
+        }
+      }
+
+    },
+    {
+      data: 'Unidades_Act'
+    },
+    {
+      data: 'Unidades_Ant',
+    },
+    {
+      data: 'IncU',
+      render : function(data, type, row) {
+       
+        if (type === 'display') {
+          var dateSplit = data.split('.');
+          var num = dateSplit[0] +'.'+ dateSplit[1].substring(0,1) ;
+
+            if (data < 0 ) {
+              return '<img src="' +  'img/trending-down.png' + '" alt="' + '' + '"height="16" width="16"/>' + ' ' +  num + '%';
+            }
+            else {
+              return '<img src="' +  'img/trending-up.png' + '" alt="' + '' + '"height="16" width="16"/>' + ' '+  num + '%';
+            }
+           
+        }
+      }
+    }
+  ];
   
   miTabla = $("#myTable").DataTable( {
       data     : data,
-      columns  : columns,
+      columns  : columns2,
       paging   : false,
       info     : false,
       searching: false,

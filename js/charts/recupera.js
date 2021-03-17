@@ -55,7 +55,8 @@ function Chart_recupera(data_orig, titulo, subtitulo)
       align: 'center',
       style: {
         fontSize: '24px',
-        fontFamily:'Lucida Grande',
+        //fontFamily:'Lucida Grande',
+        fontFamily: 'Work Sans",sans-serif'
       }
     },
     subtitle: {

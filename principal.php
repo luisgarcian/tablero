@@ -40,20 +40,28 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <!-- Bootstrap CSS v 4.5.3-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
+    <!-- bootstrap-treeview-->
+    <link href="css/bootstrap-treeview.css" rel="stylesheet"> 
     <!-- datetimepicker-->
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" >
+    <!-- <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.min.css" > -->
     <!-- bootstrap multiselect  -->
     <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
-    <!-- Ionic icons Botones Slide bar-->
+    <!-- Ionic icons -->
     <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" >
     <!-- awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- DataTables  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
+    
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css"> -->
+
+
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+
     <!--  daterangepicker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Styles -->
@@ -133,7 +141,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                             </button> -->
 
                             <!-- Button HTML (to Trigger Modal) -->
-                            <button class="btn-open-dialog" type="button" title="Filtro Seleccion" style="font-size: 10pt"><ion-icon name="options"></ion-icon></button>
+                            <button class="btn-open-dialog" type="button" title="Filtro Seleccion" style="font-size: 15pt"><ion-icon name="options"></ion-icon></button>
                             <br>
 
                         </div>
@@ -170,23 +178,24 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
                     <!-- Modal root -->
                     <div class="modal-header">
                         <h5 class="modal-title">Filtros Adicionales</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" id = "Cerrar" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
 
                     <div class="modal-body inputs">
                         <!-- load contents here -->
-
-                        <div class="container-sel" style="float:left;margin-right:20px;">
-                            <select id="FiltroAdicional" multiple="multiple" class="selectpicker form-control"> </select>
+                        <div style="width: 100%; height: 100%; overflow-y: auto;"> 
+                            <div class="col-sm-8">
+                                <div id="treeview" class="tree"></div>
+                            </div>
                         </div>
+
 
                     </div>
 
                     <div class="modal-footer footer">
-                        <button type="button" class="btn" >Borrar Selecciones</button>
-                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> -->
+                        <button type="button" class="btn" onclick="BorrarSels()" >Borrar Selecciones</button>
 
-                        <button type="button" class="btn btn-primary">Aplicar Cambios</button>
+                        <button type="button" class="btn btn-primary" style="color: white; backgrouncolor:blue" onclick="AplicarFiltro()" >Aplicar Cambios</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -295,7 +304,8 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 <!-- Chart.Js      -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
-<script src="js/jquery.datetimepicker.full.min.js"></script>
+<!-- <script src="js/jquery.datetimepicker.full.min.js"></script> -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 
 <!-- Import D3 Scale Chromatic via CDN -->
@@ -305,16 +315,18 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
 <!-- bootstrap v 4.5.3-->
 <script src="js/bootstrap.min.js"></script>
+<!-- bootstrap-treeview3-->
+<script src="js/bootstrap-treeview.js"></script>
 <!-- datatables -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.js"></script>
-<!-- ionocons -->
+<!-- ionicons -->
 <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
 <!-- highcharts -->
 <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> 
 <!-- jstree -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script> -->
 <!-- daterangepicker -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

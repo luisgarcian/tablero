@@ -210,18 +210,6 @@ $(function () {
   });
 
 
-  // var checkedNodeId, hasCheck=false, nodeIdList=[];
-
-  // .on('nodeSelected', function (event, data) {
-  //   console.log( getAllNodes() );
-  //   console.log( JSON.stringify(getAllNodes() ));
-  //   console.log('node selected = ' + JSON.stringify(event) + '; data = ' + JSON.stringify(data));
-  // });
-
-
-
-
-
   CreaVarsHTML();
   IndiceOp = $('#tipo')[0].selectedIndex;
   

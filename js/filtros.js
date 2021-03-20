@@ -3,10 +3,10 @@
 function getTree() {
 
   ObjChecked = [];
-  nodeData = Object.values(TraeDatos("config/estructura.php",[]));
+  todosNodos = Object.values(TraeDatos("config/estructura.php",[]));
 
    //convertir en arbol de jerarquias
-   tree = createTree(nodeData);
+   tree = createTree(todosNodos);
    //quitar propiedad parentId
    obj1 = DeleteProperty(tree,  "parentId" );
   // quitar prefijos de nombre
@@ -110,14 +110,6 @@ function createTree(data) {
 };
   
 
-// function SiExiste(arr, el) {
-//   arr.every((element) => {
-//     substr = el.substring(0, indexOfNth(el,"|", element.split("|").length) );
-//     if (substr === element) { return true;  }
-//   })
-//   return false;
-// };
-
 function SiyaExiste (arr, str) {
   res = false;
   for (indice=0; indice < arr.length; indice++) {
@@ -133,30 +125,89 @@ function SiyaExiste (arr, str) {
 
 function AplicarFiltro() {
 
-  newarray = [];
+  let unicos = [];
+  //Revisar nodos con check y seleccionar solo los padres que incluyan a todos sus hijos
   if (ObjChecked.length > 0 ) {  
-
-    //Revisar cada nodo con check
     for (num=0; num < ObjChecked.length; num++  ) {
-      
-      //Obtenerl el texto del nodo con check
       str = ObjChecked[num].href;
       if ( str !== 'undefined' || str.length>0 ) {
-
-        if ( !SiyaExiste( newarray, str ) ) {
-          newarray.push(str);
+        // Si no existe el nodo agregarlo
+        if ( !SiyaExiste( unicos, str ) ) {
+          unicos.push(str);
         }
-
       }
     }
   }
-
-  // Actualizaar Chart, DataTable y Totales
-  //GenChartVtas(datosFiltro);
-
+  //cambiar los "|" por comas 
+  filtroNodos = unicos.map( param => param.replace(/\|/g,','));
   
+  actualizaChartVtasNetas(filtroNodos);
+  mostrarFiltro(filtroNodos);
+    
   $('#Cerrar')[0].click();
 };
+
+function actualizaChartVtasNetas(selecciones) {
+
+  let filtro = "";
+  for (i=0; i<selecciones.length;i++) {
+      filtro += "|" + selecciones[i];
+  }
+  let parms =  { "fecini": myPar1, "fecfin"  : myPar2,   "fecini_ant": myPar3, "fecfin_ant": myPar4, "params" : filtro }
+  let datosFiltro = TraeDatos("chart/vtasnetas_filtro.php", parms);
+  GenChartVtas(datosFiltro);
+
+}
+
+
+function mostrarFiltro(arr) {
+  //Remove select list if exists
+  var myDiv = document.getElementById("FiltroAplicado");
+  var list = document.getElementById("mySelect");
+  if (list) {
+    document.getElementById("mySelect").remove();
+  }
+
+  if (!arr.length) {
+    return;
+  }
+
+  arr = arr.map( param => param.replace(/\,/g,'->'));
+  arr.unshift('TODOS LOS FILTROS');
+  arr.push('NINGUN FILTRO');
+  
+  //Create and append select list
+  var selectList = document.createElement("select");
+  selectList.setAttribute("id", "mySelect");
+  myDiv.appendChild(selectList);
+  $('#mySelect').css({ 'font-size': '10px', 'color': 'black', 'margin':'8px'});
+  $('.btn-open-dialog').css({ 'color': 'black', 'margin':'5px'});
+
+    //Create and append the options
+  for (var i = 0; i < arr.length; i++) {
+      var option = document.createElement("option");
+      option.setAttribute("value", i);
+      option.text = arr[i];
+      selectList.appendChild(option);
+  }
+
+  selectList.onchange = function(event) {
+    switch (this.value) {
+      case "0":  
+        actualizaChartVtasNetas(filtroNodos);
+        break;
+      case arr.length-1 :
+        actualizaChartVtasNetas([]);
+        break;
+      default: 
+         var sel = filtroNodos.filter( (value, index) => index === this.value-1);
+         actualizaChartVtasNetas(sel);
+        break;
+    }
+ }
+
+}
+
 
 
 function indexOfNth (string, char, nth, fromIndex=0) {

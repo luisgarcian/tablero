@@ -1,5 +1,6 @@
 
 function GenChartVtas(datos =[]) {
+  $( "#btnFiltro" ).prop( "disabled", false );
   
   if (datos === undefined || datos.length == 0 ) {
     Parms =  { "fecini":  myPar1,  "fecfin":  myPar2,  "fecini_ant":  myPar3, "fecfin_ant":  myPar4, "div" :  myPar5 }

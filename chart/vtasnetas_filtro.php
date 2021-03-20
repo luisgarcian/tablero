@@ -9,26 +9,14 @@ if ($_POST){
 	   $fecini_ant =($_POST['fecini_ant']);
 	   $fecfin_ant =($_POST['fecfin_ant']);
 
-	   $plaza      =($_POST['plaza']);
-	   $division   =($_POST['division']);
-	   $depto      =($_POST['depto']);
-	   $familia    =($_POST['familia']);
-	   $linea      =($_POST['linea']);
-	   $l1         =($_POST['l1']);
-	   $l2         =($_POST['l2']);
-	   $l3         =($_POST['l3']);
-	   $l4         =($_POST['l4']);
-	   $l5         =($_POST['l5']);
-	   $l6         =($_POST['l6']);
-	   $marca      =($_POST['marca']);
-	   $modelo     =($_POST['modelo']);
+	   $params     =($_POST['params']);
 	   
    	   require '../datos/vtasnetas_filtro.php';
 
 	   $Chart = new Conecta_Datos(); 
 	
 	   //Se trae los datos
-	   $consulta = $Chart -> Trae_Datos($fecini, $fecfin, $fecini_ant, $fecfin_ant, $plaza, $division, $depto, $familia, $linea, $l1, $l2, $l3, $l4, $l5, $l6, $marca, $modelo) ; 
+	   $consulta = $Chart -> Trae_Datos($fecini, $fecfin, $fecini_ant, $fecfin_ant, $params) ; 
 	   
 	   //genera la salida de los datos en formato json
 	   header('Content-type: application/json');

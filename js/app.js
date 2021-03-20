@@ -13,10 +13,9 @@ var Charts = [
 
 var Filtro = [];
 var TFiltro = 0;
-var Consulta_Filtro = [];
-var Select_Opcs     = [];
-var nodeData = [];
+var todosNodos = [];
 var ObjChecked = [];
+var filtroNodos = [];
 
 function changeType(button) {
   
@@ -165,9 +164,9 @@ $(function () {
   }); 
   
   //Refrescar Chart en cambio de seleccion tipo
-  $('#tipo').on('change', function () {
-     myPar3   = $('#tipo').val().substring(0, 1);
-     IndiceOp = $('#tipo')[0].selectedIndex;
+  $('#Tipo').on('change', function () {
+     myPar5   = $('#Tipo').val().substring(0, 1);
+     IndiceOp = $('#Tipo')[0].selectedIndex;
      
      Inicializa(NChart, 0, IndiceOp);
      
@@ -211,7 +210,7 @@ $(function () {
 
 
   CreaVarsHTML();
-  IndiceOp = $('#tipo')[0].selectedIndex;
+  IndiceOp = $('#Tipo')[0].selectedIndex;
   
   NChart =  numchart - 1; //Default Chart segun usuario
   TFiltro = tfiltro;      // Default Filtro segun chart
@@ -1012,7 +1011,7 @@ function ActualizaParms() {
         myPar4 = formatDate(ultimoDiaAnoAnt);
         break;
     }
-    myPar5 = $('#tipo').val().substring(0, 1);
+    myPar5 = $('#Tipo').val().substring(0, 1);
 }
 
 

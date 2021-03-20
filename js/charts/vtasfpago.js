@@ -1,5 +1,7 @@
 function GenChartVFP() {
 
+  
+  $( "#btnFiltro" ).prop( "disabled", true );
   // Primer Nivel por Sucursal
   sel_chart.nivel = 0;
   document.querySelector("#chartReport").innerHTML = '<canvas id="chartCanvas"></canvas>';

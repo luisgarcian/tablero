@@ -86,9 +86,10 @@ function GenChartVFP() {
       myChart  = createChart(myCtx2, "TODAS LAS SUCURSALES", FormasdePagoSUM2, periodo2);
 
   }
-
-  Llena_Filtro_Sucursales(vtas_data, false);
-  Check_Filtro_Sucursales(TFiltro);
+  if (!Filtro.length) {  
+   Carga_Filtro_Sucursales(vtas_data, false);
+   Check_Filtro_Sucursales(TFiltro, vtas_data);
+  }
 
 };
 
@@ -96,7 +97,13 @@ function GenChartVFP() {
 function Chart_ventasformapago(data, titulo, subtitulo)
 {  
 
-    let filtered = data.filter(item => Filtro.includes(item.sucursal) );
+    let filtered = [];
+    if (Filtro.length > 0 )  { 
+      filtered = data.filter(item => Filtro.includes(item.sucursal) );
+    } else {
+      filtered = data;
+    }
+
     const vals = ObtieneColumnas(filtered);
 
     yAxisLabels = vals[0];

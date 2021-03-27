@@ -14,19 +14,18 @@ var Charts = [
 var Filtro = [];
 var TFiltro = 0;
 var todosNodos = [];
-var ObjChecked = [];
 var filtroNodos = [];
-
-function changeType(button) {
+var Opcs_Tree = [];
+// function changeType(button) {
   
-  var btn = document.getElementById("btnChart");
-    if(btn.innerText=="line"){
-       btn.innerText="bar";
-      }
-    else{
-      btn.innerText="line";
-      }
-}
+//   var btn = document.getElementById("btnChart");
+//     if(btn.innerText=="line"){
+//        btn.innerText="bar";
+//       }
+//     else{
+//       btn.innerText="line";
+//       }
+// }
 
 
 //Variables Globales
@@ -54,8 +53,35 @@ var sel_chart = {nchart : 0, nivel : 0, seltipo : 0};
 var start = new Date();
 var end   = new Date();
 var fechahoy = moment();
+var arrdep_1 = [];
+var arrdep_1 = [];
+var arrdep_2 = [];
+var arrdep_3 = [];
+var arrfam_1 = [];
+var arrfam_2 = [];
+var arrfam_3 = [];
+var arrlin_1 = [];
+var arrlin_2 = [];
+var arrlin_3 = [];
+var arrl1_1 = [];
+var arrl1_2 = [];
+var arrl1_3 = [];
+var arrl2_1 = [];
+var arrl2_2 = [];
+var arrl2_3 = [];
+var arrl3_1 = [];
+var arrl3_2 = [];
+var arrl3_3 = [];
+var arrl4_1 = [];
+var arrl4_2 = [];
+var arrl4_3 = [];
+var arrl5_1 = [];
+var arrl5_2 = [];
+var arrl5_3 = [];
+var arrl6_1 = [];
+var arrl6_2 = [];
+var arrl6_3 = [];
 
-var checkedNodeId, hasCheck=false, nodeIdList=[];
 
 $(function () {
 
@@ -197,8 +223,6 @@ $(function () {
   });
 
 
-
-
   $('.btn-open-dialog').on('click', function(){
     
       $('#myModal').modal('show')
@@ -216,13 +240,73 @@ $(function () {
   TFiltro = tfiltro;      // Default Filtro segun chart
  
   //Inicializa Filtros de Sucursales
-  Llena_Filtro_Sucursales([], true);
-  Check_Filtro_Sucursales(TFiltro);
+  //Carga_Filtro_Sucursales([], true); //Carga Todas
+  //Check_Filtro_Sucursales(TFiltro);  //Check segun default
 
   //Abre Chart Default del Usuario
   Inicializa(NChart, 0, IndiceOp);
 
+  // $(".chosen-select").chosen();
+  //$(".chosen-select").chosen();
+  //$(".chosen-select").chosen({width: "95%"});
+
+  //window.multiSelect.refresh();
+
+  $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+  //$(".js-example-basic-multiple").select2;
+
+  $(".js-example-basic-multiple").select2({
+     dropdownParent: $('#myModal'),
+  });
+
+  // add an ajax indicator 
+  $('body').append('<div id="loading"><img id="loading-image" src="img/ajax-loader.gif" alt="Cargando..."/></div>');
+  $('#ajaxBusy').css({
+    //display:"none",
+    margin:"0px",
+    paddingLeft:"0px",
+    paddingRight:"0px",
+    paddingTop:"0px",
+    paddingBottom:"0px",
+    position:"absolute",
+    right:"3px",
+    top:"3px",
+     width:"auto"
+  });
+
+  $('#loading').hide();
+  
 }); // Fin de $(function ()
+
+
+
+function openNav() {
+  document.getElementById("sidebar-container").style.width = "250px";
+  document.getElementById("content").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("sidebar-container").style.width = "0";
+  document.getElementById("content").style.marginLeft= "0";
+}
+
+
+function Ejecuta_Chart() {
+  //Se ejecuta en la Seleccion de una opcion del Menu 
+  
+  //Obtiene Filtro default para el Chart y lo actualiza en TFiltro
+  parms =  { "idchart": NChart +1  };
+  datos   = TraeDatos("chart/filtro.php", parms);
+  TFiltro = parseInt(datos[0].filtro);
+
+  //Si existe el combo de Filtro Estuctura quitarlo
+  removeSelect();
+
+  // Llama el Chart
+  Inicializa(NChart, 0, IndiceOp);
+
+}
 
 
 function alignModal() { 
@@ -232,7 +316,7 @@ function alignModal() {
 } 
 
 
-function Llena_Filtro_Sucursales(datos, incluirtodas) {
+function Carga_Filtro_Sucursales(datos, incluirtodas) {
 
   //sucursales en seleccion
   seleccion = [];
@@ -244,9 +328,18 @@ function Llena_Filtro_Sucursales(datos, incluirtodas) {
     opcs = todas;
   } 
   else { 
+    //en Seleccion siempre incluir la Plaza 01
+
+    seleccion = ['JUAREZ','HIDALGO','TRIANA','MATRIZ'];
     for (i=0; i< datos.length; i++) {
-      seleccion.push(datos[i].Sucursal);
+      // si datos[i] ya esta en seleccion omitirla, sino agregarla:
+
+      if (!seleccion.includes( datos[i].Sucursal) ) {
+        seleccion.push(datos[i].Sucursal);
+      }
+      
     }
+
     opcs = todas.filter(item => seleccion.includes(item.nomsucursal) );
   }
   
@@ -280,38 +373,51 @@ function Llena_Filtro_Sucursales(datos, incluirtodas) {
 }
 
 
-function Check_Filtro_Sucursales(TFiltro) {
+function Check_Filtro_Sucursales(TFiltro, sucursales) {
+
+  //sucursales en seleccion
+  let seleccion = [];
 
   //Todas las sucursales
   todas = Object.values(TraeDatos("config/optsucursal.php",[]));
-  $plaza = "";
-  switch (TFiltro)  {
-    case 0:
-      $plaza = '00';
-      break;
-    case 1:
-      $plaza = '01';
-      break;
-    case 2:  
-      $plaza = '02';
-      break;
-  }
-  Filtro = [];
-  todas.map( function( el ){ 
-    if ($plaza == '00') {
-      //return el.nomsucursal; 
-      Filtro.push(el.nomsucursal)
-      Filtro.push(el.nomsucursal+ "_ant")
-    } else   {
-      if (el.plaza == $plaza ) { 
-        //return el.nomsucursal; 
-        Filtro.push(el.nomsucursal)
-        Filtro.push(el.nomsucursal+ "_ant")
-      }   
-    }  
-   
-  });
   
+  let $plaza = "";
+  
+  //Se filtran todas segun tipo de Filtro Default
+  if (TFiltro > 0) {
+    if (TFiltro == 1) {
+      $plaza = "01";
+    }
+    else {
+      $plaza = "02";
+    }
+    let search = (list, Suc) => list.filter(i => i.plaza.includes(Suc));
+    seleccion = search(todas, $plaza)
+  } else {
+    seleccion = todas;
+  }
+
+  //Se crea arreglo qye contiene las sucursales segun Plaza Seleccionada
+  // Por ejemplo: 0 - Todas, 1-Torreon, 2-En Línea
+  //Filtro = [];
+
+  // sucursales.map( function( el ){ 
+  //   if ($plaza == '00') {
+  //     //return el.nomsucursal; 
+  //     Filtro.push(el.Sucursal)
+  //     Filtro.push(el.Sucursal+ "_ant")
+  //   } else   {
+  //     if (el.plaza == $plaza ) { 
+  //       //return el.nomsucursal; 
+  //       Filtro.push(el.Sucursal)
+  //       Filtro.push(el.Sucursal+ "_ant")
+  //     }   
+  //   }  
+       
+  // });
+  
+  let Filtro = seleccion.map(a => a.nomsucursal);
+
   $('#FiltroSucursales').multiselect("deselectAll", false);
   $('#FiltroSucursales').multiselect('select', Filtro );
   $('#FiltroSucursales').multiselect('refresh') ;
@@ -324,23 +430,6 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-//var startDate = $('#reportrange').data('daterangepicker').startDate._d;
-//var endDate = $('#reportrange').data('daterangepicker').endDate._d;
-
-function Ejecuta_Chart() {
-
-
-  parms =  { "idchart": NChart +1  };
-  datos   = TraeDatos("chart/filtro.php", parms);
-  TFiltro = parseInt(datos[0].filtro);
-
-  // Check opciones del Chart
-  //Check_Filtro_Sucursales(TFiltro);
-
-  // Llama el Chart
-  Inicializa(NChart, 0, IndiceOp);
-
-}
 
 
 function GenChartOpcs() {
@@ -381,9 +470,13 @@ function GenChartEdoC() {
 function AplicaFiltro(data) {
 
   Totales = ['TOTAL','TOTAL_ant'];
+  let filtered = [];
   // Filtrar DataSet para incluir las sucursales del Filtro
-  let filtered = data.filter(item => Filtro.includes(item.Sucursal) );
-
+  if (Filtro.length > 0) { 
+    filtered = data.filter(item => Filtro.includes(item.Sucursal) );
+  } else {
+    filtered = data;
+  }
   if (filtered.hasOwnProperty('FPago')) { 
     filtered = filtered.filter(item => !Totales.includes(item.FPago) );
   }
@@ -977,6 +1070,9 @@ function Inicializa(NChart, Nivel, OpSel) {
 
 function ActualizaParms() {
   DividirAreaChartCanvas(0);
+
+  //Actualizar a la opcion de ninguna
+  removeSelect(true);
 
   var drp = $('#reportrange').data('daterangepicker');
   myPar1 = drp.startDate.format("YYYY-MM-DD");

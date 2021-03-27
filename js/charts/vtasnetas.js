@@ -3,21 +3,30 @@ function GenChartVtas(datos =[]) {
   $( "#btnFiltro" ).prop( "disabled", false );
   
   if (datos === undefined || datos.length == 0 ) {
+    // Obtener datos con fechas sin filtro de estuctura
     Parms =  { "fecini":  myPar1,  "fecfin":  myPar2,  "fecini_ant":  myPar3, "fecfin_ant":  myPar4, "div" :  myPar5 }
     datos   = TraeDatos("chart/vtasnetas.php", Parms);
   } 
-    
-  let sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
+  //Filtras sucursales 
+  let sucursales = [];
+  if (Filtro.length> 0 ) { 
+    sucursales = datos.filter(item => Filtro.includes(item.Sucursal) );
+  }  
+  else {
+    sucursales =  datos;
+  }
 
   // Genera Chart
   Chart_ventasnetas(sucursales, "Titulo", "SubTitulo");
   // Genera Tabla de datos
   DTable_vtasnetas(sucursales);
   // Despliega Totales
-  Totales_ventasnetas(sucursales)
+  Totales_ventasnetas(sucursales);
 
-  Llena_Filtro_Sucursales(datos, false);
-  Check_Filtro_Sucursales(TFiltro);
+  if (!Filtro.length) { 
+    Carga_Filtro_Sucursales(sucursales, false);
+    Check_Filtro_Sucursales(TFiltro, sucursales);
+  }
 
 };
 
@@ -289,8 +298,9 @@ function DTable_vtasnetas(data_orig) {
       fixedColumns: {
         leftColumns: 2
       },
-      scrollY:        400,
+      scrollY:        false,
       scrollX:        true,
+      scrollX: "100%",
       fixedColumns:   true,
       language : {
         "emptyTable": "No se encuentran datos disponibles"

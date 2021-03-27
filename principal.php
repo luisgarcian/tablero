@@ -48,7 +48,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
 
     <!-- bootstrap-treeview-->
-    <link href="css/bootstrap-treeview.css" rel="stylesheet"> 
+    <!-- <link href="css/bootstrap-treeview.css" rel="stylesheet">  -->
     <!-- bootstrap multiselect  -->
     <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
     <!-- Ionic icons -->
@@ -62,13 +62,26 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
     <!--  daterangepicker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- <link rel="stylesheet" href="css/chosen.css"> -->
+    <!-- Select2 -->
+    <link href="css/select2.min.css" rel="stylesheet" />
+
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--  choosen -->
+    <!-- <link type="text/css" rel="stylesheet" href="css/chosen.css"> -->
+
+    <!-- <link type="text/css" rel="stylesheet" href="css/vue-multiselect.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css"> -->
+
+    <!-- # multiSelect.js :sparkles: -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kleimaj/multiselect.js@1.0.8/css/style.min.css"> -->
 
 </head>
 
 <body>
+
    <div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
@@ -86,8 +99,9 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
         <div class="w-100">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color: white">
 		    <div class="container">
+            
                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -155,23 +169,259 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
         <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-dialog  modal-xl modal-dialog-centered "  role="document">
+            <!-- modal-dialog-scrollable -->
+            <!-- modal-lg -->
                 <div class="modal-content">
+
+                <div id="loadingoverlay"> 
+                    <div class="cv-spinner">
+                        <span class="spinner"></span>
+                    </div>
+                </div>
 
                     <!-- Modal root -->
                     <div class="modal-header">
-                        <h5 class="modal-title">Filtro Estructura</h5>
+                        <h5 class="modal-title">Filtro Estructura Artículo</h5>
                         <button type="button" id = "Cerrar" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <div class="modal-body" style="overflow-x:hidden">
+
+                    <div class="modal-body" >
                         <!-- load contents here -->
                         <div class="row d-flex justify-content-center align-items-center"> 
-                            <div class="col-sm-12">
+                            <div class="col-sm-4 labels">
+                                <div >
+                                    <input type="checkbox" id="division1" style="float:left; margin-right:8px;height:20px;">
+                                    <label for="division1">CALZADO</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 labels">
+                                <div >
+                                    <input type="checkbox" id="division2" style="float:left; margin-right:8px;height:20px;vertical-align:middle;">
+                                    <label for="division2">ACCESORIOS</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-4 labels">
+                                <div >
+                                    <input type="checkbox" id="division3" style="float:left; margin-right:8px;height:20px;">
+                                    <label for="division3">ELECTRONICA</label>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <!-- <div class="col-sm-8" style="overflow-x:hidden">
                                 <div id="treeview" class="tree"></div>
+                            </div> -->
+                            <div class="col-sm-4"  >
+                                <label for="seldep1">
+                                    Seleccione un Departamento
+                                    <select class="js-example-basic-multiple depto" multiple="multiple" style="width: 100%" id="seldep1">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4" >
+                                <label for="seldep2">
+                                    Seleccione un Departamento
+                                    <select class="js-example-basic-multiple depto" multiple="multiple" style="width: 100%" id="seldep2">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4" >
+                            <label for="seldep3">
+                                    Seleccione un Departamento
+                                    <select class="js-example-basic-multiple depto" multiple="multiple" style="width: 100%" id="seldep3">
+                                    </select>
+                                </label>
+
+                            </div>
+
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="selfam1">
+                                    Seleccione una Familia
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="selfam1">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="selfam2">
+                                    Seleccione una Familia
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="selfam2">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="selfam3">
+                                    Seleccione una Familia
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="selfam3">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sellin1">
+                                    Seleccione una Linea
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sellin1">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sellin2">
+                                    Seleccione una Linea
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sellin2">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sellin3">
+                                    Seleccione una Linea
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sellin3">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sell11">
+                                    Seleccione una L1
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell11">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell12">
+                                    Seleccione una L1
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell12">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell13">
+                                    Seleccione una L1
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell13">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sell21">
+                                    Seleccione una L2
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell21">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell22">
+                                    Seleccione una L2
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell22">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell23">
+                                    Seleccione una L2
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell23">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sell31">
+                                    Seleccione una L3
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell31">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell32">
+                                    Seleccione una L3
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell32">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell33">
+                                    Seleccione una L3
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell33">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sell41">
+                                    Seleccione una L4
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell41">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell42">
+                                    Seleccione una L4
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell42">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell43">
+                                    Seleccione una L4
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell43">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sell51">
+                                    Seleccione una L5
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell51">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell52">
+                                    Seleccione una L5
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell52">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell53">
+                                    Seleccione una L5
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell53">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center"> 
+                            <div class="col-sm-4"  >
+                                <label for="sell61">
+                                    Seleccione una L6
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell61">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell62">
+                                    Seleccione una L6
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell62">
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-sm-4"  >
+                                <label for="sell63">
+                                    Seleccione una L6
+                                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" id="sell63">
+                                    </select>
+                                </label>
                             </div>
                         </div>
                     </div>
-
                     <!-- <div class="modal-footer " "> -->
                     <div class="modal-footer " >
                         
@@ -329,8 +579,13 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
     
 
-    <!-- JQuery v 2.1.4-->    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- JQuery -->    
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> -->
+    <!-- <script src="js/chosen.jquery.js" type="text/javascript"></script> -->
+
     <!-- Chart.Js      -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <!-- iconify.Js      -->
@@ -359,6 +614,9 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- multiselect -->
     <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+    <!-- chosen -->
+    <!-- <script type="text/javascript" src="js/chosen.jquery.js" ></script> -->
+    
     <!-- app-js        -->
     <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
     <script type="text/javascript" src="js/charts/vtasfpago.js"></script>
@@ -366,21 +624,26 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <script type="text/javascript" src="js/filtros.js"  ></script>
     <script type="text/javascript" src="js/app.js"  ></script>
 
+    <!-- <script type="text/javascript" src="js/vue-multiselect.min.js"  ></script> -->
+    <!-- <script type="text/javascript" src="js/vue.js"  ></script> -->
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-multiselect@2.1.0"></script> -->
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@kleimaj/multiselect.js@1.0.8/js/multiselect.min.js"></script> -->
+
+    <!-- Select2 -->
+    <script src="js/select2.min.js"></script>
+    
     <script >
+
 
         var numchart = <?php  echo $_SESSION['chart']; ?>; 
         var tipousr  = <?php  echo $_SESSION['tipo']; ?>; 
         var tfiltro  = <?php  echo $_SESSION['filtro']; ?>; 
 
-        function openNav() {
-        document.getElementById("sidebar-container").style.width = "250px";
-        document.getElementById("content").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-        document.getElementById("sidebar-container").style.width = "0";
-        document.getElementById("content").style.marginLeft= "0";
-        }
     </script>
 
 </body>

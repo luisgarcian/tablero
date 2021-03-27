@@ -412,22 +412,22 @@ label {
 }
 
 
-.modal .modal-content { 
+/* .modal .modal-content { 
   padding: 20px 20px 20px 20px; 
   -webkit-animation-name: modal-animation; 
   -webkit-animation-duration: 0.5s; 
   animation-name: modal-animation; 
   animation-duration: 0.5s; 
-} 
+}  */
 
-#div.modal-content {
+/* #div.modal-content {
   @media (min-width:60em){
     height:75%;
     margin:5% auto;
     max-width:66em;
-    width:85%;
+    width:80%;
   }
-} 
+}  */
 
 @-webkit-keyframes modal-animation { 
   from { 
@@ -646,3 +646,83 @@ body.enlarged {
   .width-xl {
     min-width: 160px; }
     
+  select.selcat {
+    font-size: '10px'!important;
+    color: 'black' !important;
+    margin:'8px' !important;
+  }
+
+span.select2-selection ,
+span.select2-selection.select2-selection--multiple
+{
+  width: 300px;
+  font-size: 12px;
+  padding-left: 10px;
+}  
+
+.modal-body .labels label {
+  font-weight:bold;
+  font-size: 14px;
+}
+
+#loading {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: block;
+  opacity: 0.7;
+  background-color: #fff;
+  z-index: 99;
+  text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
+
+div#loadingoverlay {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+
+div.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span.spinner {
+  width: 100px;
+  height: 100px;
+  border: 10px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+
+@keyframes sp-anime {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(359deg);
+  }
+}
+
+div.checkbox label
+            {
+                position: relative;
+                top: -2px;
+            }

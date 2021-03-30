@@ -3,178 +3,230 @@ $(function () {
 
   //deptos
   $('#seldep1').on('select2:select', function (e) {
-    arrdep_1 = actualizaSeleccion($('#seldep1'), arrdep_1);
+    arrdep_1 = actualizaSeleccion($('#seldep1'));
+    LlenarOpciones (1, 3);
   });
   $('#seldep1').on('select2:unselect', function (e) {
-    arrdep_1 = actualizaSeleccion($('#seldep1'), arrdep_1);
+    arrdep_1 = actualizaSeleccion($('#seldep1'));
+    LlenarOpciones (1, 3);
   });
+
   $('#seldep2').on('select2:select', function (e) {
-    arrdep_2 = actualizaSeleccion($('#seldep2'), arrdep_2);
+    arrdep_2 = actualizaSeleccion($('#seldep2'));
+    LlenarOpciones (2, 3);
   });
   $('#seldep2').on('select2:unselect', function (e) {
-    arrdep_2 = actualizaSeleccion($('#seldep2'), arrdep_2);
+    arrdep_2 = actualizaSeleccion($('#seldep2'));
+    LlenarOpciones (2, 3);
   });
   $('#seldep3').on('select2:select', function (e) {
-    arrdep_3 = actualizaSeleccion($('#seldep3'), arrdep_3);
+    arrdep_3 = actualizaSeleccion($('#seldep3'));
+    LlenarOpciones (3, 3);
   });
   $('#seldep3').on('select2:unselect', function (e) {
-    arrdep_3 = actualizaSeleccion($('#seldep3'), arrdep_3);
+    arrdep_3 = actualizaSeleccion($('#seldep3'));
+    LlenarOpciones (3, 3);
   });
   // familias
   $('#selfam1').on('select2:select', function (e) {
-    arrfam_1 = actualizaSeleccion($('#selfam1'), arrfam_1);
+    arrfam_1 = actualizaSeleccion($('#selfam1'));
+    LlenarOpciones (1, 4);
   });
   $('#selfam1').on('select2:unselect', function (e) {
-    arrfam_1 = actualizaSeleccion($('#selfam1'), arrfam_1);
+    arrfam_1 = actualizaSeleccion($('#selfam1'));
+    LlenarOpciones (1, 4);
   });
   $('#selfam2').on('select2:select', function (e) {
-    arrfam_2 = actualizaSeleccion($('#selfam2'), arrfam_2);
-    //actualiza hacia arriba
-    //actualizaOps($('seldep2'),  arrdep_2, 2, 'CALZADO' , arrfam_2  ); //2 -Nivel Familia
+    arrfam_2 = actualizaSeleccion($('#selfam2'));
+    LlenarOpciones (2, 4);
   });
   $('#selfam2').on('select2:unselect', function (e) {
-    arrfam_2 = actualizaSeleccion($('#selfam2'), arrfam_2);
+    arrfam_2 = actualizaSeleccion($('#selfam2'));
+    LlenarOpciones (2, 4);
   });
   $('#selfam3').on('select2:select', function (e) {
-    arrfam_3 = actualizaSeleccion($('#selfam3'), arrfam_3);
+    arrfam_3 = actualizaSeleccion($('#selfam3'));
+    LlenarOpciones (3, 4);
   });
   $('#selfam3').on('select2:unselect', function (e) {
-    arrfam_3 = actualizaSeleccion($('#selfam3'), arrfam_3);
+    arrfam_3 = actualizaSeleccion($('#selfam3'));
+    LlenarOpciones (3, 4);
   });
   // lineas
   $('#sellin1').on('select2:select', function (e) {
-    arrlin_1 = actualizaSeleccion($('#sellin1'), arrlin_1);
+    arrlin_1 = actualizaSeleccion($('#sellin1'));
+    LlenarOpciones (1, 5);
   });
   $('#sellin1').on('select2:unselect', function (e) {
-    arrlin_1 = actualizaSeleccion($('#sellin1'), arrlin_1);
+    arrlin_1 = actualizaSeleccion($('#sellin1') );
+    LlenarOpciones (1, 5);
   });
   $('#sellin2').on('select2:select', function (e) {
-    arrlin_2 = actualizaSeleccion($('#sellin2'), arrlin_2);
+    arrlin_2 = actualizaSeleccion($('#sellin2') );
+    LlenarOpciones (2, 5);
   });
   $('#sellin2').on('select2:unselect', function (e) {
-    arrlin_2 = actualizaSeleccion($('#sellin2'), arrlin_2);
+    arrlin_2 = actualizaSeleccion($('#sellin2') );
+    LlenarOpciones (2, 5);
   });
   $('#sellin3').on('select2:select', function (e) {
-    arrlin_3 = actualizaSeleccion($('#sellin3'), arrlin_3);
+    arrlin_3 = actualizaSeleccion($('#sellin3'));
+    LlenarOpciones (3, 5);
   });
   $('#sellin3').on('select2:unselect', function (e) {
-    arrlin_3 = actualizaSeleccion($('#sellin3'), arrlin_3);
+    arrlin_3 = actualizaSeleccion($('#sellin3'));
+    LlenarOpciones (3, 5);
   });
   // L1
   $('#sell11').on('select2:select', function (e) {
-    arrl1_1 = actualizaSeleccion($('#sell11'), arrl1_1); 
+    arrl1_1 = actualizaSeleccion($('#sell11')); 
+    LlenarOpciones (1, 6);
   });
   $('#sell11').on('select2:unselect', function (e) {
-    arrl1_1 = actualizaSeleccion($('#sell11'), arrl1_1);
+    arrl1_1 = actualizaSeleccion($('#sell11'));
+    LlenarOpciones (1, 6);
   });
   $('#sell12').on('select2:select', function (e) {
-    arrl1_2 = actualizaSeleccion($('#sell12'), arrl1_2);
+    arrl1_2 = actualizaSeleccion($('#sell12'));
+    LlenarOpciones (2, 6);
   });
   $('#sell12').on('select2:unselect', function (e) {
-    arrl1_2 = actualizaSeleccion($('#sell12'), arrl1_2);
+    arrl1_2 = actualizaSeleccion($('#sell12'));
+    LlenarOpciones (2, 6);
   });
   $('#selll3').on('select2:select', function (e) {
-    arrl1_3 = actualizaSeleccion($('#sell13'), arrl1_3);
+    arrl1_3 = actualizaSeleccion($('#sell13'));
+    LlenarOpciones (3, 6);
   });
   $('#selll3').on('select2:unselect', function (e) {
-    arrl1_3 = actualizaSeleccion($('#sell13'), arrl1_3);
+    arrl1_3 = actualizaSeleccion($('#sell13'));
+    LlenarOpciones (3, 6);
   });
   //L2
   $('#sell21').on('select2:select', function (e) {
-    arrl2_1 = actualizaSeleccion($('#sell21'), arrl2_1); 
+    arrl2_1 = actualizaSeleccion($('#sell21')); 
+    LlenarOpciones (1, 7);
   });
   $('#sell21').on('select2:unselect', function (e) {
-    arrl2_1 = actualizaSeleccion($('#sell21'), arrl2_1);
+    arrl2_1 = actualizaSeleccion($('#sell21'));
+    LlenarOpciones (1, 7);
   });
   $('#sell22').on('select2:select', function (e) {
-    arrl2_2 = actualizaSeleccion($('#sell22'), arrl2_2);
+    arrl2_2 = actualizaSeleccion($('#sell22'));
+    LlenarOpciones (2, 7);
   });
   $('#sell22').on('select2:unselect', function (e) {
-    arrl2_2 = actualizaSeleccion($('#sell22'), arrl2_2);
+    arrl2_2 = actualizaSeleccion($('#sell22'));
+    LlenarOpciones (2, 7);
   });
   $('#sell23').on('select2:select', function (e) {
-    arrl2_3 = actualizaSeleccion($('#sell23'), arrl2_3);
+    arrl2_3 = actualizaSeleccion($('#sell23'));
+    LlenarOpciones (3, 7);
   });
   $('#sell23').on('select2:unselect', function (e) {
-    arrl2_3 = actualizaSeleccion($('#sell23'), arrl2_3);
+    arrl2_3 = actualizaSeleccion($('#sell23'));
+    LlenarOpciones (3, 7);
   });
   //L3
   $('#sell31').on('select2:select', function (e) {
-    arrl3_1 = actualizaSeleccion($('#sell31'), arrl3_1); 
+    arrl3_1 = actualizaSeleccion($('#sell31')); 
+    LlenarOpciones (1, 8);
   });
   $('#sell31').on('select2:unselect', function (e) {
-    arrl3_1 = actualizaSeleccion($('#sell31'), arrl3_1);
+    arrl3_1 = actualizaSeleccion($('#sell31'));
+    LlenarOpciones (1, 8);
   });
   $('#sell32').on('select2:select', function (e) {
-    arrl3_2 = actualizaSeleccion($('#sell32'), arrl3_2);
+    arrl3_2 = actualizaSeleccion($('#sell32'));
+    LlenarOpciones (2, 8);
   });
   $('#sell32').on('select2:unselect', function (e) {
-    arrl3_2 = actualizaSeleccion($('#sell32'), arrl3_2);
+    arrl3_2 = actualizaSeleccion($('#sell32'));
+    LlenarOpciones (2, 8);
   });
   $('#sell33').on('select2:select', function (e) {
-    arrl3_3 = actualizaSeleccion($('#sell33'), arrl3_3);
+    arrl3_3 = actualizaSeleccion($('#sell33'));
+    LlenarOpciones (3, 8);
   });
   $('#sell33').on('select2:unselect', function (e) {
-    arrl3_3 = actualizaSeleccion($('#sell33'), arrl3_3);
+    arrl3_3 = actualizaSeleccion($('#sell33'));
+    LlenarOpciones (3, 8);
   });
   //L4
   $('#sell41').on('select2:select', function (e) {
-    arrl4_1 = actualizaSeleccion($('#sell41'), arrl4_1); 
+    arrl4_1 = actualizaSeleccion($('#sell41')); 
+    LlenarOpciones (1, 9);
   });
   $('#sell41').on('select2:unselect', function (e) {
-    arrl4_1 = actualizaSeleccion($('#sell41'), arrl4_1);
+    arrl4_1 = actualizaSeleccion($('#sell41'));
+    LlenarOpciones (1, 9);
   });
   $('#sell42').on('select2:select', function (e) {
-    arrl4_2 = actualizaSeleccion($('#sell42'), arrl4_2);
+    arrl4_2 = actualizaSeleccion($('#sell42'));
+    LlenarOpciones (2, 9);
   });
   $('#sell42').on('select2:unselect', function (e) {
-    arrl4_2 = actualizaSeleccion($('#sell42'), arrl4_2);
+    arrl4_2 = actualizaSeleccion($('#sell42'));
+    LlenarOpciones (2, 9);
   });
   $('#sell43').on('select2:select', function (e) {
-    arrl4_3 = actualizaSeleccion($('#sell43'), arrl4_3);
+    arrl4_3 = actualizaSeleccion($('#sell43'));
+    LlenarOpciones (3, 9);
   });
   $('#sell43').on('select2:unselect', function (e) {
-    arrl4_3 = actualizaSeleccion($('#sell43'), arrl4_3);
+    arrl4_3 = actualizaSeleccion($('#sell43'));
+    LlenarOpciones (3, 9);
   });
   //L5
   $('#sell51').on('select2:select', function (e) {
-    arrl5_1 = actualizaSeleccion($('#sell51'), arrl5_1); 
+    arrl5_1 = actualizaSeleccion($('#sell51')); 
   });
   $('#sell51').on('select2:unselect', function (e) {
-    arrl5_1 = actualizaSeleccion($('#sell51'), arrl5_1);
+    arrl5_1 = actualizaSeleccion($('#sell51'));
   });
   $('#sell52').on('select2:select', function (e) {
-    arrl5_2 = actualizaSeleccion($('#sell52'), arrl5_2);
+    arrl5_2 = actualizaSeleccion($('#sell52'));
   });
   $('#sell52').on('select2:unselect', function (e) {
-    arrl5_2 = actualizaSeleccion($('#sell52'), arrl5_2);
+    arrl5_2 = actualizaSeleccion($('#sell52'));
   });
   $('#sell53').on('select2:select', function (e) {
-    arrl5_3 = actualizaSeleccion($('#sell53'), arrl5_3);
+    arrl5_3 = actualizaSeleccion($('#sell53'));
   });
   $('#sell53').on('select2:unselect', function (e) {
-    arrl5_3 = actualizaSeleccion($('#sell53'), arrl5_3);
+    arrl5_3 = actualizaSeleccion($('#sell53'));
   });
   //L6
   $('#sell61').on('select2:select', function (e) {
-    arrl6_1 = actualizaSeleccion($('#sell61'), arrl6_1); 
+    arrl6_1 = actualizaSeleccion($('#sell61')); 
   });
   $('#sell61').on('select2:unselect', function (e) {
-    arrl6_1 = actualizaSeleccion($('#sell61'), arrl6_1);
+    arrl6_1 = actualizaSeleccion($('#sell61'));
   });
   $('#sell62').on('select2:select', function (e) {
-    arrl6_2 = actualizaSeleccion($('#sell62'), arrl6_2);
+    arrl6_2 = actualizaSeleccion($('#sell62'));
   });
   $('#sell62').on('select2:unselect', function (e) {
-    arrl6_2 = actualizaSeleccion($('#sell62'), arrl6_2);
+    arrl6_2 = actualizaSeleccion($('#sell62'));
   });
   $('#sell63').on('select2:select', function (e) {
-    arrl6_3 = actualizaSeleccion($('#sell63'), arrl6_3);
+    arrl6_3 = actualizaSeleccion($('#sell63'));
   });
   $('#sell43').on('select2:unselect', function (e) {
-    arrl6_3 = actualizaSeleccion($('#sell63'), arrl6_3);
+    arrl6_3 = actualizaSeleccion($('#sell63'));
   });
 });
+
+function actualizaSeleccion (select) {
+
+  opcs = select.find(':selected');
+  arr = [];
+  for (i=0; i < opcs.length; i++) {
+    arr.push(opcs[i].innerText);
+  }
+  return arr;
+}
+
 
 
 
@@ -196,57 +248,170 @@ function Muestra_Filtro_Estructura() {
   //   }
   // });
   
-  CargaSelect($('#seldep1'), 2, "CALZADO") ;
-  CargaSelect($('#seldep2'), 2, "ACCESORIOS") ;
-  CargaSelect($('#seldep3'), 2, "ELECTRONICA") ;
-
-  CargaSelect($('#selfam1'), 3, "CALZADO") ;
-  CargaSelect($('#selfam2'), 3, "ACCESORIOS") ;
-  CargaSelect($('#selfam3'), 3, "ELECTRONICA") ;
-
-  CargaSelect($('#sellin1'), 4, "CALZADO") ;
-  CargaSelect($('#sellin2'), 4, "ACCESORIOS") ;
-  CargaSelect($('#sellin3'), 4, "ELECTRONICA") ;
-
-  CargaSelect($('#sell11'), 5, "CALZADO") ;
-  CargaSelect($('#sell12'), 5, "ACCESORIOS") ;
-  CargaSelect($('#sell13'), 5, "ELECTRONICA") ;
-
-  CargaSelect($('#sell21'), 6, "CALZADO") ;
-  CargaSelect($('#sell22'), 6, "ACCESORIOS") ;
-  CargaSelect($('#sell23'), 6, "ELECTRONICA") ;
-
-  CargaSelect($('#sell31'), 7, "CALZADO") ;
-  CargaSelect($('#sell32'), 7, "ACCESORIOS") ;
-  CargaSelect($('#sell33'), 7, "ELECTRONICA") ;
-
-  CargaSelect($('#sell41'), 8, "CALZADO") ;
-  CargaSelect($('#sell42'), 8, "ACCESORIOS") ;
-  CargaSelect($('#sell43'), 8, "ELECTRONICA") ;
-
-  CargaSelect($('#sell51'), 9, "CALZADO") ;
-  CargaSelect($('#sell52'), 9, "ACCESORIOS") ;
-  CargaSelect($('#sell53'), 9, "ELECTRONICA") ;
-
-  CargaSelect($('#sell61'), 10, "CALZADO") ;
-  CargaSelect($('#sell62'), 10, "ACCESORIOS") ;
-  CargaSelect($('#sell63'), 10, "ELECTRONICA") ;
+  LlenarOpciones(1,2);  //Inicializa Calzado a partir de Depto
+  LlenarOpciones(2,2);  //Inicializa Accesorios a partir de Depto
+  LlenarOpciones(3,2);  //Inicializa Electronica a partir de Depto
   
 };
 
-function actualizaOps(lista, arr, nivel, division, arr_nivelinf) {
 
-  
-  if (arr.length == 0 || arr_nivelinf.length > 0 ) {
+function LlenarOpciones (ndiv, nivel) {
+  let str1 = '';
+  let str2 = '';
+    
+  // loop niveles
+  for ( let sel= nivel; sel <= selector.length+1 ; sel++ ) {
 
-    for (var nodo of todosNodos ) {
-      n = item.href.split("|").length ;
-      len = (indexOfNth(nodo.parentId,"-",1) < 0 ? nodo.parentId.length : indexOfNth(nodo.parentId,"-",1) );    
-      item = nodo.parentId.substring(0, len);
+      //omitir si el selector tiene alguna opcion seleccionadas en arr
+      //str1 = '$("#' + selector[sel-2] + (ndiv) + ' option' + ' ").length === 0';
+      let str1 = 'arr' + selector[nivel-2].substring(3) + '_' + ndiv + '.length === 0';
+
+      if ( eval(str1) ) {
+          str2 = '$("#' + selector[sel-2] + (ndiv) + '")';
+          
+          actualizaOps( eval(str2),  ndiv, sel );
+      }
+
+  }
+
+}
 
 
-    }
+function actualizaOps( selList, numDiv, nivList) {
+  // Se pasan como paramteros:
+  // El selector: 
+  //    selector de sus opciones, numero de division a que pertenece, nivel al q pertenece
 
+  // Si ya hay alguna seleccion en esa lista no actualizarla e ir bajando de nivel
+  //if (arrList.length > 0) {
+  //      return ;
+  //}
+
+  let opcList = [];
+  selList.empty();
+
+  //De todos los nodos seleccionar cuales se deben llenar en esa selList
+  for (var nodo of todosNodos ) {
+      let Division  =  nomDiv[numDiv-1];
+
+      let nodoNivel =  parseInt(nodo.nivel);
+      let nodos = nodo.href.split('|');
+      let nodoDiv = nodos[0] || "";
+      let nodoDep = nodos[1] || "";
+      let nodoFam = nodos[2] || "";
+      let nodoLin = nodos[3] || "";
+      let nodoL1  = nodos[4] || "";
+      let nodoL2  = nodos[5] || "";
+      let nodoL3  = nodos[6] || "";
+      let nodoL4  = nodos[7] || "";
+      let nodoL5  = nodos[8] || "";
+      let arrDep = 'arr' + selector[0].substring(3) + '_' + numDiv;
+      let arrFam = 'arr' + selector[1].substring(3) + '_' + numDiv;
+      let arrLin = 'arr' + selector[2].substring(3) + '_' + numDiv;
+      let arrL1  = 'arr' + selector[3].substring(3) + '_' + numDiv;
+      let arrL2  = 'arr' + selector[4].substring(3) + '_' + numDiv;
+      let arrL3  = 'arr' + selector[5].substring(3) + '_' + numDiv;
+      let arrL4  = 'arr' + selector[6].substring(3) + '_' + numDiv;
+      let arrL5  = 'arr' + selector[7].substring(3) + '_' + numDiv;
+
+      if (nodoNivel == nivList && nodoDiv == Division) {
+        if (nivList == 2 ) { 
+            opcList.push(nodo.text); 
+        }
+        if (nivList == 3 ) { 
+            let includedep  =  '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ))';
+            let include     =  includedep;
+            if (eval(include)) {
+                opcList.push(nodo.text);
+            }
+        }
+        if (nivList == 4 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 5 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 6 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 7 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 8 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL3  + '.includes("' + nodoL3.trimEnd()  + '") || (' + arrL3  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 9 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL3  + '.includes("' + nodoL3.trimEnd()  + '") || (' + arrL3  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL4  + '.includes("' + nodoL4.trimEnd()  + '") || (' + arrL4  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 10 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL3  + '.includes("' + nodoL3.trimEnd()  + '") || (' + arrL3  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL4  + '.includes("' + nodoL4.trimEnd()  + '") || (' + arrL4  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL5  + '.includes("' + nodoL5.trimEnd()  + '") || (' + arrL5  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+
+      }
+  }
+
+  //quitar duplicados
+  let uniq = [...new Set(opcList)];
+  // agregar opciones
+  for (i=0; i < uniq.length; i++ ) {
+    var newOption = new Option(uniq[i], uniq[i], false, false);
+    selList.append(newOption).trigger('change');
   }
   
 }
@@ -256,16 +421,17 @@ function CargaSelect(lista, nivel, division) {
   //$('#seldep3').val(null).trigger('change'); deselect
   lista.empty();
   arr = [];
+  let txt = "";
   //Seleccionar segun nivel, division y llenar arreglo
   for(var item of todosNodos){
     n = item.href.split("|").length ;
-    lenDiv = (indexOfNth(item.parentId,"-",1) < 0 ? item.parentId.length : indexOfNth(item.parentId,"-",1) );    
+    lenDiv = (indexOfNth(item.parentId,"|",1) < 0 ? item.parentId.length : indexOfNth(item.parentId,"|",1) );  
     itemDiv = item.parentId.substring(0, lenDiv);
     if ( n == nivel && itemDiv == division) {
         pos = indexOfNth(item.href,"|", n-1) + 1;
         len = (indexOfNth(item.href,"|", n) < 0 ? item.href.length : indexOfNth(item.href,"|", n) );    
-        str = item.href.substring(pos, len);
-        arr.push(str);
+        txt = item.href.substring(pos, len);
+        arr.push(txt);
     }
   }
   //quitar duplicados
@@ -275,7 +441,7 @@ function CargaSelect(lista, nivel, division) {
     var newOption = new Option(uniq[i], uniq[i], false, false);
     lista.append(newOption).trigger('change');
   }
-
+ 
 }
 
 
@@ -362,15 +528,6 @@ function obtenerSeleccion(select ) {
     sel.push(arr[i].innerText);
   }
   return sel;
-}
-
-function actualizaSeleccion(select, arr){
-  opcs = select.find(':selected');
-  arr = [];
-  for (i=0; i < opcs.length; i++) {
-    arr.push(opcs[i].innerText);
-  }
-  return arr;
 }
 
 function AplicarFiltro() {
@@ -538,11 +695,12 @@ function mostrarFiltro(arr) {
   }
   //Actualizar el Filtro para los que si tienen resultados
   filtroNodos = [...arr];
-  arr = arr.map( param => param.replace(/\,/g,'-> '));
-  if (arr.length > 1 ) { 
-    arr.unshift('TODOS LOS FILTROS (' + arr.length + ')');
+  arr2 = arr.map( param => param.replace(/\,/g,'->'));
+  
+  if (arr2.length > 1 ) { 
+    arr2.unshift('TODOS LOS FILTROS (' + arr.length + ')');
   }
-  arr.push('NINGUN FILTRO');
+  arr2.push('NINGUN FILTRO');
   
   //Create and append select list
   var selectList = document.createElement("select");
@@ -552,10 +710,10 @@ function mostrarFiltro(arr) {
   $('.btn-open-dialog').css({ 'color': 'black', 'margin':'5px'});
 
     //Create and append the options
-  for (var i = 0; i < arr.length; i++) {
+  for (var i = 0; i < arr2.length; i++) {
       var option = document.createElement("option");
       option.setAttribute("value", i);
-      option.text = arr[i];
+      option.text = arr2[i];
       selectList.appendChild(option);
   }
 

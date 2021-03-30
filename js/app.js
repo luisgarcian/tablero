@@ -81,6 +81,8 @@ var arrl5_3 = [];
 var arrl6_1 = [];
 var arrl6_2 = [];
 var arrl6_3 = [];
+var nomDiv  = ['CALZADO', 'ACCESORIOS', 'ELECTRONICA'];
+var selector = ['seldep', 'selfam', 'sellin', 'sell1', 'sell2', 'sell3', 'sell4', 'sell5', 'sell6' ];
 
 
 $(function () {

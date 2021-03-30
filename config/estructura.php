@@ -17,11 +17,13 @@ while ( odbc_fetch_array($result ) ) {
   $text     = $cnn->result('text');
   $href     = $cnn->result('href');
   $parentId = $cnn->result('parentId');
+  $nivel    = $cnn->result('nivel');
 
   $return_arr[] = array(
-                     'text' => $text, 
-                     'href' => $href,
-                     'parentId' => $parentId);
+                    'text' => $text, 
+                    'href' => $href,
+                    'parentId' => $parentId,
+                 	'nivel' =>	$nivel);
 }
 
 

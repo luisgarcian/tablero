@@ -54,7 +54,6 @@ var start = new Date();
 var end   = new Date();
 var fechahoy = moment();
 var arrdep_1 = [];
-var arrdep_1 = [];
 var arrdep_2 = [];
 var arrdep_3 = [];
 var arrfam_1 = [];
@@ -226,11 +225,15 @@ $(function () {
 
 
   $('.btn-open-dialog').on('click', function(){
+
+      $('#myModal').modal({
+        backdrop: 'static',
+        keyboard:false
+      });
     
-      $('#myModal').modal('show')
+      $('#myModal').modal('show');
 
       Muestra_Filtro_Estructura();
-      
     
   });
 

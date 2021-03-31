@@ -26,7 +26,6 @@ $fecini_ant = date("Y-m-d", strtotime($cnn->result('fecini_ant')));
 $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
 
-
 ?>
 <?
   session_start();
@@ -62,25 +61,22 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
     <!--  daterangepicker -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <!-- <link rel="stylesheet" href="css/chosen.css"> -->
+    
     <!-- Select2 -->
     <link href="css/select2.min.css" rel="stylesheet" />
-
+    <link href="/select2-bootstrap-theme/select2-bootstrap.min.css" type="text/css" rel="stylesheet" />
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!--  choosen -->
-    <!-- <link type="text/css" rel="stylesheet" href="css/chosen.css"> -->
-
-    <!-- <link type="text/css" rel="stylesheet" href="css/vue-multiselect.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css"> -->
-
-    <!-- # multiSelect.js :sparkles: -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kleimaj/multiselect.js@1.0.8/css/style.min.css"> -->
 
 </head>
 
 <body>
+    <div id="loadingoverlay"> 
+        <div class="cv-spinner">
+              <span class="spinner"></span>
+        </div>
+    </div>
 
    <div class="d-flex" id="wrapper">
 
@@ -167,18 +163,12 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
          </nav>
         <!-- Fin Navbar -->
 
-        <div id="myModal" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="myModal" class="modal fade" tabindex ="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog  modal-xl modal-dialog-centered "  role="document">
+            <div class="modal-dialog  modal-xl modal-dialog-centered "  role="document" style = "min-width:900px;">
             <!-- modal-dialog-scrollable -->
             <!-- modal-lg -->
                 <div class="modal-content">
-
-                <div id="loadingoverlay"> 
-                    <div class="cv-spinner">
-                        <span class="spinner"></span>
-                    </div>
-                </div>
 
                     <!-- Modal root -->
                     <div class="modal-header">
@@ -478,9 +468,7 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
 
                                     <div class="card-header bg-light">
                                         <div class="container-sel" style="float:left;margin-right:10px;">
-                                            <!-- <label style="font-size:14px; font-weight: bold;">Filtro</label> -->
 
-                                            <!-- Button HTML (to Trigger Modal) -->
                                         <button id= "btnFiltro" class="btn-open-dialog" type="button" title="Filtro Estructura" style="border:none;padding:3;font-size: 15pt">
                                             <span class="iconify" data-icon="ion:filter-outline" data-inline="false"></span>
                                         </button>
@@ -580,12 +568,8 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     
 
     <!-- JQuery -->    
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script> -->
-    <!-- <script src="js/chosen.jquery.js" type="text/javascript"></script> -->
-
+    
     <!-- Chart.Js      -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <!-- iconify.Js      -->
@@ -614,8 +598,6 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- multiselect -->
     <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
-    <!-- chosen -->
-    <!-- <script type="text/javascript" src="js/chosen.jquery.js" ></script> -->
     
     <!-- app-js        -->
     <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
@@ -624,21 +606,10 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <script type="text/javascript" src="js/filtros.js"  ></script>
     <script type="text/javascript" src="js/app.js"  ></script>
 
-    <!-- <script type="text/javascript" src="js/vue-multiselect.min.js"  ></script> -->
-    <!-- <script type="text/javascript" src="js/vue.js"  ></script> -->
-    <!-- <script src="https://unpkg.com/vue@next"></script> -->
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-multiselect@2.1.0"></script> -->
-    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@kleimaj/multiselect.js@1.0.8/js/multiselect.min.js"></script> -->
-
     <!-- Select2 -->
     <script src="js/select2.min.js"></script>
     
     <script >
-
 
         var numchart = <?php  echo $_SESSION['chart']; ?>; 
         var tipousr  = <?php  echo $_SESSION['tipo']; ?>; 

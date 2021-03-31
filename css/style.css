@@ -679,7 +679,7 @@ span.select2-selection.select2-selection--multiple
 }
 
 #loading-image {
-  position: absolute;
+  position: relative;
   top: 100px;
   left: 240px;
   z-index: 100;
@@ -703,10 +703,10 @@ div.cv-spinner {
 }
 
 span.spinner {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border: 10px #ddd solid;
-  border-top: 4px #2e93e6 solid;
+  border-top: 4px #2974b3 solid;
   border-radius: 50%;
   animation: sp-anime 0.8s infinite linear;
 }

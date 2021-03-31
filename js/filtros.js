@@ -6,6 +6,8 @@ $(function () {
     arrdep_1 = actualizaSeleccion($('#seldep1'));
     LlenarOpciones (1, 3);
   });
+  $("#seldep1").select2({theme: 'paper'});
+  
   $('#seldep1').on('select2:unselect', function (e) {
     arrdep_1 = actualizaSeleccion($('#seldep1'));
     LlenarOpciones (1, 3);
@@ -238,15 +240,13 @@ function Muestra_Filtro_Estructura() {
 
   todosNodos = Object.values(TraeDatos("config/estructura.php",[]));
   
-  //obj1 = createTree(todosNodos);
-  //Opcs_Tree = ModifyProperty(obj1,  "text" );
-
   // $('.depto').select2({
   //   placeholder: {
   //     id: '-1', // the value of the option
   //     text: 'Seleccione un Departamento'
   //   }
   // });
+  
   
   LlenarOpciones(1,2);  //Inicializa Calzado a partir de Depto
   LlenarOpciones(2,2);  //Inicializa Accesorios a partir de Depto
@@ -263,7 +263,6 @@ function LlenarOpciones (ndiv, nivel) {
   for ( let sel= nivel; sel <= selector.length+1 ; sel++ ) {
 
       //omitir si el selector tiene alguna opcion seleccionadas en arr
-      //str1 = '$("#' + selector[sel-2] + (ndiv) + ' option' + ' ").length === 0';
       let str1 = 'arr' + selector[nivel-2].substring(3) + '_' + ndiv + '.length === 0';
 
       if ( eval(str1) ) {
@@ -446,9 +445,65 @@ function CargaSelect(lista, nivel, division) {
 
 
 
-
 function BorrarSels() {
-$('#treeview').treeview('uncheckAll', { silent: true });
+//$('#treeview').treeview('uncheckAll', { silent: true });
+  $('#seldep1').val(null).trigger('change');
+  $('#seldep2').val(null).trigger('change');
+  $('#seldep3').val(null).trigger('change');
+  $('#selfam1').val(null).trigger('change');
+  $('#selfam2').val(null).trigger('change');
+  $('#selfam3').val(null).trigger('change');
+  $('#sellin1').val(null).trigger('change');
+  $('#sellin2').val(null).trigger('change');
+  $('#sellin3').val(null).trigger('change');
+  $('#sell11').val(null).trigger('change');
+  $('#sell12').val(null).trigger('change');
+  $('#sell13').val(null).trigger('change');
+  $('#sell21').val(null).trigger('change');
+  $('#sell22').val(null).trigger('change');
+  $('#sell23').val(null).trigger('change');
+  $('#sell31').val(null).trigger('change');
+  $('#sell32').val(null).trigger('change');
+  $('#sell33').val(null).trigger('change');
+  $('#sell41').val(null).trigger('change');
+  $('#sell42').val(null).trigger('change');
+  $('#sell43').val(null).trigger('change');
+  $('#sell51').val(null).trigger('change');
+  $('#sell52').val(null).trigger('change');
+  $('#sell53').val(null).trigger('change');
+  $('#sell61').val(null).trigger('change');
+  $('#sell62').val(null).trigger('change');
+  $('#sell63').val(null).trigger('change');
+  arrdep_1 = [];
+  arrdep_2 = [];
+  arrdep_3 = [];
+  arrfam_1 = [];
+  arrfam_2 = [];
+  arrfam_3 = [];
+  arrlin_1 = [];
+  arrlin_2 = [];
+  arrlin_3 = [];
+  arrl1_1 = [];
+  arrl1_2 = [];
+  arrl1_3 = [];
+  arrl2_1 = [];
+  arrl2_2 = [];
+  arrl2_3 = [];
+  arrl3_1 = [];
+  arrl3_2 = [];
+  arrl3_3 = [];
+  arrl4_1 = [];
+  arrl4_2 = [];
+  arrl4_3 = [];
+  arrl5_1 = [];
+  arrl5_2 = [];
+  arrl5_3 = [];
+  arrl6_1 = [];
+  arrl6_2 = [];
+  arrl6_3 = [];
+  $("#division1").prop("checked", false);
+  $("#division2").prop("checked", false);
+  $("#division3").prop("checked", false);
 };
 
 function DeleteProperty(obj, key) {
@@ -504,7 +559,7 @@ function createTree(data) {
   
   return root;
 };
-  
+
 
 function SiyaExiste (arr, str) {
   res = false;
@@ -532,8 +587,6 @@ function obtenerSeleccion(select ) {
 
 function AplicarFiltro() {
   
-  $("#loadingoverlay").fadeIn();
-
   
   //Agrupar las selecciones en 3 filtros por division
   if (document.getElementById("division1").checked)  {
@@ -587,6 +640,9 @@ function AplicarFiltro() {
   ObtenerFiltro(filtro_3, arrl5_3);
   ObtenerFiltro(filtro_3, arrl6_3);
 
+  $('#Cerrar')[0].click();
+  $("#loadingoverlay").fadeIn();
+  
   //Agrupar los filtros por division en uno solo
   filtroNodos = [];
   filtroNodos = [...filtro_1] ;
@@ -595,11 +651,7 @@ function AplicarFiltro() {
 
   mostrarFiltro(filtroNodos);
   actualizaChartVtasNetas(filtroNodos);
-      
   
-  //$('#loading').hide();
-  $('#Cerrar')[0].click();
-
   $("#loadingoverlay").fadeOut();
   
 };
@@ -706,7 +758,7 @@ function mostrarFiltro(arr) {
   var selectList = document.createElement("select");
   selectList.setAttribute("id", "mySelect");
   myDiv.appendChild(selectList);
-  $('#mySelect').css({ 'font-size': '10px', 'color': 'black', 'margin':'5px'});
+  $('#mySelect').css({ 'font-size': '12px', 'color': 'blue', 'margin':'5px'});
   $('.btn-open-dialog').css({ 'color': 'black', 'margin':'5px'});
 
     //Create and append the options
@@ -723,7 +775,7 @@ function mostrarFiltro(arr) {
         //Todos los filtros de estructura seleccionados
         actualizaChartVtasNetas(filtroNodos);
         break;
-      case arr.length-1 :
+      case arr2.length-1 :
         //Sin Filtro
         actualizaChartVtasNetas([]);
         break;

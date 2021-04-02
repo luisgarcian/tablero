@@ -226,14 +226,13 @@ $(function () {
 
   $('.btn-open-dialog').on('click', function(){
 
-      $('#myModal').modal({
-        backdrop: 'static',
-        keyboard:false
-      });
-    
-      $('#myModal').modal('show');
+    iniciaSelectores();
+    $('#myModal').modal({
+      backdrop: 'static',
+      keyboard:false
+    });
 
-      Muestra_Filtro_Estructura();
+    $('#myModal').modal('show');
     
   });
 

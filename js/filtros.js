@@ -1,6 +1,13 @@
 
 $(function () {
 
+  // $('.depto').select2({
+  //   placeholder: {
+  //     id: '-1', // the value of the option
+  //     text: 'Seleccione un Departamento'
+  //   }
+  // });
+
   //deptos
   $('#seldep1').on('select2:select', function (e) {
     arrdep_1 = actualizaSeleccion($('#seldep1'));
@@ -231,26 +238,17 @@ function actualizaSeleccion (select) {
 
 
 
+function iniciaSelectores() {
+  
+  if (!todosNodos.length ) {
+  
+    todosNodos = Object.values(TraeDatos("config/estructura.php",[]));
+  
+    LlenarOpciones(1,2);  //Inicializa Division1  a partir de Nivel 2
+    LlenarOpciones(2,2);  //Inicializa Division2  a partir de Nivel 2
+    LlenarOpciones(3,2);  //Inicializa Division3  a partir de Nivel 2
 
-function Muestra_Filtro_Estructura() {
-  
-  if (todosNodos.length > 0 ) {
-    return;
-  }
-
-  todosNodos = Object.values(TraeDatos("config/estructura.php",[]));
-  
-  // $('.depto').select2({
-  //   placeholder: {
-  //     id: '-1', // the value of the option
-  //     text: 'Seleccione un Departamento'
-  //   }
-  // });
-  
-  
-  LlenarOpciones(1,2);  //Inicializa Calzado a partir de Depto
-  LlenarOpciones(2,2);  //Inicializa Accesorios a partir de Depto
-  LlenarOpciones(3,2);  //Inicializa Electronica a partir de Depto
+    }
   
 };
 
@@ -263,7 +261,7 @@ function LlenarOpciones (ndiv, nivel) {
   for ( let sel= nivel; sel <= selector.length+1 ; sel++ ) {
 
       //omitir si el selector tiene alguna opcion seleccionadas en arr
-      let str1 = 'arr' + selector[nivel-2].substring(3) + '_' + ndiv + '.length === 0';
+      str1 = 'arr' + selector[nivel-2].substring(3) + '_' + ndiv + '.length === 0';
 
       if ( eval(str1) ) {
           str2 = '$("#' + selector[sel-2] + (ndiv) + '")';
@@ -278,18 +276,10 @@ function LlenarOpciones (ndiv, nivel) {
 
 function actualizaOps( selList, numDiv, nivList) {
   // Se pasan como paramteros:
-  // El selector: 
-  //    selector de sus opciones, numero de division a que pertenece, nivel al q pertenece
-
-  // Si ya hay alguna seleccion en esa lista no actualizarla e ir bajando de nivel
-  //if (arrList.length > 0) {
-  //      return ;
-  //}
 
   let opcList = [];
   selList.empty();
 
-  //De todos los nodos seleccionar cuales se deben llenar en esa selList
   for (var nodo of todosNodos ) {
       let Division  =  nomDiv[numDiv-1];
 
@@ -415,6 +405,147 @@ function actualizaOps( selList, numDiv, nivList) {
   
 }
 
+
+function actualizaOpsSel( selList, numDiv, nivList) {
+  // Se pasan como paramteros:
+
+  let opcList = [];
+  selList.empty();
+
+  for (var nodo of todosNodos ) {
+      let Division  =  nomDiv[numDiv-1];
+      let nodoNivel =  parseInt(nodo.nivel);
+      let nodos = nodo.href.split('|');
+      let nodoDiv = nodos[0] || "";
+
+      if (nodoNivel == nivList && nodoDiv == Division) {
+        switch (nivList) {
+          case 2:
+            let include = "true";
+            break;
+          case (nivList > 2): //3
+            let arrDep   = 'arr' + selector[nivList-3].substring(3) + '_' + numDiv;
+            include  =  '(' + arrDep + '.includes("' + (nodos[nivList-2].trimEnd() || "" ) + '") || (' + arrDep + '.length === 0 ))';
+          case (nivList > 3): //4
+            let arrFam   = 'arr' + selector[nivList-3].substring(3) + '_' + numDiv;
+            include  +=  ' && (' + arrFam + '.includes("' + nodos[nivList-2] || "".trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+        }
+
+        if (eval(include)) {
+            opcList.push(nodo.text);
+        }
+
+      }
+
+      
+      let nodoFam = nodos[2] || "";
+      let nodoLin = nodos[3] || "";
+      let nodoL1  = nodos[4] || "";
+      let nodoL2  = nodos[5] || "";
+      let nodoL3  = nodos[6] || "";
+      let nodoL4  = nodos[7] || "";
+      let nodoL5  = nodos[8] || "";
+      
+      
+      let arrLin = 'arr' + selector[2].substring(3) + '_' + numDiv;
+      let arrL1  = 'arr' + selector[3].substring(3) + '_' + numDiv;
+      let arrL2  = 'arr' + selector[4].substring(3) + '_' + numDiv;
+      let arrL3  = 'arr' + selector[5].substring(3) + '_' + numDiv;
+      let arrL4  = 'arr' + selector[6].substring(3) + '_' + numDiv;
+      let arrL5  = 'arr' + selector[7].substring(3) + '_' + numDiv;
+
+      if (nodoNivel == nivList && nodoDiv == Division) {
+
+        if (nivList == 4 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 5 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 6 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 7 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 8 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL3  + '.includes("' + nodoL3.trimEnd()  + '") || (' + arrL3  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 9 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL3  + '.includes("' + nodoL3.trimEnd()  + '") || (' + arrL3  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL4  + '.includes("' + nodoL4.trimEnd()  + '") || (' + arrL4  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+        if (nivList == 10 ) { 
+          let includedep  =     '(' + arrDep + '.includes("' + nodoDep.trimEnd() + '") || (' + arrDep + '.length === 0 ) )';
+              includedep +=  '&& (' + arrFam + '.includes("' + nodoFam.trimEnd() + '") || (' + arrFam + '.length === 0 ) )';
+              includedep +=  '&& (' + arrLin + '.includes("' + nodoLin.trimEnd() + '") || (' + arrLin + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL1  + '.includes("' + nodoL1.trimEnd()  + '") || (' + arrL1  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL2  + '.includes("' + nodoL2.trimEnd()  + '") || (' + arrL2  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL3  + '.includes("' + nodoL3.trimEnd()  + '") || (' + arrL3  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL4  + '.includes("' + nodoL4.trimEnd()  + '") || (' + arrL4  + '.length === 0 ) )';
+              includedep +=  '&& (' + arrL5  + '.includes("' + nodoL5.trimEnd()  + '") || (' + arrL5  + '.length === 0 ) )';
+          let include     =  includedep  
+          if (eval(include)) {
+              opcList.push(nodo.text);
+          }
+        }
+
+      }
+  }
+
+  //quitar duplicados
+  let uniq = [...new Set(opcList)];
+  // agregar opciones
+  for (i=0; i < uniq.length; i++ ) {
+    var newOption = new Option(uniq[i], uniq[i], false, false);
+    selList.append(newOption).trigger('change');
+  }
+  
+}
 
 function CargaSelect(lista, nivel, division) {
   //$('#seldep3').val(null).trigger('change'); deselect
@@ -587,15 +718,16 @@ function obtenerSeleccion(select ) {
 
 function AplicarFiltro() {
   
-  
+  $("#loadingoverlay").fadeIn();
+  let filtro_1 = [];
+  let filtro_2 = [];
+  let filtro_3 = [];
+
   //Agrupar las selecciones en 3 filtros por division
   if (document.getElementById("division1").checked)  {
-      filtro_1 = ['CALZADO'];
+      filtro_1.push(nomDiv[0]);
   }
-  else {
-    filtro_1 = [];
-  }
-    
+      
   ObtenerFiltro(filtro_1, arrdep_1);
   ObtenerFiltro(filtro_1, arrfam_1);
   ObtenerFiltro(filtro_1, arrlin_1);
@@ -607,12 +739,9 @@ function AplicarFiltro() {
   ObtenerFiltro(filtro_1, arrl6_1);
 
   if (document.getElementById("division2").checked)  {
-    filtro_2 = ['ACCESORIOS'];
+    filtro_2.push(nomDiv[1]);
   }
-  else {
-    filtro_2 = [];
-  }
-  
+    
   ObtenerFiltro(filtro_2, arrdep_2);
   ObtenerFiltro(filtro_2, arrfam_2);
   ObtenerFiltro(filtro_2, arrlin_2);
@@ -624,12 +753,9 @@ function AplicarFiltro() {
   ObtenerFiltro(filtro_2, arrl6_2);
   
   if (document.getElementById("division3").checked)  {
-    filtro_3 = ['ELECTRONICA'];
+    filtro_3.push(nomDiv[2]);
   }
-  else {
-    filtro_3 = [];
-  }
-
+  
   ObtenerFiltro(filtro_3, arrdep_3);
   ObtenerFiltro(filtro_3, arrfam_3);
   ObtenerFiltro(filtro_3, arrlin_3);
@@ -639,9 +765,6 @@ function AplicarFiltro() {
   ObtenerFiltro(filtro_3, arrl4_3);
   ObtenerFiltro(filtro_3, arrl5_3);
   ObtenerFiltro(filtro_3, arrl6_3);
-
-  $('#Cerrar')[0].click();
-  $("#loadingoverlay").fadeIn();
   
   //Agrupar los filtros por division en uno solo
   filtroNodos = [];
@@ -650,6 +773,9 @@ function AplicarFiltro() {
   filtroNodos = filtroNodos.concat(filtro_3);
 
   mostrarFiltro(filtroNodos);
+
+  $('#Cerrar')[0].click();
+
   actualizaChartVtasNetas(filtroNodos);
   
   $("#loadingoverlay").fadeOut();
@@ -750,15 +876,15 @@ function mostrarFiltro(arr) {
   arr2 = arr.map( param => param.replace(/\,/g,'->'));
   
   if (arr2.length > 1 ) { 
-    arr2.unshift('TODOS LOS FILTROS (' + arr.length + ')');
+    arr2.unshift('Todos los Filtros (' + arr.length + ')');
   }
-  arr2.push('NINGUN FILTRO');
+  arr2.push('Ningún Filtro');
   
   //Create and append select list
   var selectList = document.createElement("select");
   selectList.setAttribute("id", "mySelect");
   myDiv.appendChild(selectList);
-  $('#mySelect').css({ 'font-size': '12px', 'color': 'blue', 'margin':'5px'});
+  $('#mySelect').css({ 'font-size': '12px', 'color': 'black', 'margin':'2px', 'font-family' : 'Arial'});
   $('.btn-open-dialog').css({ 'color': 'black', 'margin':'5px'});
 
     //Create and append the options

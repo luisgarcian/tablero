@@ -44,27 +44,22 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Bootstrap CSS v 4.5.3-->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
-
-    <!-- bootstrap-treeview-->
-    <!-- <link href="css/bootstrap-treeview.css" rel="stylesheet">  -->
+    <link rel="stylesheet" type="text/css" href="vendor/boostrap/css/bootstrap.min.css" >
     <!-- bootstrap multiselect  -->
-    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
-    <!-- Ionic icons -->
-    <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" >
-    <!-- awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/multiselect/css/bootstrap-multiselect.css" type="text/css">
     <!-- DataTables  -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/datatables/css/jquery.dataTables.min.css" />
+    <!--  daterangepicker -->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/css/daterangepicker.css"/>
+    <!-- Select2 -->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/css/select2.min.css"/>
+    <!-- <link href="/select2-bootstrap-theme/select2-bootstrap.min.css" type="text/css" rel="stylesheet" /> -->
 
+    <!-- awesome icons -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- glyphicons.css 3.0.0 -->
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
 
-    <!--  daterangepicker -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
-    <!-- Select2 -->
-    <link href="css/select2.min.css" rel="stylesheet" />
-    <link href="/select2-bootstrap-theme/select2-bootstrap.min.css" type="text/css" rel="stylesheet" />
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -568,36 +563,32 @@ $fecfin_ant = date("Y-m-d", strtotime($cnn->result('fecfin_ant')));
     
 
     <!-- JQuery -->    
-    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    
+    <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!-- Chart.Js      -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script type="text/javascript" src="vendor/chart.js/Chart.min.js"></script>
     <!-- iconify.Js      -->
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <!-- popper      -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script> -->
     <!-- Import D3 Scale Chromatic via CDN -->
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <!-- bootstrap v 4.5.3-->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="vendor/boostrap/js/bootstrap.min.js"></script>
     <!-- bootstrap-treeview-->
-    <script src="js/bootstrap-treeview.js"></script>
+    <!-- <script src="js/bootstrap-treeview.js"></script> -->
     <!-- datatables -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.js"></script>
-    <!-- ionicons -->
-    <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
-    <!-- highcharts -->
-    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
-    <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script> 
+    <script type="text/javascript" src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    
+    <script type="text/javascript" src="vendor/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="vendor/highcharts/exporting.js"></script> 
     <!-- momentJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <!-- daterangepicker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- multiselect -->
-    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="vendor/multiselect/js/bootstrap-multiselect.js"></script>
     
     <!-- app-js        -->
     <script type="text/javascript" src="js/charts/vtasnetas.js"></script>
